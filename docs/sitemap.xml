@@ -1,82 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://test.comphy-lab.org/</loc>
+    <loc>https://comphy-lab.org/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://test.comphy-lab.org/postProcess/Video2DSlice.py.html</loc>
+    <loc>https://comphy-lab.org/postProcess/Video2DSlice.py.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://test.comphy-lab.org/postProcess/Video3D.py.html</loc>
+    <loc>https://comphy-lab.org/postProcess/Video3D.py.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://test.comphy-lab.org/postProcess/Visulization3D.ipynb.html</loc>
+    <loc>https://comphy-lab.org/postProcess/Visulization3D.ipynb.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://test.comphy-lab.org/postProcess/getCells_bottomPlate.c.html</loc>
+    <loc>https://comphy-lab.org/postProcess/getCells_bottomPlate.c.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://test.comphy-lab.org/postProcess/getDataXSlice.c.html</loc>
+    <loc>https://comphy-lab.org/postProcess/getDataXSlice.c.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://test.comphy-lab.org/postProcess/getDataZSlice.c.html</loc>
+    <loc>https://comphy-lab.org/postProcess/getDataZSlice.c.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://test.comphy-lab.org/postProcess/getFacets3D.c.html</loc>
+    <loc>https://comphy-lab.org/postProcess/getFacets3D.c.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://test.comphy-lab.org/reset_install_requirements.sh.html</loc>
+    <loc>https://comphy-lab.org/reset_install_requirements.sh.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://test.comphy-lab.org/simulationCases/DataFile/retrieveDataFile.sh.html</loc>
+    <loc>https://comphy-lab.org/simulationCases/DataFile/retrieveDataFile.sh.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://test.comphy-lab.org/simulationCases/JumpingBubbles-hydrophilic.c.html</loc>
+    <loc>https://comphy-lab.org/simulationCases/JumpingBubbles-hydrophilic.c.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://test.comphy-lab.org/simulationCases/JumpingBubbles.c.html</loc>
+    <loc>https://comphy-lab.org/simulationCases/JumpingBubbles.c.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://test.comphy-lab.org/simulationCases/Makefile.html</loc>
+    <loc>https://comphy-lab.org/simulationCases/Makefile.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://test.comphy-lab.org/simulationCases/runCasesOpenMP.sh.html</loc>
+    <loc>https://comphy-lab.org/simulationCases/runCasesOpenMP.sh.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://test.comphy-lab.org/simulationCases/runCasesOpenMPI.sh.html</loc>
+    <loc>https://comphy-lab.org/simulationCases/runCasesOpenMPI.sh.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://test.comphy-lab.org/src-local/contact-fixed.h.html</loc>
+    <loc>https://comphy-lab.org/src-local/contact-fixed.h.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

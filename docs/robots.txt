@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://test.comphy-lab.org/sitemap.xml
+Sitemap: https://comphy-lab.org/sitemap.xml
