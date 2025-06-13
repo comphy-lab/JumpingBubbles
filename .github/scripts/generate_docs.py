@@ -1339,22 +1339,40 @@ def convert_directory_tree_to_html(readme_content: str) -> str:
         
         if is_dir:
             dir_name = path.rstrip('/')
-            if dir_name == "basilisk/src":
-                item_html += f"**{path}** - {description}"
+            # Build full directory path
+            parent_path = path_stack[indent_level-1] if indent_level > 0 and path_stack else ""
+            full_dir_path = f"{parent_path}/{dir_name}" if parent_path else dir_name
+            full_dir_path = full_dir_path.lstrip('/')
+            
+            if full_dir_path == "basilisk/src" or full_dir_path.startswith("basilisk/src/"):
+                # For basilisk/src directories, link to basilisk.fr or just show as text
+                if full_dir_path == "basilisk/src":
+                    item_html += f"**[{path}](http://basilisk.fr/src/)** - {description}"
+                else:
+                    # Subdirectories under basilisk/src
+                    basilisk_subpath = full_dir_path.replace('basilisk/src/', '')
+                    item_html += f"**[{path}](http://basilisk.fr/src/{basilisk_subpath})** - {description}"
             else:
                 item_html += f"**[{path}]({dir_name})** - {description}"
             
             if len(path_stack) <= indent_level:
-                path_stack.append(dir_name)
+                path_stack.append(full_dir_path)
             else:
-                path_stack[indent_level] = dir_name
+                path_stack[indent_level] = full_dir_path
         else:
             parent_path = path_stack[indent_level-1] if indent_level > 0 and path_stack else ""
             
             file_path = f"{parent_path}/{path}" if parent_path else path
             file_path = file_path.lstrip('/')
             
-            item_html += f"**[{path}]({file_path}.html)** - {description}"
+            # Check if this file is under basilisk/src
+            if file_path.startswith('basilisk/src/'):
+                # Link to external Basilisk documentation
+                basilisk_path = file_path.replace('basilisk/src/', '')
+                item_html += f"**[{path}](http://basilisk.fr/src/{basilisk_path})** - {description}"
+            else:
+                # Link to local documentation
+                item_html += f"**[{path}]({file_path}.html)** - {description}"
         
         html_structure.append(item_html)
         prev_indent = indent_level
