@@ -1,23 +1,33 @@
 ---
-name: Feature Request
-about: Suggest an idea for this project
-title: '[FEATURE] '
+name: Feature/Topic Request
+about: Suggest topics, examples, or features for the Basilisk course
+title: "[FEATURE] "
 labels: enhancement
 assignees: ''
-
 ---
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+## Type of Request
+<!-- Select the type of request by replacing [ ] with [x] -->
+- [ ] Course Topic
+- [ ] Example or Tutorial
+- [ ] Code Functionality
+- [ ] Documentation
+- [ ] Other
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
+## Description
+<!-- A clear and concise description of what you want to be added or covered -->
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+## Motivation
+<!-- Why is this feature/topic important? How would it help you or others? -->
 
-**Relevant Literature**
-If this is a new physical model or numerical method, please provide relevant references.
+## Relevant Background
+<!-- Any papers, links, or resources related to this request -->
 
-**Additional context**
-Add any other context, sketches, or screenshots about the feature request here.
+## Proposed Implementation (Optional)
+<!-- If you have ideas about how this could be implemented or taught -->
+
+## Alternative Approaches (Optional)
+<!-- Any alternative solutions or features you've considered -->
+
+## Additional Context
+<!-- Add any other context, screenshots, or sketches about the feature request here --> 

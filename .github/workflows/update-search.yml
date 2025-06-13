@@ -1,0 +1,44 @@
+name: Update Search Database
+
+# This workflow only updates the search database from the comphy-search repository
+# It does not rebuild the documentation, which should be built locally due to dependencies
+
+on:
+  schedule:
+    - cron: '0 4 * * *'  # Run daily at 4:00 UTC
+  workflow_dispatch:  # Allow manual trigger
+
+# Add permissions needed for the workflow
+permissions:
+  contents: write    # This allows the action to commit and push changes
+
+jobs:
+  update-search:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Fetch all history for proper git operations
+    
+    - name: Clone comphy-search repository
+      run: |
+        git clone https://github.com/comphy-lab/comphy-search.git
+        mkdir -p docs/assets/js
+    
+    - name: Copy search database
+      run: |
+        cp comphy-search/search_db.json docs/assets/js/search_db.json
+    
+    - name: Commit and push changes directly (bypassing branch protection)
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add docs/assets/js/search_db.json
+        if git diff --staged --quiet; then
+          echo "No changes to commit"
+        else
+          git commit -m "Update search database from comphy-search repository [skip-deploy]"
+          # Use PAT to bypass branch protection
+          git push "https://${{ secrets.BYPASS_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" HEAD:main
+        fi
