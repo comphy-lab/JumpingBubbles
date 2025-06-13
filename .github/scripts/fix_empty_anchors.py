@@ -111,7 +111,11 @@ def fix_html_file(file_path, verbose=False, dry_run=False):
             # Apply all patterns directly
             modified_content = content
             for pattern in EMPTY_ANCHOR_PATTERNS:
-                modified_content = re.sub(pattern, '', modified_content)
+                # Handle both string patterns and compiled regex objects
+                if hasattr(pattern, 'sub'):
+                    modified_content = pattern.sub('', modified_content)
+                else:
+                    modified_content = re.sub(pattern, '', modified_content)
 
         # Calculate approximate number of replacements
         final_content_length = len(modified_content)
