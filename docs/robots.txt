@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://test.comphy-lab.org/sitemap.xml

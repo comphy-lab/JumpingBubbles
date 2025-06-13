@@ -39,7 +39,7 @@ A high-performance computational framework for studying bubble coalescence and j
 
 ## Project Structure
 
-```plaintext
+```
 ├── basilisk/src/               # Core Basilisk C framework
 │   ├── navier-stokes/         # Flow solvers
 │   │   ├── centered.h         # Main centered NS solver
@@ -57,7 +57,7 @@ A high-performance computational framework for studying bubble coalescence and j
 │   ├── Video3D.py            # 3D visualization
 │   ├── Visualization3D.ipynb  # Interactive 3D notebook
 │   └── getFacets3D.c         # Interface extraction
-└── testCases/                # Validation cases
+└── simulationCases/                # Validation cases
     ├── JumpingBubbles.c      # Standard test case
     ├── JumpingBubbles-hydrophilic.c  # Hydrophilic substrate
     └── runCases*.sh          # Execution scripts
