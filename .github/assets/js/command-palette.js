@@ -280,16 +280,20 @@ function initCommandPalette() {
     window.searchData = data;
     
     // Initialize Fuse.js with weighted keys
-    window.searchFuse = new Fuse(data, {
-      keys: [
-        { name: 'title', weight: 0.7 },
-        { name: 'content', weight: 0.2 },
-        { name: 'tags', weight: 0.1 },
-        { name: 'categories', weight: 0.1 }
-      ],
-      includeScore: true,
-      threshold: 0.4
-    });
+    if (typeof Fuse === 'function') {
+      window.searchFuse = new Fuse(data, {
+        keys: [
+          { name: 'title', weight: 0.7 },
+          { name: 'content', weight: 0.2 },
+          { name: 'tags', weight: 0.1 },
+          { name: 'categories', weight: 0.1 }
+        ],
+        includeScore: true,
+        threshold: 0.4
+      });
+    } else {
+      console.warn('Fuse.js not found – command-palette search disabled');
+    }
   }).catch(err => {
     if (DEBUG) {
       console.warn('Could not prefetch search database for command palette:', err.message);
