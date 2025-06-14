@@ -186,7 +186,7 @@ function renderSections(sections, container) {
              iconStr.includes('fa-brands') || iconStr.includes('fa-regular') ||
              iconStr.includes('ai ai-'))) {
           // Adding extra validation for classes
-          const validIconPattern = /^<i class=\"(fa|fas|far|fal|fab|ai)[ -][\w\d -]+"><\/i>$/;
+          const validIconPattern = /^<i class=\"(fa|fas|far|fal|fab|ai)[\s-][\w\d\s-]+"><\/i>$/;
           if (validIconPattern.test(iconStr)) {
             iconEl.innerHTML = sanitizeHTML(iconStr);
           } else {
