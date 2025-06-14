@@ -67,6 +67,7 @@ surfaces.
 #define fErr (1e-3)
 #define KErr (1e-4)
 #define VelErr (1e-4)
+#define hErr (1e-3)
 #define Mu21 (1.00e-3)
 #define Rho21 (1.00e-3)
 #define Ldomain 4
