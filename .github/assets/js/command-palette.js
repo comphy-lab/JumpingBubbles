@@ -192,7 +192,7 @@ function renderSections(sections, container) {
           } else {
             // Fallback to displaying as text if pattern doesn't match exactly
             iconEl.textContent = '🔍'; // Default search icon as fallback
-            if (CONFIG && CONFIG.DEBUG) {
+            if (DEBUG) {
               console.warn('Invalid icon format detected:', iconStr);
             }
           }

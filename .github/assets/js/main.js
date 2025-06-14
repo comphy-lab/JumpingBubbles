@@ -74,8 +74,9 @@
     }
     
     function updateButtonState(button, success) {
+        const icon = button.querySelector('i');
+        
         if (success) {
-            const icon = button.querySelector('i');
             button.classList.add('copied');
             
             if (icon) {
@@ -90,6 +91,28 @@
                     icon.classList.remove('fa-check');
                     icon.classList.add('fa-copy');
                 }
+            }, 2000);
+        } else {
+            // Handle copy failure
+            button.classList.add('copy-failed');
+            
+            if (icon) {
+                icon.classList.remove('fa-copy');
+                icon.classList.add('fa-exclamation-triangle');
+            }
+            
+            // Show error tooltip
+            const originalTitle = button.getAttribute('title');
+            button.setAttribute('title', 'Copy failed! Please try again.');
+            
+            // Reset button state after 2 seconds
+            setTimeout(() => {
+                button.classList.remove('copy-failed');
+                if (icon) {
+                    icon.classList.remove('fa-exclamation-triangle');
+                    icon.classList.add('fa-copy');
+                }
+                button.setAttribute('title', originalTitle || 'Copy to clipboard');
             }, 2000);
         }
     }

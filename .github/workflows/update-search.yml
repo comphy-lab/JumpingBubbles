@@ -34,11 +34,22 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
+        
+        # Fetch latest changes from origin/main
+        git fetch origin main
+        
+        # Add changes
         git add docs/assets/js/search_db.json
+        
         if git diff --staged --quiet; then
           echo "No changes to commit"
         else
+          # Commit changes
           git commit -m "Update search database from comphy-search repository [skip-deploy]"
-          # Use PAT to bypass branch protection
-          git push "https://${{ secrets.BYPASS_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" HEAD:main
+          
+          # Rebase onto latest origin/main to avoid conflicts
+          git rebase origin/main
+          
+          # Use PAT to bypass branch protection with force-with-lease for safety
+          git push --force-with-lease "https://${{ secrets.BYPASS_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" HEAD:main
         fi

@@ -38,6 +38,8 @@ window.searchHelper.initializeSearchFuse = async function() {
             includeScore: true,
             threshold: 0.4
           });
+          // Reset the unavailable flag since Fuse is now successfully loaded
+          window.searchFuseUnavailable = false;
         } else {
           console.warn('Fuse.js is not loaded. Search functionality will be unavailable.');
           // Create a flag to indicate Fuse is not available
@@ -48,7 +50,9 @@ window.searchHelper.initializeSearchFuse = async function() {
 
       // Get base URL from meta tag to support GitHub Pages subfolders
       const baseUrlMeta = document.querySelector('meta[name="base-url"]');
-      const baseUrl = baseUrlMeta ? baseUrlMeta.getAttribute('content') : '';
+      let baseUrl = baseUrlMeta ? baseUrlMeta.getAttribute('content') : '';
+      // Remove trailing slash from baseUrl to prevent double slashes
+      baseUrl = baseUrl.replace(/\/$/, '');
       const searchDbUrl = baseUrl ? `${baseUrl}/assets/js/search_db.json` : '/assets/js/search_db.json';
 
       const response = await fetch(searchDbUrl);
@@ -77,6 +81,8 @@ window.searchHelper.initializeSearchFuse = async function() {
           includeScore: true,
           threshold: 0.4
         });
+        // Reset the unavailable flag since Fuse is now successfully loaded
+        window.searchFuseUnavailable = false;
       } else {
         console.warn('Fuse.js is not loaded. Search functionality will be unavailable.');
         // Create a flag to indicate Fuse is not available
