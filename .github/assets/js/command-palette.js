@@ -432,5 +432,8 @@ window.renderSections = renderSections;
 
 // Use the shared search database function from search-helper.js
 window.searchDatabaseForCommandPalette = async function(query) {
-  return window.searchHelper.searchDatabaseForCommandPalette(query);
+  if (window.searchHelper && typeof window.searchHelper.searchDatabaseForCommandPalette === 'function') {
+    return window.searchHelper.searchDatabaseForCommandPalette(query);
+  }
+  return [];
 };
