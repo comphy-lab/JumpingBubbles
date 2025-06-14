@@ -98,3 +98,14 @@ ehthumbs.db
 Thumbs.db
 .windsurfrules
 .cursorrules
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+.Python
+.venv/
+venv/
+ENV/
+env/
