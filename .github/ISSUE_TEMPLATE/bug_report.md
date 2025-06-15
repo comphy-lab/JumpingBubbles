@@ -1,33 +1,48 @@
 ---
 name: Bug Report
-about: Create a report to help us improve
-title: '[BUG] '
+about: Report problems with installation, compilation, or running Basilisk code
+title: "[BUG] "
 labels: bug
 assignees: ''
-
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+## Bug Description
+<!-- A clear and concise description of what the bug is -->
 
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Simulation setup (provide minimal working example)
-2. Compilation command used
-3. Runtime parameters
-4. Error message or unexpected behavior
+## Environment
+- **OS**: <!-- e.g., Ubuntu 22.04, macOS Monterey, Windows 11 + WSL2 -->
+- **Compiler**: <!-- e.g., gcc 11.3.0, clang 14.0.0 -->
+- **Basilisk Version**: <!-- How you installed it (darcs clone date, or specific version) -->
+- **Shell**: <!-- e.g., bash, zsh -->
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+## Steps to Reproduce
+<!-- Detailed steps to reproduce the behavior -->
+1. 
+2. 
+3. 
 
-**System Information:**
- - OS: [e.g. MacOS 12.1]
- - Compiler: [e.g. gcc 9.3.0]
- - MPI Version: [if applicable]
- - Python Version: [if using post-processing]
+## Expected Behavior
+<!-- A clear and concise description of what you expected to happen -->
 
-**Screenshots/Output**
-If applicable, add screenshots, log files, or simulation output to help explain your problem.
+## Actual Behavior
+<!-- What actually happened, including any error messages -->
 
-**Additional context**
-Add any other context about the problem here.
+## Error Messages/Logs
+```
+<!-- Paste any error messages or logs here -->
+```
+
+## Code to Reproduce
+<!-- If applicable, add minimal code snippets to help reproduce the issue -->
+```c
+// Your code here
+```
+
+## Screenshots
+<!-- If applicable, add screenshots to help explain your problem -->
+
+## Additional Context
+<!-- Add any other context about the problem here -->
+
+## Possible Solution
+<!-- If you have ideas on how to fix this, share them here (optional) --> 

@@ -1,8 +1,6 @@
 **/*.stl
 **/dump
 
-
-
 # basililsk specific files
 **/*.DS_Store
 **/*.html
@@ -23,6 +21,12 @@
 # Custom executables (add your specific executable names here)
 **/JumpingBubbles
 **/JumpingBubbles_Snellius
+
+# PostProcess executables
+postProcess/getFacets3D
+postProcess/getCells_bottomPlate
+postProcess/getDataXSlice
+postProcess/getDataZSlice
 
 # never exclude these files
 !*.c
@@ -98,3 +102,14 @@ ehthumbs.db
 Thumbs.db
 .windsurfrules
 .cursorrules
+
+# Python
+**/__pycache__/**
+*.py[cod]
+*$py.class
+*.pyc
+.Python
+.venv/
+venv/
+ENV/
+env/

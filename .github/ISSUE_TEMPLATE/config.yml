@@ -1,5 +1,8 @@
 blank_issues_enabled: true
 contact_links:
-  - name: Basilisk Forum
-    url: http://groups.google.com/d/forum/basilisk-fr
-    about: For questions specific to Basilisk C implementation and usage
+  - name: Basilisk Official Documentation
+    url: http://basilisk.fr/
+    about: Check the official Basilisk documentation for detailed information
+  - name: CoMPhy Lab
+    url: https://comphy-lab.org/
+    about: Visit the Computational Multiphase Physics Lab website 
