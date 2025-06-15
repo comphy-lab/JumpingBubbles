@@ -94,7 +94,7 @@ def run_process(command):
     stdout, stderr = p.communicate()
     if p.returncode != 0:
         error_msg = stdout.decode("utf-8") if stdout else stderr.decode("utf-8")
-        raise subprocess.CalledProcessError(p.returncode, command[0], output=error_msg)
+        raise sp.CalledProcessError(p.returncode, command[0], output=error_msg)
     return stderr.decode("utf-8").strip()
 
 
