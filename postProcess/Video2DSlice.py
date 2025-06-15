@@ -68,7 +68,7 @@ def get_data(exe):
                       [y_coords, x_coords, volume_fraction, velocity_magnitude, D2]
 
     Raises:
-        subprocess.CalledProcessError: If the external program fails
+        sp.CalledProcessError: If the external program fails
         ValueError: If data cannot be parsed into expected shape
 
     Note:
