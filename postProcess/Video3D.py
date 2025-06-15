@@ -92,6 +92,9 @@ def run_process(command):
     """
     p = sp.Popen(command, stdout=sp.PIPE, stderr=sp.PIPE)
     stdout, stderr = p.communicate()
+    if p.returncode != 0:
+        error_msg = stdout.decode("utf-8") if stdout else stderr.decode("utf-8")
+        raise subprocess.CalledProcessError(p.returncode, command[0], output=error_msg)
     return stderr.decode("utf-8").strip()
 
 

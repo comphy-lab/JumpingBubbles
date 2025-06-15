@@ -75,9 +75,14 @@ def get_data(exe):
         The external utilities must be compiled and available in the current
         directory. They output 5 columns: y, x, f, |u|, and log10(2*Oh*D:D).
     """
-    result = sp.run(exe, capture_output=True, text=True)
-    data = np.fromstring(result.stderr, sep=' ').reshape((-1, 5))
-    return data.T
+    result = sp.run(exe, capture_output=True, text=True, check=True)
+    try:
+        if not result.stderr:
+            raise ValueError(f"No output from {exe[0]}")
+        data = np.fromstring(result.stderr, sep=' ').reshape((-1, 5))
+        return data.T
+    except (ValueError, AttributeError) as e:
+        raise ValueError(f"Failed to parse output from {exe[0]}: {e}")
 
 # ===============================
 # Plotting Functions
