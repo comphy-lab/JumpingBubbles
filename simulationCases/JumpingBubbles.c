@@ -109,7 +109,7 @@ h.r[bottom] = contact_angle(theta0 * pi / 180.);
 - `patchR`: Normalized contact patch radius (R_cont/R_equiv)
 - `Bo`: Bond number (ρ_l·g·R_equiv²/γ)
 */
-double tmax, Oh;
+double tmax, Oh, Bo;
 int MAXlevel;
 char nameOut[80];
 
