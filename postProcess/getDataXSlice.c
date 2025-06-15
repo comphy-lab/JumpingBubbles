@@ -27,6 +27,7 @@ visualization or further analysis.
 #include "two-phase.h"
 #include "navier-stokes/conserving.h"
 #include "tension.h"
+#include <string.h>
 
 char filename[80];
 int ny, nz;
@@ -119,7 +120,7 @@ int main(int a, char const *arguments[]) {
   xSlice = atof(arguments[4]);
   nz = atoi(arguments[5]);
   Oh = atof(arguments[6]);
-  linear = arguments[7];
+  linear = (strcmp(arguments[7], "true") == 0);
 
   /**
   ### Physical Properties Setup

@@ -32,6 +32,7 @@ parameters include:
 #include "two-phase.h"
 #include "navier-stokes/conserving.h"
 #include "tension.h"
+#include <string.h>
 
 /**
 ## Global Variables
@@ -137,7 +138,7 @@ int main(int a, char const *arguments[]) {
   zSlice = atof(arguments[4]);
   nx = atoi(arguments[5]);
   Oh = atof(arguments[6]);
-  linear = arguments[7];
+  linear = (strcmp(arguments[7], "true") == 0);
 
   /**
   ### Physical Properties
