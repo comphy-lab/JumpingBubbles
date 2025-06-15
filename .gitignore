@@ -22,6 +22,12 @@
 **/JumpingBubbles
 **/JumpingBubbles_Snellius
 
+# PostProcess executables
+postProcess/getFacets3D
+postProcess/getCells_bottomPlate
+postProcess/getDataXSlice
+postProcess/getDataZSlice
+
 # never exclude these files
 !*.c
 !*.h
