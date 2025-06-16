@@ -3,7 +3,6 @@
 
 # basililsk specific files
 **/*.DS_Store
-**/*.html
 **/intermediate*
 **/log*.dat
 **/restart*

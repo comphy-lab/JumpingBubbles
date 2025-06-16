@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+  <!-- 
+    IMPORTANT: DO NOT place empty anchor tags <a></a> in this template!
+    They cause JavaScript syntax errors when they appear inside script blocks.
+  -->
+  <!-- Eliminate FOUC (Flash of Unstyled Content) and FOUT (Flash of Incorrect Theme) -->
+  <script>
+    (function() {
+  try {
+    // Apply the theme as quickly as possible to avoid flash
+    let saved;
+    try {
+      saved = localStorage.getItem('theme');
+    } catch (storageError) {
+      // Handle localStorage access errors (private browsing, cookies disabled)
+      console.warn('Unable to access localStorage:', storageError);
+    }
+
+    let prefersDark = false;
+    try {
+      prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    } catch (mediaError) {
+      // Handle matchMedia access errors (unsupported browsers)
+      console.warn('Unable to check media query:', mediaError);
+    }
+
+    const theme = saved ? saved : (prefersDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+    // Add theme class for CSS targeting
+    document.documentElement.classList.add(theme + '-theme');
+    // Mark when theme is set for CSS transitions
+    document.documentElement.classList.add('theme-set');
+  } catch (error) {
+    // Fallback for any other unexpected errors
+    console.warn('Theme initialization failed:', error);
+    // Apply default theme as fallback
+    try {
+      document.documentElement.setAttribute('data-theme', 'light');
+      document.documentElement.classList.add('light-theme');
+      document.documentElement.classList.add('theme-set');
+    } catch (fallbackError) {
+      // Silent catch for extreme cases
+      console.error('Critical theme fallback failed:', fallbackError);
+    }
+  }
+})();
+  </script>
+
+
+  <!-- No-JS fallback for theme and critical theming styles -->
+  <style>
+    /* Default light theme variables */
+    :root {
+      /* Base colors */
+      --color-background: #fff;
+      --color-text: #333;
+      --color-primary: #0066cc;
+      --color-secondary: #036;
+      --color-accent: #0099ff;
+      
+      /* UI elements */
+      --color-header-bg: #f5f5f5;
+      --color-footer-bg: #2d2e33;
+      --color-border: #e0e0e0;
+      --color-input-bg: #f9f9f9;
+      
+      /* Component colors */
+      --color-preloader-bg: #ffffff;
+      --color-loader: #0066cc;
+      --color-card-bg: #ffffff;
+      --color-code-bg: #f5f5f5;
+    }
+    
+    /* Dark theme variables applied via media query when JS is disabled */
+    @media (prefers-color-scheme: dark) {
+      :root:not(.theme-set) {
+        /* Base colors - dark mode */
+        --color-background: #1a1a1a;
+        --color-text: #f5f5f5;
+        --color-primary: #4d9fff;
+        --color-secondary: #88ccff;
+        --color-accent: #00bfff;
+        
+        /* UI elements - dark mode */
+        --color-header-bg: #121212;
+        --color-footer-bg: #121212;
+        --color-border: #333;
+        --color-input-bg: #2d2d2d;
+        
+        /* Component colors - dark mode */
+        --color-preloader-bg: #1a1a1a;
+        --color-loader: #4d9fff;
+        --color-card-bg: #222;
+        --color-code-bg: #2d2d2d;
+      }
+    }
+    
+    /* When JS sets the theme explicitly via data attribute */
+    [data-theme="dark"] {
+      /* Base colors - dark mode */
+      --color-background: #1a1a1a;
+      --color-text: #f5f5f5;
+      --color-primary: #4d9fff;
+      --color-secondary: #88ccff;
+      --color-accent: #00bfff;
+      
+      /* UI elements - dark mode */
+      --color-header-bg: #121212;
+      --color-footer-bg: #121212;
+      --color-border: #333;
+      --color-input-bg: #2d2d2d;
+      
+      /* Component colors - dark mode */
+      --color-preloader-bg: #1a1a1a;
+      --color-loader: #4d9fff;
+      --color-card-bg: #222;
+      --color-code-bg: #2d2d2d;
+    }
+    
+    /* Prevent transition flashes during initial load */
+    html:not(.transitions-enabled) * {
+      transition: none !important;
+    }
+    
+    /* Apply theme to preloader and early elements */
+    #preloader {
+      background-color: var(--color-preloader-bg);
+      color: var(--color-text);
+    }
+    
+    #loader {
+      border-color: var(--color-loader);
+      border-top-color: transparent;
+    }
+    
+    /* Noscript warning */
+    .noscript-warning {
+      background-color: var(--color-primary);
+      color: white;
+      text-align: center;
+      padding: 10px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+    
+    /* Theme indicator for no-JS */
+    .theme-indicator {
+      padding: 5px 10px;
+      border-radius: 4px;
+      background-color: var(--color-input-bg);
+      color: var(--color-text);
+      text-align: center;
+    }
+    
+    /* Hide JS-only elements when no JS */
+    .no-js .js-only {
+      display: none !important;
+    }
+    
+    /* Show no-JS alternatives */
+    .js .no-js-only {
+      display: none !important;
+    }
+  </style>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="base-url" content="..">
+  <title>Jumping Bubbles | Jumping Bubbles</title>
+  
+  <!-- Critical CSS for fastest paint -->
+  <style>
+      .s-intro__title {
+          visibility: visible;
+          font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      }
+      .s-header {
+          visibility: visible;
+      }
+      
+      /* Ensure theme toggle properly styled immediately */
+      .theme-toggle {
+          background-color: var(--color-background);
+          color: var(--color-text);
+      }
+      
+      /* Control SVG visibility based on theme */
+      [data-theme="dark"] .theme-toggle-icon.sun,
+      :root:not([data-theme="dark"]) .theme-toggle-icon.moon {
+          display: block;
+      }
+      
+      [data-theme="dark"] .theme-toggle-icon.moon,
+      :root:not([data-theme="dark"]) .theme-toggle-icon.sun {
+          display: none;
+      }
+  </style>
+
+  <!-- Critical Meta Tags -->
+  <meta name="description" content="Computational fluid dynamics simulations using Basilisk C framework.">
+  <meta name="author" content="CoMPhy Lab">
+  <meta name="robots" content="index, follow">
+  <meta name="keywords" content="fluid dynamics, CFD, Basilisk, multiphase flow, computational physics">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="apple-mobile-web-app-title" content="CoMPhy Lab">
+
+  <!-- Preload critical resources -->
+  <link rel="preload" href="./assets/js/main.js" as="script">
+  <link rel="preload" href="./assets/css/fontello/css/fontello.css" as="style">
+  <link rel="preload" href="./assets/css/academicons-1.7.0/css/academicons.min.css" as="style">
+
+  <!-- Base stylesheets -->
+  <link rel="stylesheet" href="./assets/css/styles.css">
+  <link rel="stylesheet" href="./assets/css/custom_styles.css">
+  <link rel="stylesheet" href="./assets/css/command-palette.css">
+  <link rel="stylesheet" href="./assets/css/fontello/css/fontello.css">
+  <link rel="stylesheet" href="./assets/css/academicons-1.7.0/css/academicons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+  <!-- Font optimization -->
+  <style>
+      @font-face {
+          font-display: swap;
+          font-family: 'System Font';
+          src: local('system-ui');
+      }
+  </style>
+
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="./assets/favicon/favicon-96x96.png">
+  <link rel="icon" type="image/svg+xml" href="./assets/favicon/favicon.svg">
+  <link rel="shortcut icon" href="./assets/favicon/favicon.ico">
+  <link rel="manifest" href="./assets/favicon/site.webmanifest">
+
+  <!-- Scripts with proper loading attributes -->
+  <script src="./assets/js/jquery.min.js"></script>
+  <script src="./assets/js/jquery-ui.packed.js"></script>
+  <script src="./assets/js/plots.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2/dist/fuse.min.js"></script>
+  <!-- Config script must load before other scripts -->
+  <script src="./assets/js/config.js"></script>
+  <script defer src="./assets/js/html-sanitizer.js"></script>
+  <script defer src="./assets/js/search-helper.js"></script>
+  <script defer src="./assets/js/command-palette.js"></script>
+  <script defer src="./assets/js/command-data.js"></script>
+  <script defer src="./assets/js/main.js"></script>
+  <script defer src="./assets/js/theme-toggle.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script>
+  
+  <!-- Optimize page load performance -->
+  <script>
+    // Preconnect to critical domains
+    const preconnectDomains = [
+      'https://cdnjs.cloudflare.com',
+      'https://cdn.jsdelivr.net'
+    ];
+    
+    preconnectDomains.forEach(domain => {
+      const link = document.createElement('link');
+      link.rel = 'preconnect';
+      link.href = domain;
+      link.crossOrigin = 'anonymous';
+      document.head.appendChild(link);
+      
+      // Also add DNS prefetch as fallback
+      const dnsLink = document.createElement('link');
+      dnsLink.rel = 'dns-prefetch';
+      dnsLink.href = domain;
+      document.head.appendChild(dnsLink);
+    });
+    
+    // Detect when document is fully loaded to remove preloader
+    window.addEventListener('load', function() {
+      const preloader = document.getElementById('preloader');
+      if (preloader) {
+        preloader.style.opacity = '0';
+        setTimeout(() => {
+          preloader.style.display = 'none';
+        }, 300); // Match transition duration
+      }
+    });
+  </script>
+
+  <script>
+      // Load Font Awesome with proper environment detection and fallbacks
+      function loadStylesheet(href) {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = href;
+        link.crossOrigin = 'anonymous';
+        link.onerror = (e) => {
+          console.error(`Failed to load stylesheet: `, e);
+          console.log('Trying alternative Font Awesome source...');
+        };
+        document.head.appendChild(link);
+        return link;
+      }
+      
+      // Check if we're on localhost
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        // Use hardcoded version numbers for reliable loading
+        
+        // Load Font Awesome using multiple CDNs to maximize reliability for local development
+        loadStylesheet('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css');
+        // Backup CDN if the first one fails
+        loadStylesheet('https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css');
+        // Final local fallback - ensures it will work on any localhost environment
+        loadStylesheet('https://use.fontawesome.com/releases/v6.7.2/css/all.css');
+      } else {
+        // Use Kit for production with defer
+        var script = document.createElement('script');
+        script.src = 'https://kit.fontawesome.com/b1cfd9ca75.js';
+        script.crossOrigin = 'anonymous';
+        script.defer = true;
+        document.head.appendChild(script);
+      }
+    </script>
+
+  <script>
+      // Mark page as JS-enabled and manage transitions
+      document.documentElement.classList.remove('no-js');
+      document.documentElement.classList.add('js');
+      
+      // Allow CSS transitions after initial load to prevent transition flashes
+      window.addEventListener('DOMContentLoaded', () => {
+          setTimeout(() => {
+              document.documentElement.classList.add('transitions-enabled');
+          }, 100); // Short delay to ensure DOM is ready
+      });
+  </script>
+</head>
+<body id="top">
+<script>window.repoName = "JumpingBubbles";</script>
+
+
+    <!-- Preloader with theme variables applied -->
+    <div id="preloader">
+        <div id="loader"></div>
+    </div>
+
+    <noscript>
+        <div class="noscript-warning">
+            <p>This site works best with JavaScript enabled. Some features may be limited.</p>
+        </div>
+    </noscript>
+
+    <div id="page" class="s-pagewrap">
+        <header class="s-header">
+            <div class="s-header__logo">
+                <a class="logo" href="/">
+                    <img src="./assets/logos/CoMPhy-Lab-no-name.png" alt="CoMPhy Lab">
+                </a>
+                <a class="documentation-button" href="/JumpingBubbles">
+                    <i class="fa-solid fa-book-open"></i>
+                    <span>JumpingBubbles</span>
+                </a>
+            </div>
+            <a class="s-header__menu-toggle" href="#0">
+                <span class="s-header__menu-text">Menu</span>
+                <span class="s-header__menu-icon"></span>
+            </a>
+            <nav class="s-header__nav">
+                <a href="#0" class="s-header__nav-close-btn"><span>Close</span></a>
+                <ul class="s-header__nav-list">
+                    <li style="background: none;">
+                        <!-- JS theme toggle -->
+                        <div class="theme-toggle js-only" id="theme-toggle" aria-label="Toggle dark/light theme">
+                            <svg class="theme-toggle-icon moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                            </svg>
+                            <svg class="theme-toggle-icon sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="5"></circle>
+                                <line x1="12" y1="1" x2="12" y2="3"></line>
+                                <line x1="12" y1="21" x2="12" y2="23"></line>
+                                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                                <line x1="1" y1="12" x2="3" y2="12"></line>
+                                <line x1="21" y1="12" x2="23" y2="12"></line>
+                                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                            </svg>
+                        </div>
+                    </li>
+                    <li style="background: none;"><a href="https://scholar.google.com/citations?user=tHb_qZoAAAAJ&hl=en" style="background: none; padding: 0;" aria-label="Google Scholar Profile"><i class="ai ai-google-scholar" style="font-size: 1.75em;"></i></a></li>
+                    <li style="background: none;"><a href="https://github.com/comphy-lab" style="background: none; padding: 0;" aria-label="GitHub Organization"><i class="fa-brands fa-github" style="font-size: 1.75em"></i></a></li>
+                    <li><a href="https://comphy-lab.org/#about" class="smoothscroll">About</a></li>
+                    <li><a href="https://comphy-lab.org/team/">Team</a></li>
+                    <li><a href="https://comphy-lab.org/research">Research</a></li>
+                    <li><a href="https://comphy-lab.org/teaching">Teaching</a></li>
+                    <li><a href="https://comphy-lab.org/join">Join Us</a></li>
+                    <li><a href="https://blogs.comphy-lab.org/">Blog</a></li>
+                    <li style="background: none;"><a href="https://bsky.app/profile/comphy-lab.org" style="background: none; padding: 0;" aria-label="Bluesky Profile"><i class="fa-brands fa-bluesky" style="font-size: 1.75em; color: #0085ff;"></i></a></li>
+                    <!-- Command Palette Button (Styled like search) -->
+                    <li class="command-palette-button">
+                        <div class="command-wrapper">
+                            <button class="command-k-style-btn" id="command-palette-btn" aria-label="Open command palette">
+                                <span class="default-theme-text">ctrl K</span>
+                                <span class="mac-theme-text">⌘ K</span>
+                                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Main content -->
+        <main class="content">
+            
+            <div class="page-content">
+                
+                                
+                                
+                
+                <h1 id="jumping-bubbles">Jumping Bubbles</h1>
+                <p><a
+                href="https://doi.org/10.5281/zenodo.14602622"><img
+                src="https://zenodo.org/badge/744202007.svg"
+                alt="DOI" /></a> <a
+                href="https://www.gnu.org/licenses/gpl-3.0"><img
+                src="https://img.shields.io/badge/License-GPLv3-blue.svg"
+                alt="License: GPL v3" /></a> <a
+                href="https://www.python.org/downloads/"><img
+                src="https://img.shields.io/badge/python-3.7+-blue.svg"
+                alt="Python 3.7+" /></a> <a
+                href="https://www.openmp.org/"><img
+                src="https://img.shields.io/badge/OpenMP-enabled-brightgreen.svg"
+                alt="OpenMP" /></a> <a
+                href="https://www.open-mpi.org/"><img
+                src="https://img.shields.io/badge/MPI-enabled-brightgreen.svg"
+                alt="MPI" /></a> <a
+                href="https://github.com/VatsalSy/jumping-bubbles/issues"><img
+                src="https://img.shields.io/github/issues/VatsalSy/jumping-bubbles"
+                alt="GitHub issues" /></a> <a
+                href="https://github.com/VatsalSy/jumping-bubbles/pulls"><img
+                src="https://img.shields.io/github/issues-pr/VatsalSy/jumping-bubbles"
+                alt="GitHub pull requests" /></a> <a
+                href="https://github.com/VatsalSy/jumping-bubbles/releases"><img
+                src="https://img.shields.io/github/v/release/VatsalSy/jumping-bubbles"
+                alt="GitHub release" /></a> <a
+                href="http://basilisk.fr/sandbox/README"><img
+                src="https://img.shields.io/badge/docs-latest-brightgreen.svg"
+                alt="Documentation Status" /></a></p>
+                <p>A high-performance computational framework for
+                studying bubble coalescence and jumping phenomena on
+                substrates using <a href="http://basilisk.fr/">Basilisk
+                C</a>. This repository provides a complete suite of
+                simulation tools, post-processing utilities, and
+                validated test cases for investigating two-phase
+                free-surface flows with adaptive mesh refinement.</p>
+                <h2 id="key-features">Key Features</h2>
+                <h3
+                id="advanced-two-phase-flow-modeling"><strong>Advanced
+                Two-Phase Flow Modeling</strong></h3>
+                <ul>
+                <li>Volume of Fluid (VOF) method for sharp interface
+                tracking</li>
+                <li>Conservative momentum advection coupled with VOF
+                field</li>
+                <li>Accurate surface tension implementation using the
+                Brackbill method</li>
+                <li>Reduced gravity approach for specific physical
+                scenarios. This keeps the system of equations
+                well-balanced.</li>
+                </ul>
+                <h3
+                id="high-performance-computing"><strong>High-Performance
+                Computing</strong></h3>
+                <ul>
+                <li>Adaptive octree mesh refinement based on multiple
+                criteria:
+                <ul>
+                <li>Interface fraction gradients</li>
+                <li>Local curvature</li>
+                <li>Velocity field variations</li>
+                </ul></li>
+                <li>Parallel computation support:
+                <ul>
+                <li>OpenMP for shared-memory systems</li>
+                <li>MPI for distributed computing (HPC clusters)</li>
+                </ul></li>
+                </ul>
+                <h3
+                id="comprehensive-analysis-tools"><strong>Comprehensive
+                Analysis Tools</strong></h3>
+                <ul>
+                <li>Real-time monitoring of physical quantities</li>
+                <li>Advanced post-processing capabilities:
+                <ul>
+                <li>2D/3D visualization scripts</li>
+                <li>Interface reconstruction</li>
+                <li>Energy and momentum analysis</li>
+                <li>Trajectory tracking</li>
+                </ul></li>
+                </ul>
+                <h2 id="project-structure">Project Structure</h2>
+                <div class="repository-structure">
+                <ul>
+                <li><strong><a
+                href="http://basilisk.fr/src/">basilisk/src/</a></strong>
+                - # Core Basilisk C framework
+                <ul>
+                <li><strong><a
+                href="http://basilisk.fr/src/navier-stokes">navier-stokes/</a></strong>
+                - # Flow solvers
+                <ul>
+                <li><strong><a
+                href="http://basilisk.fr/src/navier-stokes/centered.h">centered.h</a></strong>
+                - # Main centered NS solver</li>
+                <li><strong><a
+                href="http://basilisk.fr/src/navier-stokes/conserving.h">conserving.h</a></strong>
+                - # Conservative form solver</li>
+                </ul></li>
+                <li><strong><a
+                href="http://basilisk.fr/src/two-phase*.h">two-phase*.h</a></strong>
+                - # Two-phase flow implementations</li>
+                <li><strong><a
+                href="http://basilisk.fr/src/vof.h">vof.h</a></strong> -
+                # Volume of Fluid method</li>
+                <li><strong><a
+                href="http://basilisk.fr/src/curvature.h">curvature.h</a></strong>
+                - # Interface property calculations</li>
+                <li><strong><a
+                href="http://basilisk.fr/src/tension.h">tension.h</a></strong>
+                - # Surface tension (Brackbill)</li>
+                <li><strong><a
+                href="http://basilisk.fr/src/integral.h">integral.h</a></strong>
+                - # Surface tension integral form</li>
+                <li><strong><a
+                href="http://basilisk.fr/src/viscosity.h">viscosity.h</a></strong>
+                - # Implicit viscous stress solver</li>
+                <li><strong><a
+                href="http://basilisk.fr/src/axi.h">axi.h</a></strong> -
+                # Axisymmetric computations</li>
+                </ul></li>
+                <li><strong><a href="src-local">src-local/</a></strong>
+                - # Project-specific modifications</li>
+                <li><strong><a
+                href="postProcess">postProcess/</a></strong> - #
+                Analysis and visualization
+                <ul>
+                <li><strong><a
+                href="postProcess/Video2DSlice.py.html">Video2DSlice.py</a></strong>
+                - # 2D slice animations</li>
+                <li><strong><a
+                href="postProcess/Video3D.py.html">Video3D.py</a></strong>
+                - # 3D visualization</li>
+                <li><strong><a
+                href="postProcess/Visualization3D.ipynb.html">Visualization3D.ipynb</a></strong>
+                - # Interactive 3D notebook</li>
+                <li><strong><a
+                href="postProcess/getFacets3D.c.html">getFacets3D.c</a></strong>
+                - # Interface extraction</li>
+                </ul></li>
+                <li><strong><a
+                href="simulationCases">simulationCases/</a></strong> - #
+                Validation cases
+                <ul>
+                <li><strong><a
+                href="simulationCases/JumpingBubbles.c.html">JumpingBubbles.c</a></strong>
+                - # Standard test case</li>
+                <li><strong><a
+                href="simulationCases/JumpingBubbles-hydrophilic.c.html">JumpingBubbles-hydrophilic.c</a></strong>
+                - # Hydrophilic substrate</li>
+                <li><strong><a
+                href="simulationCases/runCases*.sh.html">runCases*.sh</a></strong>
+                - # Execution scripts</li>
+                </ul></li>
+                </ul>
+                </div>
+                <h2 id="installation">Installation</h2>
+                <h3 id="prerequisites">Prerequisites</h3>
+                <ul>
+                <li>GCC compiler (version 7.0+)</li>
+                <li>MPI implementation (OpenMPI or MPICH)</li>
+                <li>Python 3.7+ (for post-processing)</li>
+                <li>Required Python packages: numpy, matplotlib,
+                scipy</li>
+                <li>Xcode Command Line Tools (for MacOS users)</li>
+                </ul>
+                <h3 id="setting-up-basilisk">Setting up Basilisk</h3>
+                <ol type="1">
+                <li><p>Clone this repository:</p>
+                <div class="code-block-container"><div class="code-block-container"><pre
+                class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/VatsalSy/jumping-bubbles.git</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> jumping-bubbles</span></code></pre></div></div></li>
+                <li><p>Run the installation script:</p>
+                <div class="code-block-container"><div class="code-block-container"><pre
+                class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./reset_install_requirements.sh</span></span></code></pre></div></div>
+                <p>This script will:</p>
+                <ul>
+                <li>Install Basilisk if not present (use
+                <code>--hard</code> flag for fresh installation)</li>
+                <li>Configure the environment automatically</li>
+                <li>Create <code>.project_config</code> with required
+                paths</li>
+                <li>Verify the installation</li>
+                </ul></li>
+                <li><p>Verify installation:</p>
+                <div class="code-block-container"><div class="code-block-container"><pre
+                class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> .project_config</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">qcc</span> <span class="at">--version</span></span></code></pre></div></div></li>
+                </ol>
+                <h2 id="usage">Usage</h2>
+                <h3 id="running-simulations">Running Simulations</h3>
+                <h4 id="local-development-openmp">Local Development
+                (OpenMP)</h4>
+                <div class="code-block-container"><div class="code-block-container"><pre
+                class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compile</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">qcc</span> <span class="at">-O2</span> <span class="at">-Wall</span> <span class="at">-disable-dimensions</span> <span class="at">-fopenmp</span> <span class="at">-I</span><span class="va">$(</span><span class="ex">PWD</span><span class="va">)</span>/src-local testCases/JumpingBubbles.c <span class="at">-o</span> JumpingBubbles <span class="at">-lm</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Run with 4 threads</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">OMP_NUM_THREADS</span><span class="op">=</span>4</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="ex">./JumpingBubbles</span></span></code></pre></div></div>
+                <h4 id="hpc-deployment-mpi">HPC Deployment (MPI)</h4>
+                <ol type="1">
+                <li><p>Generate initial condition locally first</p></li>
+                <li><p>Compile with MPI support:</p>
+                <div class="code-block-container"><div class="code-block-container"><pre
+                class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="va">CC99</span><span class="op">=</span><span class="st">&#39;mpicc -std=c99&#39;</span> <span class="ex">qcc</span> <span class="at">-Wall</span> <span class="at">-O2</span> <span class="at">-D_MPI</span><span class="op">=</span>1 <span class="at">-disable-dimensions</span> <span class="dt">\</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>-I<span class="va">$(</span><span class="ex">PWD</span><span class="va">)</span>/src-local testCases/JumpingBubbles.c <span class="at">-o</span> JumpingBubbles <span class="at">-lm</span></span></code></pre></div></div></li>
+                <li><p>Use provided Slurm script:
+                <code>testCases/runSnellius.sbatch</code></p></li>
+                </ol>
+                <h3 id="post-processing">Post-Processing</h3>
+                <h4 id="visualization">Visualization</h4>
+                <ol type="1">
+                <li><p>2D Slice Videos:</p>
+                <div class="code-block-container"><div class="code-block-container"><pre
+                class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> postProcess/Video2DSlice.py <span class="op">&lt;</span>simulation_directory<span class="op">&gt;</span></span></code></pre></div></div></li>
+                <li><p>3D Visualization:</p>
+                <div class="code-block-container"><div class="code-block-container"><pre
+                class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> postProcess/Video3D.py <span class="op">&lt;</span>simulation_directory<span class="op">&gt;</span></span></code></pre></div></div></li>
+                <li><p>Interactive Analysis:</p>
+                <ul>
+                <li>Open <code>postProcess/Visualization3D.ipynb</code>
+                in Jupyter</li>
+                </ul></li>
+                </ol>
+                <h4 id="data-analysis">Data Analysis</h4>
+                <ul>
+                <li>Use <code>getFacets3D.c</code> to extract interface
+                geometry</li>
+                <li>Various slice extraction tools available in
+                <code>postProcess/</code></li>
+                </ul>
+                <h2 id="contributing">Contributing</h2>
+                <p>We welcome contributions to improve Jumping Bubbles!
+                Here’s how you can help:</p>
+                <h3 id="reporting-issues">Reporting Issues</h3>
+                <p>Click on the “Issues” tab above or use these quick
+                links: - <a
+                href="https://github.com/VatsalSy/jumping-bubbles/issues/new?template=bug_report.md&amp;labels=bug">Report
+                a Bug</a> - <a
+                href="https://github.com/VatsalSy/jumping-bubbles/issues/new?template=feature_request.md&amp;labels=enhancement">Request
+                a Feature</a> - <a
+                href="https://github.com/VatsalSy/jumping-bubbles/issues/new?template=question.md&amp;labels=question">Ask
+                a Question</a> - <a
+                href="https://github.com/VatsalSy/jumping-bubbles/issues/new">Open
+                a Blank Issue</a></p>
+                <h3 id="making-changes">Making Changes</h3>
+                <ol type="1">
+                <li>Fork the repository</li>
+                <li>Create a feature branch
+                (<code>git checkout -b feature/AmazingFeature</code>)</li>
+                <li>Make your changes</li>
+                <li>Run tests and ensure they pass</li>
+                <li>Update documentation if needed</li>
+                <li>Commit your changes
+                (<code>git commit -m 'Add some AmazingFeature'</code>)</li>
+                <li>Push to the branch
+                (<code>git push origin feature/AmazingFeature</code>)</li>
+                <li>Open a Pull Request</li>
+                </ol>
+                <p>Please ensure your PR: - Clearly describes the
+                changes - Includes any relevant tests - Updates
+                documentation as needed - References any related
+                issues</p>
+                <h2 id="license">License</h2>
+                <p>This project is licensed under the GNU General Public
+                License v3.0 - see the <a href="LICENSE">LICENSE</a>
+                file for details.</p>
+                <h2 id="citation">Citation</h2>
+                <p>If you use this code in your research, please
+                cite:</p>
+                <div class="code-block-container"><div class="code-block-container"><pre
+                class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">@software{jumping_bubbles_2024,</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">  author       = {Sanjay, V. and Yang, R.},</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">  title        = {Jumping Bubbles: A Computational Framework for Studying Bubble Coalescence},</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">  year         = {2024},</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">  publisher    = {Zenodo},</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">  version      = {v1.0},</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">  doi          = {10.5281/zenodo.14602622},</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">  url          = {https://doi.org/10.5281/zenodo.14602622}</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co">}</span></span></code></pre></div></div>
+                <h2 id="acknowledgments">Acknowledgments</h2>
+                <ul>
+                <li>Based on the <a href="http://basilisk.fr/">Basilisk
+                C</a> framework.</li>
+                </ul>
+                <h2 id="generated-documentation">Generated
+                Documentation</h2>
+                <h3 id="root-directory">Root Directory</h3>
+                <ul>
+                <li><a
+                href="reset_install_requirements.sh.html">reset_install_requirements.sh</a></li>
+                </ul>
+                <h3 id="postprocess">postProcess</h3>
+                <ul>
+                <li><a
+                href="postProcess/Video2DSlice.py.html">postProcess/Video2DSlice.py</a></li>
+                <li><a
+                href="postProcess/Video3D.py.html">postProcess/Video3D.py</a></li>
+                <li><a
+                href="postProcess/Visulization3D.ipynb.html">postProcess/Visulization3D.ipynb</a></li>
+                <li><a
+                href="postProcess/getCells_bottomPlate.c.html">postProcess/getCells_bottomPlate.c</a></li>
+                <li><a
+                href="postProcess/getDataXSlice.c.html">postProcess/getDataXSlice.c</a></li>
+                <li><a
+                href="postProcess/getDataZSlice.c.html">postProcess/getDataZSlice.c</a></li>
+                <li><a
+                href="postProcess/getFacets3D.c.html">postProcess/getFacets3D.c</a></li>
+                </ul>
+                <h3 id="simulationcases">simulationCases</h3>
+                <ul>
+                <li><a
+                href="simulationCases/DataFile/retrieveDataFile.sh.html">simulationCases/DataFile/retrieveDataFile.sh</a></li>
+                <li><a
+                href="simulationCases/JumpingBubbles-hydrophilic.c.html">simulationCases/JumpingBubbles-hydrophilic.c</a></li>
+                <li><a
+                href="simulationCases/JumpingBubbles.c.html">simulationCases/JumpingBubbles.c</a></li>
+                <li><a
+                href="simulationCases/Makefile.html">simulationCases/Makefile</a></li>
+                <li><a
+                href="simulationCases/runCasesOpenMP.sh.html">simulationCases/runCasesOpenMP.sh</a></li>
+                <li><a
+                href="simulationCases/runCasesOpenMPI.sh.html">simulationCases/runCasesOpenMPI.sh</a></li>
+                </ul>
+                <h3 id="src-local">src-local</h3>
+                <ul>
+                <li><a
+                href="src-local/contact-fixed.h.html">src-local/contact-fixed.h</a></li>
+                </ul>
+            </div>
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-left">
+              <a href="http://basilisk.fr/sandbox/vatsal/" target="_blank" rel="noopener noreferrer">
+                <img src="./assets/logos/logoBasilisk_TransparentBackground.png" alt="Basilisk C" class="footer-logo">
+              </a>
+              <a href="https://pof.tnw.utwente.nl/" target="_blank" rel="noopener noreferrer">
+                <img src="./assets/logos/LogoPof_transparent_white.png" alt="Physics of Fluids" class="footer-logo pof-logo">
+              </a>
+              <a href="https://www.utwente.nl/" target="_blank" rel="noopener noreferrer">
+                <img src="./assets/logos/UT_Logo_2400_Sta_White_EN.png" alt="University of Twente" class="footer-logo">
+              </a>
+              <a href="https://www.vatsalsanjay.com/" target="_blank" rel="noopener noreferrer">
+                <img src="./assets/logos/Logo_Vatsal_v3_OutLine.png" alt="Vatsal Sanjay" class="footer-logo">
+              </a>
+            </div>
+            <div class="footer-center">
+              <p class="copyright-text">
+                &copy; Copyright<br>
+                CoMPhy Lab 2025
+              </p>
+            </div>
+            <div class="footer-right">
+              <a href="https://scholar.google.com/citations?user=tHb_qZoAAAAJ&hl=en" target="_blank" rel="noopener noreferrer" aria-label="Google Scholar Profile">
+                <i class="ai ai-google-scholar" style="font-size: 2.5em; color: white;"></i>
+              </a>
+              <a href="https://github.com/comphy-lab" target="_blank" rel="noopener noreferrer" aria-label="GitHub Organization">
+                <i class="fa-brands fa-github" style="font-size: 2.5em; color: white;"></i>
+              </a>
+              <a href="https://www.youtube.com/@CoMPhyLab" target="_blank" rel="noopener noreferrer" aria-label="YouTube Channel">
+                <i class="fa-brands fa-youtube" style="font-size: 2.5em; color: white;"></i>
+              </a>
+              <a href="https://x.com/VatsalSanjay" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter) Profile">
+                <i class="fa-brands fa-x-twitter" style="font-size: 2.5em; color: white;"></i>
+              </a>
+              <a href="https://bsky.app/profile/comphy-lab.org" target="_blank" rel="noopener noreferrer" aria-label="Bluesky Profile">
+                <i class="fa-brands fa-bluesky" style="font-size: 2.5em; color: white;"></i>
+              </a>
+              <a href="https://github.com/comphy-lab/JumpingBubbles" class="edit-link" aria-label="Edit this page on GitHub">
+                <i class="fa-brands fa-github"></i> Edit this page
+              </a>
+            </div>
+          </footer>
+    </div>  
+
+    <!-- Command Palette -->
+    <div id="simple-command-palette" class="simple-command-palette" style="display: none;">
+        <div class="simple-command-palette-backdrop"></div>
+        <div class="simple-command-palette-modal">
+            <input type="text" id="command-palette-input" placeholder="Type a command..." autocomplete="off">
+            <div id="command-palette-results" class="command-palette-results"></div>
+            <div class="command-palette-footer">
+                <span class="command-palette-footer-item"><kbd>↑</kbd> <kbd>↓</kbd> to navigate</span>
+                <span class="command-palette-footer-item"><kbd>enter</kbd> to select</span>
+                <span class="command-palette-footer-item"><kbd>esc</kbd> to close</span>
+            </div>
+        </div>
+    </div>
+
+
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', function() {
+    // Add copy button to each code block container
+    const codeBlocks = document.querySelectorAll('.code-block-container pre');
+    codeBlocks.forEach(function(codeBlock, index) {
+        // Create button element
+        const button = document.createElement('button');
+        button.className = 'copy-button';
+        button.textContent = 'Copy';
+        button.setAttribute('aria-label', 'Copy code to clipboard');
+        button.setAttribute('data-copy-state', 'copy');
+        
+        // Get the code block container (parent of the pre)
+        const container = codeBlock.parentNode;
+        
+        // Add the button to the container
+        container.appendChild(button);
+        
+        // Set up click event
+        button.addEventListener('click', async function() {
+            const codeText = codeBlock.textContent;
+            
+            try {
+                // Try to use the modern clipboard API first
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    await navigator.clipboard.writeText(codeText);
+                    updateButtonState(button, 'success');
+                } else {
+                    // Fall back to the deprecated execCommand method
+                    const textarea = document.createElement('textarea');
+                    textarea.value = codeText;
+                    textarea.style.position = 'fixed';  // Prevent scrolling to the bottom
+                    document.body.appendChild(textarea);
+                    textarea.select();
+                    
+                    const successful = document.execCommand('copy');
+                    document.body.removeChild(textarea);
+                    
+                    if (successful) {
+                        updateButtonState(button, 'success');
+                    } else {
+                        updateButtonState(button, 'error');
+                    }
+                }
+            } catch (err) {
+                console.error('Copy failed:', err);
+                updateButtonState(button, 'error');
+            }
+        });
+    });
+    
+    // Function to update button state
+    function updateButtonState(button, state) {
+        if (state === 'success') {
+            button.textContent = 'Copied!';
+            button.classList.add('copied');
+        } else if (state === 'error') {
+            button.textContent = 'Error!';
+            button.classList.add('error');
+        }
+        
+        // Reset button state after 2 seconds
+        setTimeout(function() {
+            button.textContent = 'Copy';
+            button.classList.remove('copied', 'error');
+        }, 2000);
+    }
+});
+</script>
+        </body>
+</html>
