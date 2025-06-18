@@ -486,22 +486,27 @@
                 <p>Returns: numpy.ndarray: Transposed data array with
                 shape (5, n_points) containing: [y_coords, x_coords,
                 volume_fraction, velocity_magnitude, D2]</p>
-                <p>Raises: subprocess.CalledProcessError: If the
-                external program fails ValueError: If data cannot be
-                parsed into expected shape</p>
+                <p>Raises: sp.CalledProcessError: If the external
+                program fails ValueError: If data cannot be parsed into
+                expected shape</p>
                 <p>Note: The external utilities must be compiled and
                 available in the current directory. They output 5
                 columns: y, x, f, |u|, and log10(2<em>Oh</em>D:D).</p>
                 <div class="code-block-container"><div class="code-block-container"><pre
-                class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> sp.run(exe, capture_output<span class="op">=</span><span class="va">True</span>, text<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> np.fromstring(result.stderr, sep<span class="op">=</span><span class="st">&#39; &#39;</span>).reshape((<span class="op">-</span><span class="dv">1</span>, <span class="dv">5</span>))</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> data.T</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ===============================</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting Functions</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ===============================</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_subplot(ax, data, ymin, xmax, ymax):</span></code></pre></div></div>
+                class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> sp.run(exe, capture_output<span class="op">=</span><span class="va">True</span>, text<span class="op">=</span><span class="va">True</span>, check<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> result.stderr:</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="ss">f&quot;No output from </span><span class="sc">{</span>exe[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        data <span class="op">=</span> np.fromstring(result.stderr, sep<span class="op">=</span><span class="st">&#39; &#39;</span>).reshape((<span class="op">-</span><span class="dv">1</span>, <span class="dv">5</span>))</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> data.T</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> (<span class="pp">ValueError</span>, <span class="pp">AttributeError</span>) <span class="im">as</span> e:</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="ss">f&quot;Failed to parse output from </span><span class="sc">{</span>exe[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ===============================</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting Functions</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># ===============================</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_subplot(ax, data, ymin, xmax, ymax):</span></code></pre></div></div>
                 <p>Create contour plots on a single subplot.</p>
                 <p>Generates a composite visualization showing: 1.
                 Interface contour (f=0.5) in green 2. Velocity magnitude

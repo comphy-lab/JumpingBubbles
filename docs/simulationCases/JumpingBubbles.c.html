@@ -205,7 +205,7 @@
   <meta name="description" content="A computational fluid dynamics simulation of two bubbles coalescing and jumping off a substrate using Basilisk C. This simulation employs an adaptive octree ...">
   <meta name="author" content="CoMPhy Lab">
   <meta name="robots" content="index, follow">
-  <meta name="keywords" content="components, contact-fixed.h, distance.h, from, jumpingbubbles, navier-stokes/centered.h, navier-stokes/conserving.h, reduced.h, tension.h, vector">
+  <meta name="keywords" content="components, contact-fixed.h, distance.h, from, grid/octree.h, navier-stokes/centered.h, navier-stokes/conserving.h, reduced.h, tension.h, two-phase.h">
   <meta name="msapplication-TileColor" content="#da532c">
   <meta name="theme-color" content="#ffffff">
   <meta name="apple-mobile-web-app-title" content="CoMPhy Lab">
@@ -552,7 +552,7 @@
                 <li><code>Bo</code>: Bond number (ρ_l·g·R_equiv²/γ)</li>
                 </ul>
                 <div class="code-block-container"><div class="code-block-container"><pre
-                class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">double</span> tmax<span class="op">,</span> Oh<span class="op">;</span></span>
+                class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">double</span> tmax<span class="op">,</span> Oh<span class="op">,</span> Bo<span class="op">;</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> MAXlevel<span class="op">;</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="dt">char</span> nameOut<span class="op">[</span><span class="dv">80</span><span class="op">];</span></span></code></pre></div></div>
                 <h2 id="main-function">Main Function</h2>
