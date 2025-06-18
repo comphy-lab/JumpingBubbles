@@ -14,7 +14,6 @@
 **/Video
 **/*.mp4
 **/*.bv
-**/*.png
 
 # Custom executables (add your specific executable names here)
 **/JumpingBubbles
