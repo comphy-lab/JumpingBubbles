@@ -175,9 +175,9 @@ If you use this code in your research, please cite:
 @software{jumping_bubbles_2024,
   author       = {Sanjay, V. and Yang, R.},
   title        = {Jumping Bubbles: A Computational Framework for Studying Bubble Coalescence},
-  year         = {2024},
+  year         = {2025},
   publisher    = {Zenodo},
-  version      = {v1.0},
+  version      = {v2.0},
   doi          = {10.5281/zenodo.14602622},
   url          = {https://doi.org/10.5281/zenodo.14602622}
 }
