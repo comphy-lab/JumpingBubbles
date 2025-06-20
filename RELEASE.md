@@ -102,8 +102,8 @@ This release represents a significant evolution of the Jumping Bubbles framework
   year         = {2025},
   publisher    = {Zenodo},
   version      = {v2.0},
-  doi          = {10.5281/zenodo.14602622},
-  url          = {https://doi.org/10.5281/zenodo.14602622}
+  doi          = {10.5281/zenodo.14602623},
+  url          = {https://comphy-lab.org/JumpingBubbles/}
 }
 ```
 
