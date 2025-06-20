@@ -205,7 +205,7 @@
   <meta name="description" content="A computational fluid dynamics simulation of two bubbles coalescing and jumping off a substrate using Basilisk C. This simulation employs an adaptive octree ...">
   <meta name="author" content="CoMPhy Lab">
   <meta name="robots" content="index, follow">
-  <meta name="keywords" content="components, distance.h, from, grid/octree.h, jumpingbubbles, navier-stokes/centered.h, navier-stokes/conserving.h, reduced.h, tension.h, two-phase.h">
+  <meta name="keywords" content="components, contact-fixed.h, from, jumpingbubbles, navier-stokes/centered.h, navier-stokes/conserving.h, reduced.h, tension.h, two-phase.h, vector">
   <meta name="msapplication-TileColor" content="#da532c">
   <meta name="theme-color" content="#ffffff">
   <meta name="apple-mobile-web-app-title" content="CoMPhy Lab">
@@ -554,7 +554,7 @@
                 <div class="code-block-container"><div class="code-block-container"><pre
                 class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">double</span> tmax<span class="op">,</span> Oh<span class="op">,</span> Bo<span class="op">;</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> MAXlevel<span class="op">;</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="dt">char</span> nameOut<span class="op">[</span><span class="dv">80</span><span class="op">];</span></span></code></pre></div></div>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="dt">char</span> nameOut<span class="op">[</span><span class="dv">80</span><span class="op">],</span> dumpFile<span class="op">[</span><span class="dv">80</span><span class="op">];</span></span></code></pre></div></div>
                 <h2 id="main-function">Main Function</h2>
                 <p>Initializes the simulation parameters and
                 computational domain. Sets up the two-phase flow
@@ -704,7 +704,7 @@
                 </ul>
                 <div class="code-block-container"><div class="code-block-container"><pre
                 class="sourceCode c"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>event adapt<span class="op">(</span>i<span class="op">++)</span> <span class="op">{</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  adapt_wavelet_limited<span class="op">((</span>scalar <span class="op">*){</span>f<span class="op">,</span> u<span class="op">.</span>x<span class="op">,</span> u<span class="op">.</span>y<span class="op">,</span> u<span class="op">.</span>z<span class="op">,</span> h<span class="op">.</span>x<span class="op">,</span> h<span class="op">.</span>y<span class="op">,</span> h<span class="op">.</span>z<span class="op">},</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  adapt_wavelet<span class="op">((</span>scalar <span class="op">*){</span>f<span class="op">,</span> u<span class="op">.</span>x<span class="op">,</span> u<span class="op">.</span>y<span class="op">,</span> u<span class="op">.</span>z<span class="op">,</span> h<span class="op">.</span>x<span class="op">,</span> h<span class="op">.</span>y<span class="op">,</span> h<span class="op">.</span>z<span class="op">},</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                        <span class="op">(</span><span class="dt">double</span><span class="op">[]){</span>fErr<span class="op">,</span> VelErr<span class="op">,</span> VelErr<span class="op">,</span> VelErr<span class="op">,</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                                   hErr<span class="op">,</span> hErr<span class="op">,</span> hErr<span class="op">},</span></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                        MAXlevel<span class="op">,</span> MINlevel<span class="op">);</span></span>

@@ -587,7 +587,7 @@
                 <div class="code-block-container"><div class="code-block-container"><pre
                 class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><a href="http://basilisk.fr/src/grid/octree.h" title="Link to Basilisk source for grid/octree.h"><span class="im">"grid/octree.h"</span></a></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><a href="http://basilisk.fr/src/navier-stokes/centered.h" title="Link to Basilisk source for navier-stokes/centered.h"><span class="im">"navier-stokes/centered.h"</span></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#define FILTERED</span><span class="dv">105</span><span class="pp"></span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#define FILTERED </span><span class="dv">1</span><span class="pp"></span><span class="dv">105</span><span class="pp"></span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><a href="http://basilisk.fr/src/two-phase.h" title="Link to Basilisk source for two-phase.h"><span class="im">"two-phase.h"</span></a></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><a href="http://basilisk.fr/src/navier-stokes/conserving.h" title="Link to Basilisk source for navier-stokes/conserving.h"><span class="im">"navier-stokes/conserving.h"</span></a></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><a href="http://basilisk.fr/src/tension.h" title="Link to Basilisk source for tension.h"><span class="im">"tension.h"</span></a></span>
@@ -615,7 +615,7 @@
 <span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="dt">double</span> tmax<span class="op">,</span> Oh<span class="op">;</span></span>
 <span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> MAXlevel<span class="op">;</span></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="dt">char</span> nameOut<span class="op">[</span><span class="dv">80</span><span class="op">];</span></span></code></pre></div></div>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="dt">char</span> nameOut<span class="op">[</span><span class="dv">80</span><span class="op">],</span> dumpFile<span class="op">[</span><span class="dv">80</span><span class="op">];</span></span></code></pre></div></div>
                 <h2 id="main-function">Main Function</h2>
                 <p>Initializes simulation parameters and executes the
                 run. The function sets different maximum times based on
