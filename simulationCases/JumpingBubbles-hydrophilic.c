@@ -2,16 +2,16 @@
 # Jumping Bubbles Simulation
 
 ## Overview
-This code simulates the coalescence and subsequent jumping of two bubbles 
-sitting on a hydrophilic substrate using the Basilisk C framework. The 
-simulation employs an adaptive octree grid for spatial discretization and 
+This code simulates the coalescence and subsequent jumping of two bubbles
+sitting on a hydrophilic substrate using the Basilisk C framework. The
+simulation employs an adaptive octree grid for spatial discretization and
 models two-phase flow with surface tension effects.
 
 ## Physics Description
-The simulation captures the dynamics of bubble coalescence-induced jumping, 
-a phenomenon where two bubbles merge and the resulting bubble jumps away 
-from the substrate due to the conversion of surface energy into kinetic 
-energy. The Volume-of-Fluid (VOF) method tracks the gas-liquid interface 
+The simulation captures the dynamics of bubble coalescence-induced jumping,
+a phenomenon where two bubbles merge and the resulting bubble jumps away
+from the substrate due to the conversion of surface energy into kinetic
+energy. The Volume-of-Fluid (VOF) method tracks the gas-liquid interface
 evolution throughout the process.
 
 ## Key Features
@@ -102,7 +102,7 @@ qcc -O2 -Wall -disable-dimensions -fopenmp JumpingBubbles.c \
 
 #include "grid/octree.h"
 #include "navier-stokes/centered.h"
-#define FILTERED
+#define FILTERED 1
 #include "two-phase.h"
 #include "navier-stokes/conserving.h"
 #include "tension.h"
@@ -130,7 +130,7 @@ f[bottom] = dirichlet(1.);
 
 double tmax, Oh;
 int MAXlevel;
-char nameOut[80];
+char nameOut[80], dumpFile[80];
 
 /**
 ## Main Function
@@ -160,10 +160,10 @@ int main() {
   init_grid(1 << MINlevel);
   L0 = Ldomain;
   fprintf(ferr, "tmax = %g. Oh = %g\n", tmax, Oh);
-  
-  rho1 = 1.0; 
+
+  rho1 = 1.0;
   mu1 = Oh;
-  rho2 = Rho21; 
+  rho2 = Rho21;
   mu2 = Mu21 * Oh;
   f.sigma = 1.0;
 
@@ -215,24 +215,24 @@ event init(t = 0) {
       fprintf(ferr, "There is no file named %s\n", filename);
       return 1;
     }
-    
+
     coord * p = input_stl(fp);
     fclose(fp);
     coord min, max;
 
     bounding_box(p, &min, &max);
-    fprintf(ferr, "xmin %g xmax %g\nymin %g ymax %g\nzmin %g zmax %g\n", 
+    fprintf(ferr, "xmin %g xmax %g\nymin %g ymax %g\nzmin %g zmax %g\n",
             min.x, max.x, min.y, max.y, min.z, max.z);
-    fprintf(ferr, "x0 = %g, y0 = %g, z0 = %g\n", 
+    fprintf(ferr, "x0 = %g, y0 = %g, z0 = %g\n",
             0., -1.0, (min.z + max.z) / 2.);
     origin(0., -1.0 - 0.025, (min.z + max.z) / 2.);
 
     scalar d[];
     distance(d, p);
-    while (adapt_wavelet((scalar *){f, d}, 
-                         (double[]){1e-6, 1e-6 * L0}, 
+    while (adapt_wavelet((scalar *){f, d},
+                         (double[]){1e-6, 1e-6 * L0},
                          MAXlevel).nf);
-    
+
     vertex scalar phi[];
     foreach_vertex() {
       phi[] = -(d[] + d[-1] + d[0,-1] + d[-1,-1] +
@@ -323,7 +323,7 @@ bubble dynamics.
 event logWriting(t = 0; t += tsnap2; t <= tmax + tsnap) {
   double ke = 0.;
   foreach(reduction(+:ke)) {
-    ke += 0.5 * (sq(u.x[]) + sq(u.y[]) + sq(u.z[])) * 
+    ke += 0.5 * (sq(u.x[]) + sq(u.y[]) + sq(u.z[])) *
           clamp(1. - f[], 0., 1.) * cube(Delta);
   }
 

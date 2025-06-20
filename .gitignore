@@ -18,6 +18,7 @@
 # Custom executables (add your specific executable names here)
 **/JumpingBubbles
 **/JumpingBubbles_Snellius
+**/JumpingBubbles-hydrophilic
 
 # PostProcess executables
 postProcess/getFacets3D

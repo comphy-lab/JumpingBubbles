@@ -1,17 +1,17 @@
 /**
 # Jumping Bubbles Simulation
 
-A computational fluid dynamics simulation of two bubbles coalescing and 
-jumping off a substrate using Basilisk C. This simulation employs an adaptive 
-octree grid for spatial discretization and models two-phase flow with surface 
+A computational fluid dynamics simulation of two bubbles coalescing and
+jumping off a substrate using Basilisk C. This simulation employs an adaptive
+octree grid for spatial discretization and models two-phase flow with surface
 tension effects.
 
 ## Overview
 
-The simulation captures the complex physics of bubble coalescence and 
-subsequent jumping behavior. It reads bubble geometry from an STL file and 
-tracks the gas-liquid interface evolution using the Volume-of-Fluid (VOF) 
-method, providing high-fidelity results for studying bubble dynamics on 
+The simulation captures the complex physics of bubble coalescence and
+subsequent jumping behavior. It reads bubble geometry from an STL file and
+tracks the gas-liquid interface evolution using the Volume-of-Fluid (VOF)
+method, providing high-fidelity results for studying bubble dynamics on
 surfaces.
 
 ## Changelog
@@ -75,7 +75,7 @@ surfaces.
 /**
 ## Boundary Conditions
 
-The simulation implements specific boundary conditions at the substrate 
+The simulation implements specific boundary conditions at the substrate
 (bottom boundary):
 - Tangential velocity component: No-slip condition (u.t = 0)
 - Radial velocity component: No-penetration condition (u.r = 0)
@@ -90,7 +90,7 @@ uf.r[bottom] = dirichlet(0.);
 /**
 ## Contact Angle Implementation
 
-The contact angle is imposed through a height function vector field that 
+The contact angle is imposed through a height function vector field that
 specifies the interface orientation at the substrate boundary.
 */
 double theta0, patchR;
@@ -111,13 +111,13 @@ h.r[bottom] = contact_angle(theta0 * pi / 180.);
 */
 double tmax, Oh, Bo;
 int MAXlevel;
-char nameOut[80];
+char nameOut[80], dumpFile[80];
 
 /**
 ## Main Function
 
-Initializes the simulation parameters and computational domain. Sets up the 
-two-phase flow properties including density and viscosity ratios, surface 
+Initializes the simulation parameters and computational domain. Sets up the
+two-phase flow properties including density and viscosity ratios, surface
 tension, and gravitational effects.
 
 ### Key Parameters Set:
@@ -144,12 +144,12 @@ int main() {
   init_grid(1 << MINlevel);
   L0 = Ldomain;
   fprintf(ferr, "tmax = %g. Oh = %g\n", tmax, Oh);
-  
-  rho1 = 1.0; 
+
+  rho1 = 1.0;
   mu1 = Oh;
-  rho2 = Rho21; 
+  rho2 = Rho21;
   mu2 = Mu21 * Oh;
-  
+
   f.height = h;
   f.sigma = 1.0;
 
@@ -167,9 +167,9 @@ int main() {
 /**
 ## Initialization Event
 
-Sets up the initial condition for the simulation. This event attempts to 
-restore from a previous dump file if available. If no dump file exists, it 
-reads the bubble geometry from an STL file and constructs the initial 
+Sets up the initial condition for the simulation. This event attempts to
+restore from a previous dump file if available. If no dump file exists, it
+reads the bubble geometry from an STL file and constructs the initial
 interface.
 
 ### Process:
@@ -203,18 +203,18 @@ event init(t = 0) {
     coord min, max;
 
     bounding_box(p, &min, &max);
-    fprintf(ferr, "xmin %g xmax %g\nymin %g ymax %g\nzmin %g zmax %g\n", 
+    fprintf(ferr, "xmin %g xmax %g\nymin %g ymax %g\nzmin %g zmax %g\n",
             min.x, max.x, min.y, max.y, min.z, max.z);
-    fprintf(ferr, "x0 = %g, y0 = %g, z0 = %g\n", 
+    fprintf(ferr, "x0 = %g, y0 = %g, z0 = %g\n",
             0., -1.0, (min.z + max.z) / 2.);
     origin(0., -1.0 - 0.025, (min.z + max.z) / 2.);
 
     scalar d[];
     distance(d, p);
-    while (adapt_wavelet((scalar *){f, d}, 
-                         (double[]){1e-6, 1e-6 * L0}, 
+    while (adapt_wavelet((scalar *){f, d},
+                         (double[]){1e-6, 1e-6 * L0},
                          MAXlevel).nf);
-    
+
     vertex scalar phi[];
     foreach_vertex() {
       phi[] = -(d[] + d[-1] + d[0,-1] + d[-1,-1] +
@@ -237,8 +237,8 @@ event init(t = 0) {
 /**
 ## Adaptive Mesh Refinement Event
 
-Performs adaptive mesh refinement at each timestep based on error estimates 
-in various fields. This ensures computational efficiency while maintaining 
+Performs adaptive mesh refinement at each timestep based on error estimates
+in various fields. This ensures computational efficiency while maintaining
 accuracy in regions of high gradients.
 
 ### Refined Fields:
@@ -252,8 +252,8 @@ accuracy in regions of high gradients.
 - Height function: hErr
 */
 event adapt(i++) {
-  adapt_wavelet_limited((scalar *){f, u.x, u.y, u.z, h.x, h.y, h.z},
-                        (double[]){fErr, VelErr, VelErr, VelErr, 
+  adapt_wavelet((scalar *){f, u.x, u.y, u.z, h.x, h.y, h.z},
+                        (double[]){fErr, VelErr, VelErr, VelErr,
                                    hErr, hErr, hErr},
                         MAXlevel, MINlevel);
 }
@@ -261,7 +261,7 @@ event adapt(i++) {
 /**
 ## File Output Event
 
-Writes simulation snapshots at regular intervals for post-processing and 
+Writes simulation snapshots at regular intervals for post-processing and
 analysis. Creates both a restart file and timestamped snapshots.
 
 ### Output Files:
@@ -282,7 +282,7 @@ event writingFiles(t = 0; t += tsnap; t <= tmax + tsnap) {
 /**
 ## Diagnostic Logging Event
 
-Computes and logs diagnostic quantities at fine temporal intervals for 
+Computes and logs diagnostic quantities at fine temporal intervals for
 monitoring simulation progress and analyzing bubble dynamics.
 
 ### Logged Quantities:
@@ -300,7 +300,7 @@ event logWriting(t = 0; t += tsnap2; t <= tmax + tsnap) {
 
   double ke = 0.;
   foreach(reduction(+:ke)) {
-    ke += 0.5 * (sq(u.x[]) + sq(u.y[]) + sq(u.z[])) * 
+    ke += 0.5 * (sq(u.x[]) + sq(u.y[]) + sq(u.z[])) *
           clamp(1. - f[], 0., 1.) * cube(Delta);
   }
 
