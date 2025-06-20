@@ -120,7 +120,6 @@ const double Cb = 2e-3;
 
 #include "terrain.h" // for bathymetry
 #include "layered/perfs.h"
-const int aspect = 2; // the aspect ratio of the domain, here 2x1
 
 const double hour = 3600., day = 86400., month = 30.*day, year = 365.*day;
 
@@ -137,11 +136,12 @@ double tspinup = 8*day;
 /**
 ## main() 
 
-The simulation needs to be run on a multigrid and with a multiple of 2x4 processes.
-This can be done using the [Makefile](/Tutorial#using-makefiles) with e.g.:
+The simulation can be run in serial/OpenMP or with MPI and with a
+multiple of 2^i+1^ processes. This can be done using the
+[Makefile](/Tutorial#using-makefiles) with e.g.:
 
 ~~~bash
-CC='mpicc -D_MPI=8' make gulf-stream.tst
+CC='mpicc -D_MPI=8' make global-tides.tst
 ~~~
 
 Command-line parameters can be passed to the code to change the
@@ -153,13 +153,9 @@ int main (int argc, char * argv[])
   /**
   On a [spherical grid](/src/spherical.h), the sizes are given in
   degrees (of longitude). */
-  
-  if (npe() > 1) {
-    dimensions (ny = sqrt(npe()/aspect));
-    size (360);
-  }
-  else
-    size (360);
+
+  dimensions (2, 1);
+  size (360);
   periodic (right);
 
   /**
@@ -170,7 +166,7 @@ int main (int argc, char * argv[])
   /**
   The longitude and latitude of the lower-left corner. */
   
-  origin (0, - 180./aspect);
+  origin (0, -90);
 
   /**
   The acceleration of gravity sets the time unit (seconds here). The
@@ -188,7 +184,7 @@ int main (int argc, char * argv[])
   if (argc > 1)
     N = atoi(argv[1]);
   else
-    N = 512*aspect;
+    N = 1024;
 
   DT = 600;
   if (argc > 2)

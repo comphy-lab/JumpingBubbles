@@ -14,12 +14,14 @@ if (n->sym == sym_translation_unit)
            n->child[2] && n->child[2]->sym == token_symbol(')') && !n->child[3]));
 if (n->sym == sym_primary_expression)
   return ((n->child[0] && n->child[0]->sym == sym_IDENTIFIER && !n->child[1]) ||
+          (n->child[0] && n->child[0]->sym == sym_MACRO && !n->child[1]) ||
           (n->child[0] && n->child[0]->sym == sym_constant && !n->child[1]) ||
           (n->child[0] && n->child[0]->sym == sym_string && !n->child[1]) ||
           (n->child[0] && n->child[0]->sym == token_symbol('(') &&
            n->child[1] && n->child[1]->sym == sym_expression_error &&
            n->child[2] && n->child[2]->sym == token_symbol(')') && !n->child[3]) ||
-          (n->child[0] && n->child[0]->sym == sym_generic_selection && !n->child[1]));
+          (n->child[0] && n->child[0]->sym == sym_generic_selection && !n->child[1]) ||
+          (n->child[0] && n->child[0]->sym == sym_reduction_list && !n->child[1]));
 if (n->sym == sym_expression_error)
   return ((n->child[0] && n->child[0]->sym == sym_expression && !n->child[1]) ||
           (n->child[0] && n->child[0]->sym == sym_error && !n->child[1]));
@@ -295,7 +297,8 @@ if (n->sym == sym_storage_class_specifier)
           (n->child[0] && n->child[0]->sym == sym_THREAD_LOCAL && !n->child[1]) ||
           (n->child[0] && n->child[0]->sym == sym_AUTO && !n->child[1]) ||
           (n->child[0] && n->child[0]->sym == sym_REGISTER && !n->child[1]) ||
-          (n->child[0] && n->child[0]->sym == sym_TRACE && !n->child[1]));
+          (n->child[0] && n->child[0]->sym == sym_TRACE && !n->child[1]) ||
+          (n->child[0] && n->child[0]->sym == sym_MACRODEF && !n->child[1]));
 if (n->sym == sym_type_specifier)
   return ((n->child[0] && n->child[0]->sym == sym_types && !n->child[1]));
 if (n->sym == sym_types)
@@ -493,7 +496,8 @@ if (n->sym == sym_direct_declarator)
            n->child[3] && n->child[3]->sym == token_symbol(')') && !n->child[4]));
 if (n->sym == sym_generic_identifier)
   return ((n->child[0] && n->child[0]->sym == sym_IDENTIFIER && !n->child[1]) ||
-          (n->child[0] && n->child[0]->sym == sym_TYPEDEF_NAME && !n->child[1]));
+          (n->child[0] && n->child[0]->sym == sym_TYPEDEF_NAME && !n->child[1]) ||
+          (n->child[0] && n->child[0]->sym == sym_MACRO && !n->child[1]));
 if (n->sym == sym_pointer)
   return ((n->child[0] && n->child[0]->sym == token_symbol('*') &&
            n->child[1] && n->child[1]->sym == sym_type_qualifier_list &&
@@ -526,7 +530,13 @@ if (n->sym == sym_parameter_declaration)
            n->child[3] && n->child[3]->sym == sym_initializer && !n->child[4]) ||
           (n->child[0] && n->child[0]->sym == sym_declaration_specifiers &&
            n->child[1] && n->child[1]->sym == sym_abstract_declarator && !n->child[2]) ||
-          (n->child[0] && n->child[0]->sym == sym_declaration_specifiers && !n->child[1]));
+          (n->child[0] && n->child[0]->sym == sym_declaration_specifiers && !n->child[1]) ||
+          (n->child[0] && n->child[0]->sym == sym_BREAK &&
+           n->child[1] && n->child[1]->sym == token_symbol('=') &&
+           n->child[2] && n->child[2]->sym == sym_initializer && !n->child[3]) ||
+          (n->child[0] && n->child[0]->sym == sym_BREAK &&
+           n->child[1] && n->child[1]->sym == token_symbol('=') &&
+           n->child[2] && n->child[2]->sym == sym_BREAK && !n->child[3]));
 if (n->sym == sym_identifier_list)
   return ((n->child[0] && n->child[0]->sym == sym_IDENTIFIER && !n->child[1]) ||
           (n->child[0] && n->child[0]->sym == sym_identifier_list &&
@@ -779,7 +789,6 @@ if (n->sym == sym_jump_statement)
 if (n->sym == sym_external_declaration)
   return ((n->child[0] && n->child[0]->sym == sym_function_definition && !n->child[1]) ||
           (n->child[0] && n->child[0]->sym == sym_declaration && !n->child[1]) ||
-          (n->child[0] && n->child[0]->sym == sym_macro_statement && !n->child[1]) ||
           (n->child[0] && n->child[0]->sym == sym_event_definition && !n->child[1]) ||
           (n->child[0] && n->child[0]->sym == sym_boundary_definition && !n->child[1]) ||
           (n->child[0] && n->child[0]->sym == sym_external_foreach_dimension && !n->child[1]) ||
@@ -800,33 +809,21 @@ if (n->sym == sym_declaration_list)
           (n->child[0] && n->child[0]->sym == sym_declaration_list &&
            n->child[1] && n->child[1]->sym == sym_declaration && !n->child[2]));
 if (n->sym == sym_basilisk_statements)
-  return ((n->child[0] && n->child[0]->sym == sym_macro_statement && !n->child[1]) ||
-          (n->child[0] && n->child[0]->sym == sym_foreach_statement && !n->child[1]) ||
-          (n->child[0] && n->child[0]->sym == sym_foreach_inner_statement && !n->child[1]) ||
+  return ((n->child[0] && n->child[0]->sym == sym_ELLIPSIS_MACRO && !n->child[1]) ||
+          (n->child[0] && n->child[0]->sym == sym_macro_statement && !n->child[1]) ||
           (n->child[0] && n->child[0]->sym == sym_foreach_dimension_statement && !n->child[1]) ||
           (n->child[0] && n->child[0]->sym == sym_forin_declaration_statement && !n->child[1]) ||
           (n->child[0] && n->child[0]->sym == sym_forin_statement && !n->child[1]));
 if (n->sym == sym_macro_statement)
-  return ((n->child[0] && n->child[0]->sym == sym_function_call &&
-           n->child[1] && n->child[1]->sym == sym_compound_statement && !n->child[2]));
-if (n->sym == sym_foreach_statement)
-  return ((n->child[0] && n->child[0]->sym == sym_FOREACH &&
+  return ((n->child[0] && n->child[0]->sym == sym_MACRO &&
            n->child[1] && n->child[1]->sym == token_symbol('(') &&
            n->child[2] && n->child[2]->sym == token_symbol(')') &&
            n->child[3] && n->child[3]->sym == sym_statement && !n->child[4]) ||
-          (n->child[0] && n->child[0]->sym == sym_FOREACH &&
+          (n->child[0] && n->child[0]->sym == sym_MACRO &&
            n->child[1] && n->child[1]->sym == token_symbol('(') &&
-           n->child[2] && n->child[2]->sym == sym_foreach_parameters &&
+           n->child[2] && n->child[2]->sym == sym_argument_expression_list &&
            n->child[3] && n->child[3]->sym == token_symbol(')') &&
            n->child[4] && n->child[4]->sym == sym_statement && !n->child[5]));
-if (n->sym == sym_foreach_parameters)
-  return ((n->child[0] && n->child[0]->sym == sym_foreach_parameter && !n->child[1]) ||
-          (n->child[0] && n->child[0]->sym == sym_foreach_parameters &&
-           n->child[1] && n->child[1]->sym == token_symbol(',') &&
-           n->child[2] && n->child[2]->sym == sym_foreach_parameter && !n->child[3]));
-if (n->sym == sym_foreach_parameter)
-  return ((n->child[0] && n->child[0]->sym == sym_assignment_expression && !n->child[1]) ||
-          (n->child[0] && n->child[0]->sym == sym_reduction_list && !n->child[1]));
 if (n->sym == sym_reduction_list)
   return ((n->child[0] && n->child[0]->sym == sym_reduction && !n->child[1]) ||
           (n->child[0] && n->child[0]->sym == sym_reduction_list &&
@@ -849,16 +846,6 @@ if (n->sym == sym_reduction_array)
            n->child[2] && n->child[2]->sym == token_symbol(':') &&
            n->child[3] && n->child[3]->sym == sym_expression &&
            n->child[4] && n->child[4]->sym == token_symbol(']') && !n->child[5]));
-if (n->sym == sym_foreach_inner_statement)
-  return ((n->child[0] && n->child[0]->sym == sym_FOREACH_INNER &&
-           n->child[1] && n->child[1]->sym == token_symbol('(') &&
-           n->child[2] && n->child[2]->sym == token_symbol(')') &&
-           n->child[3] && n->child[3]->sym == sym_statement && !n->child[4]) ||
-          (n->child[0] && n->child[0]->sym == sym_FOREACH_INNER &&
-           n->child[1] && n->child[1]->sym == token_symbol('(') &&
-           n->child[2] && n->child[2]->sym == sym_expression &&
-           n->child[3] && n->child[3]->sym == token_symbol(')') &&
-           n->child[4] && n->child[4]->sym == sym_statement && !n->child[5]));
 if (n->sym == sym_foreach_dimension_statement)
   return ((n->child[0] && n->child[0]->sym == sym_FOREACH_DIMENSION &&
            n->child[1] && n->child[1]->sym == token_symbol('(') &&

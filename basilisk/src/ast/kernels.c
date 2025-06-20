@@ -8,6 +8,9 @@
 
 typedef struct {
   char * error;
+  bool nolineno;
+  int return_macro_index;
+  Ast * macroscope;
 } KernelData;
 
 /**
@@ -74,8 +77,7 @@ Ast * implicit_type_cast (Ast * n, Stack * stack)
       return type;
     }
     if (ast_schema (ast_ancestor (n, 2), sym_member_identifier,
-		    0, sym_generic_identifier,
-		    0, sym_IDENTIFIER)) {
+		    0, sym_generic_identifier)) {
       n = ast_expression_type (n, stack, false);
       if (ast_schema (ast_ancestor (n, 2), sym_direct_declarator))
 	return implicit_type_cast (ast_schema (ast_parent (n, sym_struct_declaration), sym_struct_declaration,
@@ -250,6 +252,50 @@ void kernel (Ast * n, Stack * stack, void * data)
   case sym_STATIC: case sym_INLINE:
     ast_terminal (n)->start[0] = '\0';
     break;
+
+  /**
+  ## 'unsigned' or 'unsigned int' is replaced by 'uint' */
+
+  case sym_UNSIGNED: {
+    Ast * identifier;
+    if ((identifier = ast_schema (ast_ancestor (n, 3), sym_declaration_specifiers,
+				  1, sym_declaration_specifiers,
+				  0, sym_type_specifier,
+				  0, sym_types,
+				  0, sym_INT))) {
+      ast_terminal (n)->start[0] = '\0';
+      free (ast_terminal (identifier)->start);
+      ast_terminal (identifier)->start = strdup ("uint");
+    }
+    else if (ast_ancestor (n, 4)->sym == sym_declaration)
+      strcpy (ast_terminal (n)->start, "uint");
+    break;
+  }
+
+  /** 
+  ## Initialization of `coord` (must include three components) */
+
+  case sym_TYPEDEF_NAME: {
+    if (n->parent->sym == sym_types && !strcmp (ast_terminal(n)->start, "coord") &&
+	(n = ast_schema (ast_parent (n, sym_declaration), sym_declaration,
+			 1, sym_init_declarator_list)))
+      foreach_item (n, 2, init_declarator) {
+	Ast * list;
+	if ((list = ast_schema (init_declarator, sym_init_declarator,
+				2, sym_initializer,
+				1, sym_initializer_list))) {
+	  int i = 0;
+	  foreach_item (list, 2, init)
+	    i++;
+	  Ast * last = ast_schema (list->parent, sym_initializer,
+				   2, token_symbol('}'));
+	  if (last)
+	    while (i++ < 3)
+	      str_prepend (ast_terminal (last)->start, ",0");
+	}
+      }
+    break;
+  }
 
   /**
   ## Implicit type casts */
@@ -445,7 +491,7 @@ void kernel (Ast * n, Stack * stack, void * data)
     
     break;
   }
-    
+
   /**
   ## forin_declaration_statement */
 
@@ -551,23 +597,12 @@ void kernel (Ast * n, Stack * stack, void * data)
       break;
     
     /**
-    ## Dirichlet and Neumann boundary conditions */
-
-    if (!strcmp (t->start, "_dirichlet") ||
-	!strcmp (t->start, "_dirichlet_homogeneous") ||
-	!strcmp (t->start, "_dirichlet_face") ||
-	!strcmp (t->start, "_dirichlet_face_homogeneous") ||
-	!strcmp (t->start, "_neumann") ||
-	!strcmp (t->start, "_neumann_homogeneous"))
-      break;
-    
-    /**
     ## Undeclared or unsupported functions */
     
     if (!(identifier = ast_identifier_declaration (stack, t->start))) {
       char s[1000];
       snprintf (s, 999, "\\n@error %s:%d: GLSL: error: unknown function '%s'\\n",
-		t->file, t->line, t->start);
+		t->file, d->nolineno ? 0 : t->line, t->start);
       d->error = strdup (s);
       return;
     }
@@ -592,18 +627,15 @@ void kernel (Ast * n, Stack * stack, void * data)
     break;
   }
     
-  /**
-  ## Diagonalize */
-
   case sym_macro_statement: {
     Ast * identifier = ast_schema (n, sym_macro_statement,
-				   0, sym_function_call,
-				   0, sym_postfix_expression,
-				   0, sym_primary_expression,
-				   0, sym_IDENTIFIER);
-    if (!strcmp (ast_terminal (identifier)->start, "diagonalize")) {
+				   0, sym_MACRO);
+    
+    /**
+    ## Diagonalize */
+
+    if (identifier && !strcmp (ast_terminal (identifier)->start, "diagonalize")) {
       Ast * field = ast_schema (n, sym_macro_statement,
-				0, sym_function_call,
 				2, sym_argument_expression_list,
 				0, sym_argument_expression_list_item,
 				0, sym_assignment_expression);
@@ -613,6 +645,18 @@ void kernel (Ast * n, Stack * stack, void * data)
 	ast_pop_scope (stack, n);
       }
     }
+
+    /**
+    ## Macro call 
+
+    These are the remaining "postmacros" which have not been expanded
+    yet. */
+
+    else {
+      ast_before (n, "{");
+      ast_after (n, "end_", ast_terminal (identifier)->start, "()}");
+    }
+
     break; 
   }
     
@@ -620,7 +664,7 @@ void kernel (Ast * n, Stack * stack, void * data)
 }
 
 static
-char * stringify (Ast * n, char * output)
+char * stringify (Ast * n, char * output, bool nolineno)
 {
   AstTerminal * t = ast_left_terminal (n);
   char * before = t->before;
@@ -635,7 +679,16 @@ char * stringify (Ast * n, char * output)
     case '\\': str_append (output, "\\\\"); break;
     case '"':  str_append (output, "\\\""); break;
     case '#':
-      if (i[-1] == '\n') { str_append (output, "// #"); break; }
+      if (i[-1] == '\n') {
+	str_append (output, "// #");
+	if (nolineno && !strncmp (i, "#line ", 6)) {
+	  str_append (output, "line 0");
+	  i += 6;
+	  while (*i >= '0' && *i <= '9') i++;
+	  i--;
+	}
+	break;
+      }
       // fall through
     default:  a[0] = *i; str_append (output, a); break;
     }
@@ -645,34 +698,33 @@ char * stringify (Ast * n, char * output)
   return output;
 }
 
-char * ast_kernel (Ast * n, Ast * argument, char * s)
+static void postmacros (Ast * n, Stack * stack, void * data)
+{
+  if (n->sym == sym_statement || n->sym == sym_function_call) {
+    KernelData * d = data;
+    ast_macro_replacement (n, n, stack, d->nolineno, 1, false, &d->return_macro_index, d->macroscope);
+  }
+}
+
+char * ast_kernel (Ast * n, char * argument, bool nolineno, Ast * macroscope)
 {
   AstRoot * root = ast_get_root (n);
   Stack * stack = root->stack;
   stack_push (stack, &n);
-  KernelData d = {0};
+  KernelData d = {0, nolineno, 0, macroscope};
   Ast * statement = n->sym == sym_function_definition ?
     ast_copy (n) : ast_copy (ast_child (n, sym_statement));
+  ast_traverse (statement, stack, postmacros, &d);
   ast_traverse (statement, stack, kernel, &d);
 
-  if (d.error) {
-    if (argument)
-      ast_after (argument, "$(\"", d.error, "\")");
-    else
-      str_append (s, "$(\"", d.error, "\")");
-  }
+  if (d.error)
+    str_append (argument, "\"", d.error, "\"");
   else {
-    if (argument)
-      ast_after (argument, "$(\"");
-    else
-      str_append (s, "$(\"");
-    s = stringify (statement, s);
-    if (argument)
-      ast_after (argument, s, "\")");
-    else
-      str_append (s, "\")");
+    str_append (argument, "\"");
+    argument = stringify (statement, argument, nolineno);
+    str_append (argument, "\"");
   }
   free (d.error);
   ast_pop_scope (stack, n);
-  return s;
+  return argument;
 }

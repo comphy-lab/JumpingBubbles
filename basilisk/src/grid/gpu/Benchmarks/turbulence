@@ -56,6 +56,30 @@ done
 # Multigrid (GPU), 2991 steps, 14.5549 CPU, 14.56 real, 8.62e+08 points.step/s, 8 var
 # Multigrid (GPU), 3011 steps, 53.9424 CPU, 53.95 real, 9.36e+08 points.step/s, 8 var
 
+OpenGL renderer string: NVIDIA GeForce RTX 4090/PCIe/SSE2
+Dedicated video memory: 24564 MB
+
+for i in 128 256 512 1024 2048 4096; do
+  OMP_NUM_THREADS=1 turbulence.gpu/turbulence.gpu $i 2> /tmp/log;
+done
+
+# Multigrid (GPU), 2009 steps, 1.26929 CPU, 1.27 real, 2.59e+07 points.step/s, 8 var
+# Multigrid (GPU), 2008 steps, 1.41643 CPU, 1.416 real, 9.29e+07 points.step/s, 8 var
+# Multigrid (GPU), 2328 steps, 2.00638 CPU, 2.007 real, 3.04e+08 points.step/s, 8 var
+# Multigrid (GPU), 2767 steps, 3.154 CPU, 3.154 real, 9.2e+08 points.step/s, 8 var
+# Multigrid (GPU), 2991 steps, 6.92783 CPU, 6.928 real, 1.81e+09 points.step/s, 8 var
+# Multigrid (GPU), 3011 steps, 31.0801 CPU, 31.08 real, 1.63e+09 points.step/s, 8 var
+
+OpenGL renderer string: NVIDIA GeForce RTX 4090 D/PCIe/SSE2 (stokes.lmm.jussieu.fr)
+Dedicated video memory: 24564 MB
+
+# Multigrid (GPU), 2009 steps, 1.39246 CPU, 1.392 real, 2.36e+07 points.step/s, 8 var
+# Multigrid (GPU), 2008 steps, 1.5809 CPU, 1.581 real, 8.32e+07 points.step/s, 8 var
+# Multigrid (GPU), 2328 steps, 2.20537 CPU, 2.205 real, 2.77e+08 points.step/s, 8 var
+# Multigrid (GPU), 2767 steps, 3.45719 CPU, 3.457 real, 8.39e+08 points.step/s, 8 var
+# Multigrid (GPU), 2991 steps, 7.41217 CPU, 7.413 real, 1.69e+09 points.step/s, 8 var
+# Multigrid (GPU), 3011 steps, 31.3258 CPU, 31.33 real, 1.61e+09 points.step/s, 8 var
+
 CFLAGS='-DTRACE=2 -DBENCHMARK=1' make turbulence.gpu.tst
 
 __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia OMP_NUM_THREADS=1 turbulence.gpu/turbulence.gpu 256

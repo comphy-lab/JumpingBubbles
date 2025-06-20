@@ -41,7 +41,7 @@ int main()
   We define a [rectangular domain using (eight) parallel
   domains](/src/Tips#non-cubic-domains). */
   
-  dimensions (ny = 1);
+  dimensions (nx = 8, ny = 1);
   L0 = npe();
   X0 = -L0/2.;
   N = 64*npe();

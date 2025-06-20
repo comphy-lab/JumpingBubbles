@@ -54,7 +54,7 @@ faststack.o: stack.h symbols.h ast.h
 
 tokens.o: ast.h basilisk.c
 
-translate.o: ast.h symbols.h einstein_sum.h
+translate.o: ast.h symbols.h einstein_sum.h macro.h optional.h
 
 stencil.o: ast.h symbols.h
 

@@ -186,7 +186,7 @@ event logfile (i += 10; t <= 5.)
   Energy E = energy();
   if (i == 0)
     E0 = E;
-  fprintf (stderr, "%g %g %.12g %.12g\n", t, error(),
+  fprintf (stderr, "%5g %5g %5g %5g\n", t, error(),
 	   E.ke/(E0.ke + E0.pe), E.pe/(E0.ke + E0.pe));
 }
 

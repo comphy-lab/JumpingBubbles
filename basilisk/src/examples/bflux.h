@@ -36,52 +36,61 @@ event viscous_term (i++)
 {
 
   /**
-  In order to distribute the fluxes within each layer, we first
-  compute the volume of the northern and southern ports, for each
-  layer. */
-  
-  double sht[nl], shb[nl];
-  for (int l = 0; l < nl; l++)
-    sht[l] = shb[l] = 0.;
-  foreach(reduction(+:sht[:nl]) reduction(+:shb[:nl]))
-    foreach_layer() {
-      sht[point.l] += northern_flux()*fmax(h[] - hmin[point.l]/10., 0.)*dv();
-      shb[point.l] += southern_flux()*fmax(h[] - hmin[point.l]/10., 0.)*dv();
-    }
-
-  /**
   The fluxes (in m^3^/s i.e. Sverdrups/10^6^) are given in Table 2 of
   H&H, 2000. 
 
   See also the 2nd paragraph page 295 which discusses in more detail
   the chosen fluxes and their control of the northward, southward
-  (Deep Western Boundary Current) and upward currents. */
+  (Deep Western Boundary Current) and upward (Atlantic Meridional
+  Overturning Circulation, AMOC) currents. */
 
-#if NODWBC
-  static const double northern[] =
-    { 0., - 0.33e6, - 2.33e6, - 4.84e6, - 6.5e6 };
-  static const double southern[] =
-    { 0.,   0.33e6,   2.33e6,   4.84e6,   6.5e6 };
-#else
-  static const double factor = 0.9;
-  static const double northern[] =
-    { + 14e6, - 0.33e6, - 2e6*factor - 0.33e6, - 4.5e6*factor - 0.34e6, - 6.5e6*factor };
-  static const double southern[] =
-    { - 13e6, 0., 2e6*factor, 4.5e6*factor, 6.5e6*factor };
-#endif
+  #define factor 0.9
+  static const double AMOC = 1e6;
+  static const double southern[] = {
+    - 13e6,        // bottom layer
+    0.,
+    2e6*factor,
+    4.5e6*factor,
+    6.5e6*factor   // top layer
+  };
+  static const double northern[] = {
+    + AMOC    - southern[0], // bottom layer
+    - AMOC/3. - southern[1],
+    - AMOC/3. - southern[2],
+    - AMOC/3. - southern[3],
+    - southern[4]            // top layer
+  };
+  assert (nl == 5);
 
   /**
-  The fluxes are imposed using a thickness-weighted sum over the
-  northern and southern ports. */
+  In order to distribute the fluxes within each layer, we compute the
+  volume of the northern and southern ports, for each layer. */
   
-  assert (nl == 5);
+  double sht[nl], shb[nl];
+  foreach_layer() {
+    double t = 0., b = 0.;
+    foreach(reduction(+:t) reduction(+:b)) {
+      t += northern_flux()*fmax(h[] - hmin[_layer]/10., 0.)*dv();
+      b += southern_flux()*fmax(h[] - hmin[_layer]/10., 0.)*dv();
+    }
+    assert (t > 0. && b > 0.);
+    sht[_layer] = northern[_layer]/t, shb[_layer] = southern[_layer]/b;
+  }
+
   foreach()
     foreach_layer() {
-      h[] += dt*northern_flux()*fmax(h[] - hmin[point.l]/10., 0.)*
-	northern[point.l]/max(sht[point.l], dry);
-      h[] += dt*southern_flux()*fmax(h[] - hmin[point.l]/10., 0.)*
-	southern[point.l]/max(shb[point.l], dry);
-      if (h[] < 0.)
-	h[] = 0.;
+
+      /**
+      The fluxes are imposed using a thickness-weighted sum over the
+      northern and southern ports. */
+
+      if (h[] > hmin[point.l]/10.) {
+	double hn = h[];
+	if (northern_flux())
+	  hn += dt*(h[] - hmin[point.l]/10.)*sht[point.l];
+	if (southern_flux())
+	  hn += dt*(h[] - hmin[point.l]/10.)*shb[point.l];
+	h[] = fmax(hn, 0.);
+      }
     }
 }

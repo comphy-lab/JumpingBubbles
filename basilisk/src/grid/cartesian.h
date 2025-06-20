@@ -12,7 +12,7 @@ typedef double real;
 
 #define _I     (point.i - 1)
 #define _J     (point.j - 1)
-#define _DELTA (1./N)
+#define _DELTA (1./(real)N)
 
 typedef struct {
   Grid g;
@@ -22,63 +22,71 @@ typedef struct {
 
 struct _Point {
   int i, j, level, n;
-@ifdef foreach_block
+#if LAYERS
   int l;
   @define _BLOCK_INDEX , point.l
-@else
+#else
   @define _BLOCK_INDEX
-@endif
+#endif
 };
 static Point last_point;
 
 #define cartesian ((Cartesian *)grid)
 
 @undef val
-@define val(a,k,l,m) (((real *)cartesian->d)[(point.i + k + _index(a,m)*(point.n + 2))*(point.n + 2) + point.j + l])
+@define val(a,k,l,m) (((real *)cartesian->d)[(point.i + k + _index(a,m)*(size_t)(point.n + 2))*(point.n + 2) + point.j + l])
 @define allocated(...) true
 
-@define POINT_VARIABLES VARIABLES
+macro POINT_VARIABLES (Point point = point) { VARIABLES(); }
 
-@def foreach()
-OMP_PARALLEL() {
-  int ig = 0, jg = 0; NOT_UNUSED(ig); NOT_UNUSED(jg);
-  Point point = {0};
-  point.n = cartesian->n;
-  int _k;
-  OMP(omp for schedule(static))
-  for (_k = 1; _k <= point.n; _k++) {
-    point.i = _k;
-    for (point.j = 1; point.j <= point.n; point.j++) {
-      POINT_VARIABLES
-@
-@define end_foreach() }}}
+macro2 foreach (char flags = 0, Reduce reductions = None)
+{
+  OMP_PARALLEL (reductions) {
+    int ig = 0, jg = 0; NOT_UNUSED(ig); NOT_UNUSED(jg);
+    Point point = {0};
+    point.n = cartesian->n;
+    int _k;
+    OMP(omp for schedule(static))
+      for (_k = 1; _k <= point.n; _k++) {
+	point.i = _k;
+	for (point.j = 1; point.j <= point.n; point.j++)
+	  {...}
+      }
+  }
+}
 
-@def foreach_face_generic()
-OMP_PARALLEL() {
-  int ig = 0, jg = 0; NOT_UNUSED(ig); NOT_UNUSED(jg);
-  Point point = {0};
-  point.n = cartesian->n;
-  int _k;
-  OMP(omp for schedule(static))
-  for (_k = 1; _k <= point.n + 1; _k++) {
-    point.i = _k;
-    for (point.j = 1; point.j <= point.n + 1; point.j++) {
-      POINT_VARIABLES
-@
-@define end_foreach_face_generic() }}}
-
-@def foreach_vertex()
-foreach_face_generic() {
-  x -= Delta/2.; y -= Delta/2.;
-@
-@define end_foreach_vertex() } end_foreach_face_generic()
+macro2 foreach_face_generic (char flags = 0, Reduce reductions = None,
+				const char * order = "xyz")
+{
+  OMP_PARALLEL (reductions) {
+    int ig = 0, jg = 0; NOT_UNUSED(ig); NOT_UNUSED(jg);
+    Point point = {0};
+    point.n = cartesian->n;
+    int _k;
+    OMP(omp for schedule(static))
+      for (_k = 1; _k <= point.n + 1; _k++) {
+	point.i = _k;
+	for (point.j = 1; point.j <= point.n + 1; point.j++)
+	  {...}
+      }
+  }
+}
 
 #define foreach_edge() foreach_face(y,x)
 
-@define is_face_x() { int ig = -1; VARIABLES; if (point.j <= point.n) {
-@define end_is_face_x() }}
-@define is_face_y() { int jg = -1; VARIABLES; if (point.i <= point.n) {
-@define end_is_face_y() }}
+macro1 is_face_x (Point p = point) {
+  if (p.j <= p.n) {
+    int ig = -1; NOT_UNUSED(ig);
+    {...}
+  }
+}
+
+macro1 is_face_y (Point p = point) {
+  if (p.i <= p.n) {
+    int jg = -1; NOT_UNUSED(jg);
+    {...}
+  }
+}
   
 @if TRASH
 @ undef trash
@@ -93,48 +101,45 @@ void reset (void * alist, double val)
   size_t len = sq(cartesian->n + 2);
   for (scalar s in list)
     if (!is_constant(s))
-      for (int i = 0; i < len; i++)
+      for (size_t i = 0; i < len; i++)
 	((real *)cartesian->d)[i + s.i*len] = val;
 }
 
 // Boundaries
 
-@def foreach_boundary_dir(l,d)
+macro2 foreach_boundary_dir (int l, int d)
+{
   OMP_PARALLEL() {
-  int ig = 0, jg = 0, kg = 0; NOT_UNUSED(ig); NOT_UNUSED(jg); NOT_UNUSED(kg);
-  Point point = {0};
-  point.n = cartesian->n;
-  int * _i = &point.j;
-  if (d == left) {
-    point.i = GHOSTS;
-    ig = -1;
-  }
-  else if (d == right) {
-    point.i = point.n + GHOSTS - 1;
-    ig = 1;
-  }
-  else if (d == bottom) {
-    point.j = GHOSTS;
-    _i = &point.i;
-    jg = -1;
-  }
-  else if (d == top) {
-    point.j = point.n + GHOSTS - 1;
-    _i = &point.i;
-    jg = 1;
-  }
-  int _l;
-  OMP(omp for schedule(static))
-  for (_l = 0; _l < point.n + 2*GHOSTS; _l++) {
-    *_i = _l;
-    {
-      POINT_VARIABLES
-@
-@def end_foreach_boundary_dir()
+    int ig = 0, jg = 0, kg = 0; NOT_UNUSED(ig); NOT_UNUSED(jg); NOT_UNUSED(kg);
+    Point point = {0};
+    point.n = cartesian->n;
+    int * _i = &point.j;
+    if (d == left) {
+      point.i = GHOSTS;
+      ig = -1;
     }
+    else if (d == right) {
+      point.i = point.n + GHOSTS - 1;
+      ig = 1;
+    }
+    else if (d == bottom) {
+      point.j = GHOSTS;
+      _i = &point.i;
+      jg = -1;
+    }
+    else if (d == top) {
+      point.j = point.n + GHOSTS - 1;
+      _i = &point.i;
+      jg = 1;
+    }
+    int _l;
+    OMP(omp for schedule(static))
+      for (_l = 0; _l < point.n + 2*GHOSTS; _l++) {
+	*_i = _l;
+	{...}
+      }
   }
-  }
-@
+}
 
 @define neighbor(o,p,q) ((Point){point.i+o, point.j+p, point.level, point.n})
 @def is_boundary(point) (point.i < GHOSTS || point.i >= point.n + GHOSTS ||
@@ -150,6 +155,7 @@ static void box_boundary_level_normal (const Boundary * b, scalar * list, int l)
 
   OMP_PARALLEL() {
     Point point = {0};
+    int ig, jg;
     point.n = cartesian->n;
     if (d % 2)
       ig = jg = 0;
@@ -178,7 +184,7 @@ static void box_boundary_level_tangent (const Boundary * b,
   OMP_PARALLEL() {
     Point point = {0};
     point.n = cartesian->n;
-    ig = _ig[d]; jg = _jg[d];
+    int ig = _ig[d], jg = _jg[d];
     int _start = GHOSTS, _end = point.n + 2*GHOSTS, _k;
   
     OMP(omp for schedule(static))
@@ -194,14 +200,16 @@ static void box_boundary_level_tangent (const Boundary * b,
   }
 }
 
-@def foreach_boundary(b)
+extern double (* default_scalar_bc[]) (Point, Point, scalar, bool *);
+static double periodic_bc (Point point, Point neighbor, scalar s, bool * data);
+
+macro2 foreach_boundary (int b)
+{
   if (default_scalar_bc[b] != periodic_bc)
     foreach_boundary_dir (depth(), b)
-      if (!is_boundary(point)) {
-@
-@define end_foreach_boundary() } end_foreach_boundary_dir()
-
-static double periodic_bc (Point point, Point neighbor, scalar s, bool * data);
+      if (!is_boundary(point))
+	{...}
+}
 
 static void box_boundary_level (const Boundary * b, scalar * list, int l)
 {
@@ -230,7 +238,7 @@ static void box_boundary_level (const Boundary * b, scalar * list, int l)
   OMP_PARALLEL() {
     Point point = {0};
     point.n = cartesian->n;
-    ig = _ig[d]; jg = _jg[d];
+    int ig = _ig[d], jg = _jg[d];
     int _start = 1, _end = point.n, _k;
     /* traverse corners only for top and bottom */
     if (d > left) { _start--; _end++; }
@@ -316,7 +324,7 @@ void init_grid (int n)
     return;
   free_grid();
   Cartesian * p = qmalloc (1, Cartesian);
-  size_t len = (n + 2)*(n + 2)*datasize;
+  size_t len = sq((size_t)n + 2)*datasize;
   p->n = N = n;
   p->d = qmalloc (len, char);
   grid = (Grid *) p;
@@ -335,14 +343,14 @@ void init_grid (int n)
     add_boundary (b);
   }
   // mesh size
-  grid->n = grid->tn = sq(n);
+  grid->n = grid->tn = sq((size_t)n);
 }
 
 void realloc_scalar (int size)
 {
   Cartesian * p = cartesian;
   datasize += size;  
-  qrealloc (p->d, (p->n + 2)*(p->n + 2)*datasize, char);
+  qrealloc (p->d, sq((size_t)p->n + 2)*datasize, char);
 }
 
 Point locate (double xp = 0, double yp = 0, double zp = 0)
@@ -356,6 +364,15 @@ Point locate (double xp = 0, double yp = 0, double zp = 0)
   return point;
 }
 
+#include "variables.h"
 #if !_GPU
 #include "cartesian-common.h"
 #endif
+
+macro2 foreach_vertex (char flags = 0, Reduce reductions = None)
+{
+  foreach_face_generic (flags, reductions) {
+    int ig = -1, jg = -1; NOT_UNUSED(ig); NOT_UNUSED(jg);
+    {...}
+  }
+}

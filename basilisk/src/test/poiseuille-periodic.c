@@ -6,7 +6,7 @@
 int main() {
   origin (-0.5, 0);
   periodic (top);
-  dimensions (nx = 1);
+  dimensions (nx = 1, ny = 4);
   
   stokes = true;
   TOLERANCE = 1e-5 [*];

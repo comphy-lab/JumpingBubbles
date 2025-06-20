@@ -69,7 +69,7 @@ clean:
 %.s: %.c $(QCC)
 	@echo qcc -autolink $(CFLAGS) $(subst .3D_,-grid=octree,$(findstring .3D_,$*_)) \
 		-o $*/$* $*.c $(LIBS) -lm
-	@rm -f $*/fail $*/warn
+	@rm -f $*/fail $*/warn $*.dims
 	@OPENGLIBS="$(OPENGLIBS)" $(QCC) -autolink -nolineno $(STRIPFLAGS) 	\
 		-dimensions=dims -non-finite					\
 		$(subst -g ,,$(subst -O2 ,,$(CFLAGS))) 				\
@@ -86,7 +86,7 @@ clean:
 	@chmod -x $@
 	@test ! -s $*.log~ || ( mkdir -p $* && cat $*.log~ > $*/warn && cat $*/warn 2> /dev/stderr )
 	@rm -f $*.log~ $*/fail
-	@test ! -f $*.dims.ref || diff $*.dims $*.dims.ref || (rm -f $@ && exit 1)
+	@test ! -f $*.dims.ref -o ! -f $*.dims || diff $*.dims $*.dims.ref || (rm -f $@ && exit 1)
 #	@rm -f $*.dims
 
 %.prof: %.c

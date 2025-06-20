@@ -209,10 +209,9 @@ event face_fields (i++, last)
   The (CFL-limited) timestep is also computed by this function. A
   difficulty is that the prediction step below also requires an
   estimated timestep (the `pdt` variable below). The timestep at the
-  previous iteration is used as estimate. For the initial timestep a
-  "sufficiently small" value is used. */
-  
-  static double pdt = 1e-6;
+  previous iteration is used as estimate. */
+
+  static double pdt = 0.;
   foreach_face (reduction (min:dtmax)) {
     double ax = a_baro (eta, 0);
     double H = 0., um = 0.;
@@ -322,8 +321,8 @@ void advect (scalar * tracers, face vector hu, face vector hf, double dt)
 	  hu.x[0,0,1] += hu.x[] - hul;
 #if !_GPU
 	else if (nl > 1)
-	  fprintf (stderr, "warning: could not conserve barotropic flux "
-		   "at %g,%g,%d\n", x, y, point.l);
+	  fprintf (stderr, "src/layered/hydro.h:%d: warning: could not conserve barotropic flux "
+		   "at %g,%g,%d\n", LINENO, x, y, point.l);
 #endif
 	hu.x[] = hul;
       }
@@ -384,8 +383,8 @@ void advect (scalar * tracers, face vector hu, face vector hf, double dt)
 	h1 += dt*(hu.x[] - hu.x[1])/(Delta*cm[]);
 #if !_GPU
       if (h1 < - dry)
-	fprintf (stderr, "warning: h1 = %g < - 1e-12 at %g,%g,%d,%g\n",
-		 h1, x, y, _layer, t);
+	fprintf (stderr, "src/layered/hydro.h:%d: warning: h1 = %g < - 1e-12 at %g,%g,%d,%g\n",
+		 LINENO, h1, x, y, _layer, t);
 #endif
       h[] = max(h1, 0.);
       if (h1 < dry) {
@@ -457,8 +456,7 @@ event pressure (i++, last)
 }
   
 /**
-Finally the free-surface height $\eta$ is updated and the boundary
-conditions are applied. */
+Finally the free-surface height $\eta$ is updated. */
 
 event update_eta (i++, last)
 {
@@ -675,13 +673,13 @@ double segment_flux (coord segment[2], double * flux, scalar h, vector u)
   normalize (&m);
   for (int l = 0; l < nl; l++)
     flux[l] = 0.;
-  foreach_segment (segment, p) {
+  foreach_segment (segment, p, reduction(+:flux[:nl])) {
     double dl = 0.;
     foreach_dimension() {
       double dp = (p[1].x - p[0].x)*Delta/Delta_x*(fm.y[] + fm.y[0,1])/2.;
       dl += sq(dp);
     }
-    dl = sqrt (dl);    
+    dl = sqrt (dl);
     for (int i = 0; i < 2; i++) {
       coord a = p[i];
       foreach_layer()
@@ -691,10 +689,6 @@ double segment_flux (coord segment[2], double * flux, scalar h, vector u)
 	 m.y*interpolate_linear (point, u.y, a.x, a.y, 0.));
     }
   }
-  // reduction
-#if _MPI
-  MPI_Allreduce (MPI_IN_PLACE, flux, nl, MPI_DOUBLE, MPI_SUM, MPI_COMM_WORLD);
-#endif
   double tot = 0.;
   for (int l = 0; l < nl; l++)
     tot += flux[l];

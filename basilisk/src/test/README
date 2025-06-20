@@ -195,7 +195,7 @@ Note that only the documented test cases appear in the list below
 
 ## GPU tests
 
-These tests need to be run manually using:
+These tests can be run manually using:
 
 ~~~bash
 make -k gpu-tests
@@ -208,11 +208,14 @@ make -k gpu-tests
 * [Time-reversed advection in a vortex](advection.c)
 * [Saint-Venant bump](bump2D-gpu.c)
 * [Time-reversed VOF advection in a vortex](reversed.c)
+* [Stommel gyre](stommel-ml.c)
+* [Isopycnal gyres intersecting the bathymetry](bleck.c)
 
 Tests for the multigrid solver on GPUs.
 
 * [Convergence of axisymmetric viscous terms](axi.c)
 * [Lid-driven cavity](lid.c)
+* [Rising bubble (CLSVOF version)](rising.c)
 
 See also the [GPU Benchmarks](/src/grid/gpu/Benchmarks.md).
 
@@ -236,6 +239,7 @@ See also the [GPU Benchmarks](/src/grid/gpu/Benchmarks.md).
 * [Segment traversal](segment.c)
 * [Redistancing of a perturbed distance field](redistance-ellipse.c)
 * [Einstein summation](einstein_sum.c)
+* [Macros](macro.c)
 
 ## Unmaintained
 

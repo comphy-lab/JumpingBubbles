@@ -1,6 +1,6 @@
 all: check 3D-tests mpi-tests load-balancing curvature-tests	\
 	axi-tests cadna-tests embed-tests multilayer-tests	\
-	multilayer-stratified gotm-tests dimensions-tests
+	multilayer-stratified gotm-tests dimensions-tests gpu-tests
 
 failed:
 	$(MAKE) -k `find . -name fail | sed -e 's|\./||g' -e 's|/fail|.tst|g'`
@@ -356,9 +356,8 @@ ponds-ml.c: ponds.c
 	ln -sf ponds.c ponds-ml.c 
 ponds-ml.tst: ponds.s
 
+ponds-ml.s: CFLAGS += -DML=1
 ponds-ml.tst: CFLAGS += -DML=1
-
-stommel-ml.tst: CFLAGS += -DML=1
 
 nonlinear.tst: nonlinear-ml.tst
 
@@ -470,6 +469,14 @@ restore-tree.tst: pdump.tst restore-tree.dump
 restore-tree.tst: CFLAGS = -DDEBUGCOND=false
 restore-tree.tst: CC = mpicc -D_MPI=23
 
+restore-multigrid-serial.dump: pdump-multigrid/restore.dump
+	ln -sf pdump-multigrid/restore.dump restore-multigrid-serial.dump
+restore-multigrid-serial.tst: pdump-multigrid.tst restore-multigrid-serial.dump
+
+restore-rectangle.dump: dump-rectangle/restore-rectangle.dump
+	ln -sf dump-rectangle/restore-rectangle.dump
+restore-rectangle.tst: dump-rectangle.tst restore-rectangle.dump
+
 bump2Dp-restore.c: bump2Dp.c
 	ln -sf bump2Dp.c bump2Dp-restore.c
 bump2Dp-restore.dump: bump2Dp/dump
@@ -574,11 +581,17 @@ dimensions-tests: bump2D.s capwave.s lid.s rising-axi.s		\
 # GPUs
 # fixme: the dependencies *.gpu.s.d are not created automatically
 gpu-tests: gpu.gpu.tst gpu-cpu.gpu.tst gpu-reduce.gpu.tst layers.gpu.tst nonlinear.gpu.tst \
-	advection.gpu.tst bump2D-gpu.tst reversed.gpu.tst axi.gpu.tst lid.gpu.tst
+	advection.gpu.tst bump2D-gpu.tst reversed.gpu.tst axi.gpu.tst lid.gpu.tst \
+	stommel-ml.gpu.tst bleck.gpu.tst rising-clsvof.gpu.tst
 gpu-tests: CFLAGS += -DPRINTNSHADERS
 
 gpu-cpu.c: gpu.c
 	ln -sf gpu.c gpu-cpu.c
 gpu-cpu.gpu.tst: CFLAGS += -cpu
+
+rising-clsvof.gpu.c: rising.c
+	ln -sf rising.c rising-clsvof.gpu.c
+rising-clsvof.gpu.s: CFLAGS += -DLEVELSET=1 -DCLSVOF=1
+rising-clsvof.gpu.tst: CFLAGS += -DLEVELSET=1 -DCLSVOF=1
 
 include ../Makefile.defs

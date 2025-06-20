@@ -1,23 +1,24 @@
+typedef double number; // used in macros to indicate "any numeric type"
 #define pi 3.14159265358979
 #undef HUGE
-#define HUGE 1e30
+#define HUGE 1e30f
 #define nodata HUGE
 
-@define max(a,b) ((a) > (b) ? (a) : (b))
-@define min(a,b) ((a) < (b) ? (a) : (b))
-@define sq(x) ((x)*(x))
-@define cube(x) ((x)*(x)*(x))
-@define sign(x) ((x) > 0 ? 1 : -1)
-@define sign2(x) ((x) > 0 ? 1 : (x) < 0 ? -1 : 0)
-@define noise() (1. - 2.*rand()/(double)RAND_MAX)
-@define clamp(x,a,b) ((x) < (a) ? (a) : (x) > (b) ? (b) : (x))
-#define swap(type,a,b) do { type _tmp_ = a; a = b; b = _tmp_; } while(false)
-@define unmap(x,y)
+macro number max (number a, number b) { return a > b ? a : b; }
+macro number min (number a, number b) { return a < b ? a : b; }
+macro number sq (number x) { return x*x; }
+macro number cube (number x) { return x*x*x; }
+macro int sign (number x) { return (int)(x > 0 ? 1 : -1); }
+macro int sign2 (number x) { return (int)(x > 0 ? 1 : x < 0 ? -1 : 0); }
+macro number clamp (number x, number a, number b) {
+  return x < a ? a : x > b ? b : x;
+}
 
-@define trash(x)  // data trashing is disabled by default. Turn it on with
-                  // -DTRASH=1
+#define swap(type,a,b) do { type _tmp_ = a; a = b; b = _tmp_; } while(false)
 
 #include "grid/config.h"
+
+static inline double noise() { return 1. - 2.*rand()/(double)RAND_MAX; }
 
 // the grid
 typedef struct {
@@ -125,13 +126,6 @@ int nboundary = 2*dimension;
 
 #define none -1
 
-@define _dirichlet(expr, ...)             (2.*(expr) - val(_s,0,0,0))
-@define _dirichlet_homogeneous(...)       (- val(_s,0,0,0))
-@define _dirichlet_face(expr,...)         (expr)
-@define _dirichlet_face_homogeneous(...)  (0.)
-@define _neumann(expr,...)                (Delta*(expr) + val(_s,0,0,0))
-@define _neumann_homogeneous(...)         (val(_s,0,0,0))
-
 double  * _constant = NULL;
 size_t datasize = 0;
 typedef struct _Point Point;
@@ -147,7 +141,7 @@ typedef struct {
 #endif
 #if dimension > 2
   int z;
-#endif  
+#endif
 } ivec;
 typedef double (* BoundaryFunc) (Point, Point, scalar, bool *);
 typedef struct {
@@ -168,6 +162,14 @@ static _Attributes * _attribute = NULL;
 
 #define foreach_block() // treatment of block data is disabled by default
 #define foreach_blockf(s)
+
+#if dimension == 1
+ivec Dimensions = {1};
+#elif dimension == 2
+ivec Dimensions = {1,1};
+#elif dimension == 3
+ivec Dimensions = {1,1,1};
+#endif
 
 // lists
 
@@ -390,8 +392,6 @@ const scalar zeroc[] = 0.;
 (const) face vector fm[] = {1.[0],1.[0],1.[0]};
 (const) scalar cm[] = 1.[0];
 
-
-
 // Embedded boundaries
 // these macros are overloaded in embed.h
 
@@ -529,8 +529,6 @@ typedef struct {
   float r, g, b, a;
 } vec4;
 
-@define attroffset(x) (offsetof(_Attributes,x))
-
 #if dimension == 1
 # define avector(x, ...)    {x}
 #elif dimension == 2
@@ -538,19 +536,6 @@ typedef struct {
 #else // dimension == 3
 # define avector(x, y, z)   {x, y, z}
 #endif
-
-@define BEGIN_FOREACH
-@define END_FOREACH
- 
-#if LAYERS
-# include "grid/layers.h"
-#endif
-
-#include "grid/stencils.h"
-
-#define dirichlet(expr)                 _dirichlet(expr, point, neighbor, _s, data)
-#define dirichlet_face(expr)            _dirichlet_face(expr, point, neighbor, _s, data)
-#define neumann(expr)                   _neumann(expr, point, neighbor, _s, data)
 
 typedef struct {
   coord x, y, z;
@@ -567,3 +552,27 @@ OMP(omp declare reduction (+ : mat3 :
 			   omp_out.z.y += omp_in.z.y,
 			   omp_out.z.z += omp_in.z.z
 			   ))
+
+typedef struct {
+  uint32_t s;
+} Adler32Hash;
+
+static
+inline void a32_hash_init (Adler32Hash * hash)
+{
+  hash->s = 0;
+}
+
+static
+inline void a32_hash_add (Adler32Hash * hash, const void * data, size_t size)
+{
+  const uint8_t * buffer = (const uint8_t*) data;
+  for (size_t n = 0; n < size; n++, buffer++)
+    hash->s = *buffer + (hash->s << 6) + (hash->s << 16) - hash->s;
+}
+
+static
+inline uint32_t a32_hash (const Adler32Hash * hash)
+{
+  return hash->s;
+}

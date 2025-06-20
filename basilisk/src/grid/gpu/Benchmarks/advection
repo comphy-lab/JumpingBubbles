@@ -50,4 +50,26 @@ Dedicated video memory: 24576 MB
 # Multigrid (GPU), 3100 steps, 0.289842 CPU, 0.2898 real, 2.8e+09 points.step/s, 8 var
 # Multigrid (GPU), 6163 steps, 1.49181 CPU, 1.492 real, 4.33e+09 points.step/s, 8 var
 # Multigrid (GPU), 12282 steps, 10.7582 CPU, 10.76 real, 4.79e+09 points.step/s, 8 var
+
+OpenGL renderer string: NVIDIA GeForce RTX 4090/PCIe/SSE2
+Dedicated video memory: 24564 MB
+
+./advection.gpu/advection.gpu 2048 2> /dev/null | grep steps
+# Multigrid (GPU), 412 steps, 0.039116 CPU, 0.03912 real, 4.31e+07 points.step/s, 8 var
+# Multigrid (GPU), 799 steps, 0.055118 CPU, 0.05512 real, 2.38e+08 points.step/s, 8 var
+# Multigrid (GPU), 1569 steps, 0.122464 CPU, 0.1225 real, 8.4e+08 points.step/s, 8 var
+# Multigrid (GPU), 3102 steps, 0.248881 CPU, 0.2489 real, 3.27e+09 points.step/s, 8 var
+# Multigrid (GPU), 6165 steps, 0.73287 CPU, 0.7329 real, 8.82e+09 points.step/s, 8 var
+# Multigrid (GPU), 12284 steps, 4.92467 CPU, 4.925 real, 1.05e+10 points.step/s, 8 var
+
+OpenGL renderer string: NVIDIA GeForce RTX 4090 D/PCIe/SSE2 (stokes.lmm.jussieu.fr)
+Dedicated video memory: 24564 MB
+
+./advection.gpu/advection.gpu 2048 2> /dev/null | grep steps
+# Multigrid (GPU), 412 steps, 0.058459 CPU, 0.05846 real, 2.89e+07 points.step/s, 8 var
+# Multigrid (GPU), 799 steps, 0.103384 CPU, 0.1034 real, 1.27e+08 points.step/s, 8 var
+# Multigrid (GPU), 1569 steps, 0.231444 CPU, 0.2315 real, 4.44e+08 points.step/s, 8 var
+# Multigrid (GPU), 3102 steps, 0.439395 CPU, 0.4394 real, 1.85e+09 points.step/s, 8 var
+# Multigrid (GPU), 6165 steps, 1.11655 CPU, 1.117 real, 5.79e+09 points.step/s, 8 var
+# Multigrid (GPU), 12284 steps, 5.46386 CPU, 5.464 real, 9.43e+09 points.step/s, 8 var
 ~~~

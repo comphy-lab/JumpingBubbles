@@ -1,5 +1,81 @@
 #define MULTIGRID_MPI 1
 
+#if dimension == 1
+
+macro2 foreach_slice_x (int start, int end, int l) {
+  {
+    int ig = 0; NOT_UNUSED(ig);
+    Point point = {0};
+    point.level = l; SET_DIMENSIONS();
+    for (point.i = start; point.i < end; point.i++)
+      {...}
+  }
+}
+
+#elif dimension == 2
+
+macro2 foreach_slice_x (int start, int end, int l) {
+  {
+    int ig = 0, jg = 0; NOT_UNUSED(ig); NOT_UNUSED(jg);
+    Point point = {0};
+    point.level = l; SET_DIMENSIONS();
+    for (point.i = start; point.i < end; point.i++)
+      for (point.j = 0; point.j < point.n.y + 2*GHOSTS; point.j++)
+	{...}
+  }
+}
+
+macro2 foreach_slice_y (int start, int end, int l) {
+  {
+    int ig = 0, jg = 0; NOT_UNUSED(ig); NOT_UNUSED(jg);
+    Point point = {0};
+    point.level = l; SET_DIMENSIONS();
+    for (point.i = 0; point.i < point.n.x + 2*GHOSTS; point.i++)
+      for (point.j = start; point.j < end; point.j++)
+	{...}
+  }
+}
+
+#elif dimension == 3
+
+macro2 foreach_slice_x (int start, int end, int l) {
+  {
+    int ig = 0, jg = 0, kg = 0; NOT_UNUSED(ig); NOT_UNUSED(jg); NOT_UNUSED(kg);
+    Point point = {0};
+    point.level = l; SET_DIMENSIONS();
+    for (point.i = start; point.i < end; point.i++)
+      for (point.j = 0; point.j < point.n.y + 2*GHOSTS; point.j++)
+	for (point.k = 0; point.k < point.n.z + 2*GHOSTS; point.k++)
+	  {...}
+  }
+}
+
+macro2 foreach_slice_y (int start, int end, int l) {
+  {
+    int ig = 0, jg = 0, kg = 0; NOT_UNUSED(ig); NOT_UNUSED(jg); NOT_UNUSED(kg);
+    Point point = {0};
+    point.level = l; SET_DIMENSIONS();
+    for (point.i = 0; point.i < point.n.x + 2*GHOSTS; point.i++)
+      for (point.j = start; point.j < end; point.j++)
+	for (point.k = 0; point.k < point.n.z + 2*GHOSTS; point.k++)
+	  {...}
+  }
+}
+
+macro2 foreach_slice_z (int start, int end, int l) {
+  {
+    int ig = 0, jg = 0, kg = 0; NOT_UNUSED(ig); NOT_UNUSED(jg); NOT_UNUSED(kg);
+    Point point = {0};
+    point.level = l; SET_DIMENSIONS();
+    for (point.i = 0; point.i < point.n.x + 2*GHOSTS; point.i++)
+      for (point.j = 0; point.j < point.n.y + 2*GHOSTS; point.j++)
+	for (point.k = start; point.k < end; point.k++)
+	  {...}
+  }
+}
+
+#endif // dimension == 3
+
 typedef struct {
   Boundary b;
   MPI_Comm cartcomm;
@@ -87,12 +163,37 @@ static void mpi_boundary_destroy (Boundary * b)
   free (m);
 }
 
+static void mpi_dimensions_error (int n)
+{
+  fprintf (stderr,
+	   "%s:%d: error: the number of MPI processes must be equal to ",
+	   __FILE__, LINENO);
+  if (n > 1)
+    fprintf (stderr, "%dx", n);
+  fprintf (stderr, "%d^i\n", 1 << dimension);
+  exit (1);  
+}
+
 Boundary * mpi_boundary_new()
 {
   MpiBoundary * m = qcalloc (1, MpiBoundary);
-  MPI_Dims_create (npe(), dimension, mpi_dims);
+  int n = 1;
+  foreach_dimension()
+    n *= Dimensions.x;
+  if (npe() % n)
+    mpi_dimensions_error (n);
+  int j = npe()/n, i = 0;
+  while (j > 1) {
+    if (j % (1 << dimension))
+      mpi_dimensions_error (n);
+    j /= 1 << dimension;
+    i++;
+  }
+  foreach_dimension()
+    Dimensions.x *= 1 << i;
+  MPI_Dims_create (npe(), dimension, &Dimensions.x);
   MPI_Cart_create (MPI_COMM_WORLD, dimension,
-		   mpi_dims, &Period.x, 0, &m->cartcomm);
+		   &Dimensions.x, &Period.x, 0, &m->cartcomm);
   MPI_Cart_coords (m->cartcomm, pid(), dimension, mpi_coords);
 
   // make sure other boundary conditions are not applied
@@ -107,12 +208,13 @@ Boundary * mpi_boundary_new()
   }
 
   // rescale the resolution
-  N /= mpi_dims[0];
+  Dimensions_scale = Dimensions.x;
+  N /= Dimensions.x;
   int r = 0;
   while (N > 1)
     N /= 2, r++;
   grid->depth = grid->maxdepth = r;
-  N = mpi_dims[0]*(1 << r);
+  N = Dimensions.x*(1 << r);
   grid->n = 1 << dimension*depth();
   grid->tn = npe()*grid->n;
   

@@ -154,7 +154,7 @@ static void relax_viscosity (scalar * a, scalar * b, int l, void * data)
       ua.x[] = u.x[];
   boundary_level ((scalar *){ua}, l);
   for (int parity = 0; parity < 2; parity++)
-    foreach_level_or_leaf (l, nowarning)
+    foreach_level_or_leaf (l)
       if (level == 0 || ((point.i + parity) % 2) != (point.j % 2))
 #else
 #if dimension > 1

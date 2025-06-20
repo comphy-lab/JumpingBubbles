@@ -10,16 +10,14 @@ ast/interpreter/overload.h:35: malloc (size): 0xaddress
 /grid/array.h:13: a: 0xaddress
 test14.c:13: array_append (0xaddress, 0xaddress, 5)
 /grid/array.h:24: a->len + size >= a->max: 1
-/grid/array.h:25: max (5, 4096  + [/src/grid/array.h:25: '4096'])
-ast/interpreter/overload.h:466: 'a > b': [/src/grid/array.h:25: '4096'] = [0]
-ast/interpreter/overload.h:466: a > b ? a : b: 4096  + [/src/grid/array.h:25: '4096']
-/grid/array.h:25: a->max += max (size, 4096): 4096  + [/src/grid/array.h:12: 'a->len = 0']
+/grid/array.h:25: size > 4096 ? size : 4096: 4096  + [/src/grid/array.h:25: '4096']
+/grid/array.h:25: a->max += ( size > 4096 ? size : 4096): 4096  + [/src/grid/array.h:12: 'a->len = 0']
 /grid/array.h:26: prealloc (0xaddress, 4096  + [/src/grid/array.h:12: 'a->len = 0'])
 ast/interpreter/overload.h:45: realloc (0xaddress, 4096  + [/src/grid/array.h:12: 'a->len = 0'])
 ast/interpreter/overload.h:45: realloc (ptr, size): 0xaddress
 /grid/array.h:26: a->p = prealloc (a->p, a->max,__func__,__FILE__,__LINE__): 0xaddress
 /grid/array.h:28: (char *)a->p: 0xaddress
-/grid/array.h:28: memcpy (0xaddress, 0xaddress, 5 [0])
+/grid/array.h:28: memcpy (0xaddress, 0xaddress, 5)
 /grid/array.h:28: memcpy (((char *)a->p) + a->len, elem, size): 0xaddress
 /grid/array.h:29: a->len += size: 5  + [/src/grid/array.h:12: 'a->len = 0']
 /grid/array.h:30: (char *)a->p: 0xaddress

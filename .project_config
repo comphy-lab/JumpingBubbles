@@ -1,2 +1,2 @@
-export BASILISK=/Users/vatsal/Library/CloudStorage/Dropbox/Apps/gitHub/jumping-bubbles/basilisk/src
+export BASILISK=/Users/vatsal/Library/CloudStorage/Dropbox/1-Areas/WorkInProgress/JumpingBubbles/basilisk/src
 export PATH=$PATH:$BASILISK

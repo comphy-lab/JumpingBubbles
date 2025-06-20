@@ -25,14 +25,7 @@ extern double * hmin, * hmax;
 /**
 These come from the [multilayer solver](hydro.h). */
 
-extern scalar * hl;
 extern double dt, dry;
-
-/**
-This will store the initial volume of the isopycnal layers, which will
-be conserved by entrainment and detrainment. */
-
-static double * vhi = NULL;
 
 event viscous_term (i++)
 {
@@ -45,27 +38,22 @@ event viscous_term (i++)
     return 0;
 
   /**
-  We compute and store the initial volume of each layer. */
-  
-  if (vhi == NULL) {
-    vhi = malloc (sizeof(double)*nl);
-    foreach_layer()
-      vhi[_layer] = statsf(h).sum;
-  }
-
-  /**
   We compute the volumed-averaged entrainment/detrainment for each
   layer (bottom layer excepted). */
   
   double oma[nl], wa[nl];
   for (int l = 0; l < nl; l++)
-    oma[l] = wa[l] = 0.;
-  foreach(reduction(+:oma[:nl]) reduction(+:wa[:nl]))
-    for (int l = nl - 1; l >= 1; l--) {
-      double om = omr*(wmin((h[0,0,l]), hmin[l]) - wmax((h[0,0,l]), hmax[l]));
-      if (h[0,0,l] + dt*om > dry && h[0,0,l-1] - dt*om > dry)
-	oma[l] += dv()*om, wa[l] += dv();
-    }
+    oma[l] = 0., wa[l] = 0.;
+  foreach_layer() {
+    double o = 0., w = 0.;
+    if (_layer > 0)
+      foreach(reduction(+:o) reduction(+:w)) {
+	double om = omr*(wmin((h[]), hmin[_layer]) - wmax((h[]), hmax[_layer]));
+	if (h[] + dt*om > dry && h[0,0,-1] - dt*om > dry)
+	  o += dv()*om, w += dv();
+      }
+    oma[_layer] = o, wa[_layer] = w;
+  }
 
   /**
   The local entrainment/detrainment is then applied as the sum of a
@@ -109,51 +97,6 @@ event viscous_term (i++)
 	u.x[] = h[] > dry ? un[point.l].x/h[] : 0.;
     }
   }
-  
-  /**
-  We then enforce the conservation of the volume of each layer using a
-  global average flux. */
-
-  double eh[nl];
-  foreach_layer()
-    eh[_layer] = vhi[_layer]/statsf(h).sum;
-
-  foreach() {
-    double hnew[nl];
-    coord hu[nl];
-    foreach_layer() {
-      hnew[point.l] = h[]*eh[point.l];
-      foreach_dimension()
-	hu[point.l].x = h[]*u.x[];
-    }
-    for (int l = nl - 1; l >= 1; l--) {
-      double dh = hnew[l] - h[0,0,l];
-      if ((dh < 0. && h[0,0,l] + dh > dry && h[0,0,l-1] > dry) ||
-	  (dh > 0. && h[0,0,l-1] - dh > dry)) {
-	h[0,0,l] += dh;
-	h[0,0,l-1] -= dh;
-	int ul = dh > 0. ? l - 1 : l;
-	foreach_dimension() {
-	  hu[l].x += dh*u.x[0,0,ul];
-	  hu[l - 1].x -= dh*u.x[0,0,ul];
-	}
-      }
-    }
-#if 0 // fixme: should be included??
-    foreach_layer()
-      foreach_dimension()
-	u.x[] = h[] > dry ? hu[point.l].x/h[] : 0.;
-#endif
-  }
-}
-
-/**
-We free the allocated fields to avoid memory leaks. */
-
-event cleanup (t = end)
-{
-  if (vhi)
-    free (vhi), vhi = NULL;
 }
 
 /**

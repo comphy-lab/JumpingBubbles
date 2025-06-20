@@ -12,10 +12,10 @@ BEGIN {
     }
 }
 END {
-    print "Title Inteli7 IntelUHD RTX3050 RTX6000"
+    print "Title Inteli7 IntelUHD RTX3050 RTX6000 RTX4090"
     for (j = 0; j <= 5; j++) {
 	printf ("%d^2 ", 2**(j + minlevel));
-	for (i = 0; i < 4; i++)
+	for (i = 0; i < 5; i++)
 	    printf ("%g ", a[i][j]);
 	print ""
     }	

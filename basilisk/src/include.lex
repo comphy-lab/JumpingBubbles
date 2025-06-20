@@ -240,9 +240,6 @@ FDECL     {ID}+{SP}*\(
   // include "..."
   if (fdepend && strstr (yytext, "// nodep"))
     return 0;
-  if (grid[0] != '\0' && strlen (fname) > 2 && !strcmp (fname + strlen(fname) - 2, ".c") &&
-      strstr (yytext, "\"grid/"))
-    return 0; // ignore #include "grid/..." in .c files if already specified with -grid=
   echo();
   if (!keywords_only) {
     char * s = strchr(yytext, '"');

@@ -1,16 +1,19 @@
 #define MULTIGRID 1
 
+#include "variables.h"
 #include "cartesian-common.h"
 
-@ifndef foreach_level_or_leaf
-@ define foreach_level_or_leaf     foreach_level
-@ define end_foreach_level_or_leaf end_foreach_level
-@endif
+auto macro2 foreach_level_or_leaf (int l, char flags = 0, Reduce reductions = None)
+{
+  foreach_level (l, flags, reductions)
+    {...}
+}
 
-@ifndef foreach_coarse_level
-@ define foreach_coarse_level      foreach_level
-@ define end_foreach_coarse_level  end_foreach_level
-@endif
+auto macro2 foreach_coarse_level (int l, char flags = 0, Reduce reductions = None)
+{
+  foreach_level (l, flags, reductions)
+    {...}
+}
 
 // scalar attributes
 

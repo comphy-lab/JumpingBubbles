@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stddef.h>
+#include <stdint.h>
 #include <stdbool.h>
 #include <stdarg.h>
 #include <string.h>
@@ -14,12 +15,31 @@
  @include <nvtx3/nvToolsExt.h>
 #endif
 
+@define unmap(x,y)
+@define trash(x)  // data trashing is disabled by default. Turn it on with
+                  // -DTRASH=1
+
+auto macro2 BEGIN_FOREACH() {{...}}
+
 #if _OPENMP
 @ include <omp.h>
 @ define OMP(x) Pragma(#x)
+
+macro OMP_SERIAL()
+{
+  @undef OMP
+  @define OMP(x)
+  ; // necessary so that the preproc above is included
+  {...}
+  @undef OMP
+  @define OMP(x) Pragma(#x)
+  ; // necessary so that the preproc above is included
+}
+   
 #elif _MPI
 
 @ define OMP(x)
+macro OMP_SERIAL() {{...}}
 
 @ include <mpi.h>
 static int mpi_rank, mpi_npe;
@@ -30,6 +50,7 @@ static int mpi_rank, mpi_npe;
 #else // not MPI, not OpenMP
 
 @ define OMP(x)
+macro OMP_SERIAL() {{...}}
 
 #endif // _MPI
 
@@ -386,6 +407,7 @@ int mpi_all_reduce0 (void *sendbuf, void *recvbuf, int count,
 {
   return MPI_Allreduce (sendbuf, recvbuf, count, datatype, op, comm);
 }
+
 @def mpi_all_reduce(v,type,op) {
   prof_start ("mpi_all_reduce");
   union { int a; float b; double c;} global;
@@ -394,30 +416,27 @@ int mpi_all_reduce0 (void *sendbuf, void *recvbuf, int count,
   prof_stop();
 }
 @
-@def mpi_all_reduce_array(v,type,op,elem) {
-  prof_start ("mpi_all_reduce");
-  type * global = malloc ((elem)*sizeof(type)), * tmp = malloc ((elem)*sizeof(type));
-  for (int i = 0; i < elem; i++)
-    tmp[i] = (v)[i];
-  MPI_Datatype datatype;
-  if (!strcmp(#type, "double")) datatype = MPI_DOUBLE;
-  else if (!strcmp(#type, "int")) datatype = MPI_INT;
-  else if (!strcmp(#type, "long")) datatype = MPI_LONG;
-  else if (!strcmp(#type, "bool")) datatype = MPI_C_BOOL;
-  else if (!strcmp(#type, "unsigned char")) datatype = MPI_UNSIGNED_CHAR;
+
+trace
+void mpi_all_reduce_array (void * v, MPI_Datatype datatype, MPI_Op op, int elem)
+{
+  size_t size;
+  if (datatype == MPI_DOUBLE) size = sizeof (double);
+  else if (datatype == MPI_INT) size = sizeof (int);
+  else if (datatype == MPI_LONG) size = sizeof (long);
+  else if (datatype == MPI_C_BOOL) size = sizeof (bool);
+  else if (datatype == MPI_UNSIGNED_CHAR) size = sizeof (unsigned char);
   else {
-    fprintf (stderr, "unknown reduction type '%s'\n", #type);
+    fprintf (stderr, "unknown reduction type\n");
     fflush (stderr);
     abort();
   }
+  void * global = malloc (elem*size), * tmp = malloc (elem*size);
+  memcpy (tmp, v, elem*size);
   mpi_all_reduce0 (tmp, global, elem, datatype, op, MPI_COMM_WORLD);
-  for (int i = 0; i < elem; i++)
-    (v)[i] = global[i];
+  memcpy (v, global, elem*size);
   free (global), free (tmp);
-  prof_stop();
 }
-@
-
 #endif // !FAKE_MPI
 
 @define QFILE FILE // a dirty trick to avoid qcc 'static FILE *' rule
@@ -510,11 +529,12 @@ void mpi_init()
 
 #endif // not MPI, not OpenMP
 
-@define OMP_PARALLEL() OMP(omp parallel)
+macro2 OMP_PARALLEL() {{...}}
+@define OMP_PARALLEL(...) OMP(omp parallel S__VA_ARGS__)
 
 @define NOT_UNUSED(x) (void)(x)
 
-@define VARIABLES      _CATCH;
+macro2 VARIABLES() { _CATCH; }
 @define _index(a,m)    (a.i)
 @define val(a,k,l,m)   data(k,l,m)[_index(a,m)]
 
@@ -527,13 +547,17 @@ double _val_higher_dimension = 0.;
  * This blog was useful:
  *   http://codingcastles.blogspot.co.nz/2008/12/nans-in-c.html 
  */
-@if (_GNU_SOURCE || __APPLE__) && !_OPENMP && !_CADNA && !_GPU
+@if (_GNU_SOURCE || __APPLE__) && !_OPENMP && !_CADNA
 double undefined;
 @ if __APPLE__
 @   include <stdint.h>
 @   include "fp_osx.h"
 @ endif
+@if _GPU
+@  define enable_fpe(flags)
+@else
 @  define enable_fpe(flags)  feenableexcept (flags)
+@endif
 @  define disable_fpe(flags) fedisableexcept (flags)
 static void set_fpe (void) {
   int64_t lnan = 0x7ff0000000000001;
@@ -616,3 +640,25 @@ enum typedef_kind_t {
   sym_VEC4,
   sym_IVEC
 };
+
+@define attroffset(x) (offsetof(_Attributes,x))
+
+/**
+These are placeholders for internally-defined macros. */
+
+typedef int Reduce;
+
+macro2 foreach_face (char flags = 0, Reduce reductions = None,
+			const char * order = "xyz")
+{{...}}
+macro2 einstein_sum() {{...}}
+macro2 diagonalize (int a) {{...}}
+
+/**
+Macros overloaded by the interpreter. */
+
+@define dimensional(...)
+#define show_dimension(...) show_dimension_internal (__VA_ARGS__ + 10293847566574839201.)
+@define show_dimension_internal(...)
+@define display_value(...)
+@define interpreter_verbosity(...)

@@ -19,7 +19,7 @@ int main (int argc, char * argv[])
   
   timer t = timer_start();
 
-  double sum;
+  double sum = 0.;
   int iter;
   for (iter = 0; iter < 400*1024/N; iter++) {
     sum = 0.;
@@ -45,4 +45,13 @@ int main (int argc, char * argv[])
   stats stat = statsf (s);
   fprintf (stderr, "min: %g max: %g\n", stat.min, stat.max);
   output_ppm (s, file = "s1.png", n = 512, spread = -1);
+
+  /**
+  Check that reduction on levels works. */
+
+  restriction ({s});
+  sum = 0.;
+  foreach_level(0, reduction(+:sum))
+    sum += s[]*dv();
+  fprintf (stderr, "sum: %g %g\n", stat.sum, sum);
 }

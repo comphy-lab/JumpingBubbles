@@ -51,7 +51,7 @@ static inline void givens (double x, double y, double * c, double * s)
 
 void solve_hessenberg (double H[nl*nl], double x[nl])
 {
-  double v[nl], c[nl], s[nl];
+  double v[nl], c[nl], s[nl]; v[0] = 1.;
   for (int i = 0; i < nl; i++)
     v[i] = H[nl*(i + 1) - 1];
   for (int k = nl - 1; k >= 1; k--) {

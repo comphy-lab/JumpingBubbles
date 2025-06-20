@@ -398,6 +398,23 @@ int main (int argc, char * argv[])
     fprintf (stderr, "26c) %g %g\n", sum, max);
   }
 
+  {
+    dimensions (nx = 4);
+    init_grid (8);
+    face vector uf[];
+    foreach_face()
+      uf.x[] = 1;
+    double min = 100, sum = 0;
+    foreach_face(reduction(min:min) reduction(+:sum)) {
+      if (uf.x[] < min)
+	min = uf.x[];
+      sum++;
+    }
+    fprintf (stderr, "26e) %g %g\n", min, sum);
+    dimensions (nx = 1);
+    init_grid (512);
+  }
+  
   /**
   ## Reduction on vertices */
 
@@ -513,6 +530,26 @@ int main (int argc, char * argv[])
     myfunc8 (s);
     foreach (serial)
       assert (s[-1] == 1);
+    s[left] = 2;
+    scalar s1[];
+    foreach()
+      s1[] = s[-1];
+    foreach (serial)
+      assert (s1[] == 2);
+  }
+
+  /**
+  ## Initialisation of `coord` */
+
+  {
+    init_grid (1);
+    vector v[];
+    foreach() {
+      coord v0 = {1, -1}; // needs a third coordinate
+      coord v1 = {0, -1, 2}, v2 = {1}; // needs a second and third coordinate
+      foreach_dimension()
+	v.x[] = v0.x = v1.x = v2.x;
+    }
   }
   
   /**

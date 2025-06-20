@@ -29,7 +29,7 @@ bool is_local_declaration (Ast * n, Stack * stack, Ast * scope)
 }
 
 static
-void external_references (Ast * n, Stack * stack, void * data);
+void external_references (Ast * n, Stack * stack, Accelerator * a);
 
 static
 void add_external_reference (const char * name, Stack * stack, Accelerator * a)
@@ -61,7 +61,7 @@ void add_external_reference (const char * name, Stack * stack, Accelerator * a)
       Accelerator b = *a;
       b.scope = definition;
       stack_push (stack, &definition);
-      ast_traverse (definition, stack, external_references, &b);
+      external_references (definition, stack, &b);
       ast_pop_scope (stack, definition);
       a->nonlocals = b.nonlocals;
       a->attributes = b.attributes;
@@ -72,19 +72,28 @@ void add_external_reference (const char * name, Stack * stack, Accelerator * a)
 }
 
 static
-void external_references (Ast * n, Stack * stack, void * data)
+void external_references (Ast * n, Stack * stack, Accelerator * a)
 {
+  if (!n || n == ast_placeholder ||
+      (n->sym == sym_initializer && n->parent->sym == sym_parameter_declaration))
+    return;
+
+  Ast * scope = ast_push_declarations (n, stack);
+
+  if (n->child)
+    for (Ast ** c = n->child; *c; c++)
+      external_references (*c, stack, a);
+  
   if (ast_schema (n->parent, sym_primary_expression,
 		  0, sym_IDENTIFIER) &&
       strcmp (ast_terminal (n)->start, "_attribute"))
-    add_external_reference (ast_terminal (n)->start, stack, data);
+    add_external_reference (ast_terminal (n)->start, stack, a);
   else if ((n->sym == sym_IDENTIFIER && ast_attribute_access (ast_ancestor (n, 3), stack)) ||
 	   (n = ast_attribute_array_access (ast_ancestor (n, 3)))) {
       
     /**
     Scalar attribute */
 
-    Accelerator * a = data;
     Ast * found = fast_stack_find (a->attributes, ast_terminal (n)->start);
     if (!found) {
       Ast * attributes = ast_find (ast_ancestor (ast_identifier_declaration (stack, "_Attributes"), 6),
@@ -107,6 +116,8 @@ void external_references (Ast * n, Stack * stack, void * data)
 	stack_push (a->attributes, &found);
     }
   }
+
+  ast_pop_scope (stack, scope);
 }
 
 static
@@ -239,31 +250,29 @@ char * add_reference (Ast * ref, char * references, Ast * scope, Stack * stack, 
   /**
   Reduction */
     
-  Ast * parameters = ast_child (scope, sym_foreach_parameters);
+  Ast * parameters = ast_child (scope, sym_argument_expression_list);
   if (parameters)
     foreach_item (parameters, 2, item) {
-      if (item->child[0]->sym == sym_reduction_list) {
-	Ast * reductions = item->child[0];
-	foreach_item (reductions, 1, reduction) {
-	  Ast * identifier = ast_schema (reduction, sym_reduction,
-					 4, sym_reduction_array,
-					 0, sym_generic_identifier,
-					 0, sym_IDENTIFIER);
-	  if (!strcmp (ast_terminal (identifier)->start, start)) {
-	    char * operator = ast_left_terminal (reduction->child[2])->start;
-	    Ast * array = ast_schema (reduction, sym_reduction,
-				      4, sym_reduction_array,
-				      3, sym_expression);
-	    if (array) {
-	      // fixme: not implemented yet
-	    }
-	    else
-	      str_append (references, ",.reduct=",
-			  !strcmp(operator, "min") ? "'m'" :
-			  !strcmp(operator, "max") ? "'M'" :
-			  !strcmp(operator, "+")   ? "'+'" :
-			  "'?'");
+      Ast * reductions = ast_find (item, sym_reduction_list);
+      foreach_item (reductions, 1, reduction) {
+	Ast * identifier = ast_schema (reduction, sym_reduction,
+				       4, sym_reduction_array,
+				       0, sym_generic_identifier,
+				       0, sym_IDENTIFIER);
+	if (!strcmp (ast_terminal (identifier)->start, start)) {
+	  char * operator = ast_left_terminal (reduction->child[2])->start;
+	  Ast * array = ast_schema (reduction, sym_reduction,
+				    4, sym_reduction_array,
+				    3, sym_expression);
+	  if (array) {
+	    // fixme: not implemented yet
 	  }
+	  else
+	    str_append (references, ",.reduct=",
+			!strcmp(operator, "min") ? "'m'" :
+			!strcmp(operator, "max") ? "'M'" :
+			!strcmp(operator, "+")   ? "'+'" :
+			"'?'");
 	}
       }
     }
@@ -271,11 +280,26 @@ char * add_reference (Ast * ref, char * references, Ast * scope, Stack * stack, 
   /**
   Array dimensions */
   
-  if (dim.dimension && (*dim.dimension)->sym != sym_VOID) {
-    str_append (references, ",.data=(int[]){");
-    for (Ast ** d = dim.dimension; *d; d++)
-      references = ast_str_append (*d, references);
-    str_append (references, ",0}");
+  if (dim.dimension) {
+    if ((*dim.dimension)->sym != sym_VOID) {
+      str_append (references, ",.data=(int[]){");    
+      for (Ast ** d = dim.dimension; *d; d++)
+	references = ast_str_append (*d, references);
+      str_append (references, ",0}");
+    }
+    else if (*(dim.dimension + 1) == NULL) { // a single undefined dimension
+      Ast * initializer = ast_schema (ast_parent (ref, sym_init_declarator), sym_init_declarator,
+				      2, sym_initializer,
+				      1, sym_initializer_list);
+      if (initializer) {
+	int n = 0;
+	foreach_item (initializer, 2, item)
+	  n++;
+	char s[20];
+	snprintf (s, 19, "%d", n);
+	str_append (references, ",.data=(int[]){", s, ",0}");
+      }
+    }
   }
   free (dim.dimension);
     
@@ -293,7 +317,7 @@ char * ast_external_references (Ast * scope, char * references, Stack * function
   Accelerator a = { scope };
   a.nonlocals = stack_new (sizeof (Ast *));
   a.attributes = stack_new (sizeof (Ast *));
-  ast_traverse (scope, stack, external_references, &a);
+  external_references (scope, stack, &a);
   ast_pop_scope (stack, scope);
 
   Ast ** n;

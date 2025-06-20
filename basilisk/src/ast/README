@@ -21,6 +21,7 @@ The main files are:
 * [kernels.c](): computation kernels (e.g. for GPUs)
 * [interpreter/README](): A generic interpreter for Basilisk C.
 * [interpreter/dimension.c](): Uses the interpreter to check dimensional consistency.
+* [macro.h](): Basilisk macros.
 
 ## Example of syntax tree generation
 

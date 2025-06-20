@@ -201,11 +201,17 @@ remotely()
 	cd ..
     fi
     mv -f ../_$src $chksum/$src
+    if grep -q '#define _GPU 1' $chksum/$src; then
+	TSP="TS_SOCKET=/tmp/tsp-gpu tsp"
+	TIMEOUT="OMP_NUM_THREADS=1 DISPLAY=:0 $TIMEOUT"
+    else
+	TSP=tsp
+    fi
     PCC="\$CC99"
     case "$CFLAGS" in
 	*-cadna*) PCC="\$CADNACC" ;;
     esac
-    PCFLAGS=`echo $CFLAGS | sed -e 's/-grid=[^-]*//g' -e 's/-cadna//g' -e 's/-progress//g' -e 's/-Wdimensions//g' -e 's/-disable-dimensions//g'`
+    PCFLAGS=`echo $CFLAGS | sed -e 's/-grid=[^-]*//g' -e 's/-cadna//g' -e 's/-progress//g' -e 's/-Wdimensions//g' -e 's/-disable-dimensions//g' -e 's/-cpu//g' -e 's/-gpu//g'`
     NCORES=`echo $EXEC | awk 'BEGIN{ np = 1 }{
       if ($1 == "mpirun") np = $3; }END{ print np;}'`
     case "$CFLAGS" in
@@ -215,13 +221,13 @@ remotely()
 	    ;;
     esac
     cat <<EOF >$chksum/$chksum.sh
-#!/bin/sh
+#!/bin/bash
 
 run_untrusted()
 {
   status=0
   notrust=/tmp/$chksum
-  if ! sudo -n -u basilisk-untrusted -- bash -c "source /home/basilisk/.bashrc && mkdir \$notrust && cp -arf * \$notrust && cd \$notrust && rm -f completing && \$1 && touch completing"; then
+  if ! sudo -n -u basilisk-untrusted -- bash -c "source /home/basilisk/.bashrc-untrusted && mkdir \$notrust && cp -arf * \$notrust && cd \$notrust && rm -f completing && \$1 && touch completing"; then
      status=1
   fi
   if ! cp -arf \$notrust/* .; then
@@ -240,7 +246,7 @@ if ! test -f fail; then
        pass=false
     fi
   else
-    if ! run_untrusted "$TIMEOUT gdb -batch -return-child-result -ex \"run 2> $log > $out\" $chksum > gdb.log 2> gdb.err" > gdb.log 2> gdb.err; then
+    if ! run_untrusted "$TIMEOUT gdb -batch -return-child-result -ex \"run 2>> $log > $out\" $chksum > gdb.log 2> gdb.err" > gdb.log 2> gdb.err; then
        pass=false
        cat gdb.err >> $log
        awk '
@@ -275,7 +281,7 @@ if ! test -f fail; then
     fi
   else
     if ! test -s $log; then
-       echo "The code timed out after one hour." > $log
+       echo "The code may have timed out." > $log
     fi
     sed "s/^$chksum: //g" $log > fail
   fi
@@ -288,7 +294,7 @@ EOF
     rm -r -f $chksum/
 
     if ! ( scp $chksum.tgz $rhost: && rm -f $chksum.tgz && \
-	       ssh $rhost bash -c "\"tar xmzf $chksum.tgz && cd $chksum && tsp -N \$(test \$(tsp -S) -le $NCORES && echo \$(tsp -S) || echo $NCORES) -L $test -n nice -19 bash $chksum.sh\" && sleep 0 && echo $chksum && tsp -w" > tspid.$ext && \
+	       ssh $rhost bash -c "\"tar xmzf $chksum.tgz && cd $chksum && $TSP -N \$(test \$($TSP -S) -le $NCORES && echo \$($TSP -S) || echo $NCORES) -L $test -n nice -19 bash $chksum.sh\" && sleep 0 && echo $chksum && $TSP -w" > tspid.$ext && \
 	       scp -q $rhost:$chksum.tgz $chksum.tgz && \
 	       ssh $rhost rm -r -f $chksum.tgz && \
 	       tar xmzf $chksum.tgz && \
@@ -366,7 +372,7 @@ run_untrusted()
 {
   status=0
   notrust=/tmp/$chksum
-  if ! sudo -n -u basilisk-untrusted -- bash -c "source /home/basilisk/.bashrc && mkdir \$notrust && cp -arf * \$notrust && cd \$notrust && rm -f completing && \$1 && touch completing"; then
+  if ! sudo -n -u basilisk-untrusted -- bash -c "source /home/basilisk/.bashrc-untrusted && mkdir \$notrust && cp -arf * \$notrust && cd \$notrust && rm -f completing && \$1 && touch completing"; then
      status=1
   fi
   if ! cp -arf \$notrust/* .; then
@@ -405,7 +411,7 @@ if \$pass; then
     fi
 else
     if ! test -s $log; then
-       echo "The code timed out after one hour." > $log
+       echo "The code may have timed out." > $log
     fi
     cp -f $log fail
 fi

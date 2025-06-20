@@ -77,11 +77,7 @@ display ("squares (color = 'u.x', spread = -1);", true);
 # define DISPLAY_RANGE "7100:7200"
 #endif
 
-#if 1
-# define debug(...)
-#else
-# define debug(...) fprintf (qerr, __VA_ARGS__), fflush(qerr)
-#endif
+#define debug(...) do { if (Display.debug) fprintf (qerr, __VA_ARGS__), fflush(qerr); } while(0)
 
 #include <netdb.h>
 #include <wsServer/include/ws.h>
@@ -102,6 +98,7 @@ static struct {
   int sock, port;
   char * error;
   Array * controls;
+  bool debug;
 } Display = { .sock = -1 };
 
 static void display_display()
@@ -704,7 +701,7 @@ void display_url (FILE * fp)
   if (!h)
     fprintf (stderr,
 	     "src/display.h:%d: warning: gethostbyname(\"%s\") returned NULL\n",
-	     __LINE__, hostname);
+	     LINENO, hostname);
   fprintf (fp, DISPLAY_JS "?ws://%s:%d", h ? h->h_name : "127.0.0.1",
 	   Display.port);
 }

@@ -216,7 +216,7 @@ mgstats mg_solve (scalar * a, scalar * b,
     scalar v = a[0]; // fixme: should not be necessary
     fprintf (ferr, 
 	     "src/poisson.h:%d: warning: convergence for %s not reached after %d iterations\n"
-	     "  res: %g sum: %g nrelax: %d tolerance: %g\n", __LINE__, v.name,
+	     "  res: %g sum: %g nrelax: %d tolerance: %g\n", LINENO, v.name,
 	     s.i, s.resa, s.sum, s.nrelax, tolerance), fflush (ferr);
   }
     

@@ -9,13 +9,15 @@
 static struct {
   ///// GPU /////
   GLFWwindow * window;
-  GLuint ssbo;
+  GLuint * ssbo;
   bool fragment_shader;
-  int current_shader;
-} GPUContext = { .current_shader = -1 };
+  int current_shader, nssbo;
+  size_t max_ssbo_size, current_size;
+} GPUContext = {
+  .current_shader = -1,
+};
 
-static void gpu_check_error (const char * stmt,
-			     const char * fname, int line)
+static void gpu_check_error (const char * stmt, const char * fname, int line)
 {
   GLenum err = glGetError();
   if (err != GL_NO_ERROR) {
@@ -40,7 +42,8 @@ void gpu_free_solver (void)
 {
   GL_C (glFinish());
   GL_C (glBindFramebuffer (GL_FRAMEBUFFER, 0));
-  glDeleteBuffers (1, &GPUContext.ssbo);
+  glDeleteBuffers (GPUContext.nssbo, GPUContext.ssbo);
+  free (GPUContext.ssbo);
   glfwTerminate();
   GPUContext.window = NULL;
 }
@@ -174,6 +177,9 @@ GLString gpu_limits_list[] = {
   {"GL_MAX_COMPUTE_UNIFORM_COMPONENTS", GL_MAX_COMPUTE_UNIFORM_COMPONENTS},
   {"GL_MAX_COMPUTE_UNIFORM_BLOCKS", GL_MAX_COMPUTE_UNIFORM_BLOCKS},
   {"GL_MAX_COMPUTE_TEXTURE_IMAGE_UNITS", GL_MAX_COMPUTE_TEXTURE_IMAGE_UNITS},
+  {"GL_MAX_SHADER_STORAGE_BLOCK_SIZE", GL_MAX_SHADER_STORAGE_BLOCK_SIZE},
+  {"GL_MAX_COMPUTE_SHADER_STORAGE_BLOCKS", GL_MAX_COMPUTE_SHADER_STORAGE_BLOCKS},
+  {"GL_MAX_TEXTURE_BUFFER_SIZE", GL_MAX_TEXTURE_BUFFER_SIZE},
 #endif
   {"GL_MAX_GEOMETRY_UNIFORM_COMPONENTS", GL_MAX_GEOMETRY_UNIFORM_COMPONENTS},
   {"GL_MAX_GEOMETRY_UNIFORM_BLOCKS", GL_MAX_GEOMETRY_UNIFORM_BLOCKS},
@@ -219,74 +225,41 @@ void printWorkGroupsCapabilities()
 # define end_tracing_foreach(name, file, line)
 #endif
 
-static bool _gpu_done_ = false;
-@undef BEGIN_FOREACH
-@def BEGIN_FOREACH if (_gpu_done_)
-  _gpu_done_ = false;
- else {
-   tracing_foreach ("foreach", S__FILE__, S_LINENO);
-@
-@undef END_FOREACH
-@define END_FOREACH end_tracing_foreach ("foreach", S__FILE__, S_LINENO); }
+macro2 BEGIN_FOREACH()
+{
+  if (_gpu_done_)
+    _gpu_done_ = false;
+  else {
+    tracing_foreach ("foreach", S__FILE__, S_LINENO);
+    {...}
+    end_tracing_foreach ("foreach", S__FILE__, S_LINENO);
+  }
+}
 
 typedef struct {
   coord p, * box, n; // region
   int level; // level
 } RegionParameters;
 
-@define DEPAREN(...) S__VA_ARGS__
+bool gpu_end_stencil (ForeachData * loop, const RegionParameters * region,
+		      External * externals, const char * kernel);
 
-@def foreach_stencil_generic(_parallel, _parameters, _externals, _kernel) {
+macro2 foreach_stencil_generic (char flags, Reduce reductions,
+				int _parallel, External * _externals, const char * _kernel)
+{
   tracing_foreach ("foreach", S__FILE__, S_LINENO);
-  static ForeachData _loop = {
-    .fname = S__FILE__, .line = S_LINENO, .first = 1, .parallel = _parallel
-  };
-  static const char * _kernel_ = _kernel;
-  External _externals_[] = _externals;
+  static ForeachData _loop = { .fname = S__FILE__, .line = S_LINENO, .first = 1 };
+  _loop.parallel = _parallel;
   if (baseblock) for (scalar s = baseblock[0], * i = baseblock; s.i >= 0; i++, s = *i) {
     _attribute[s.i].input = _attribute[s.i].output = false;
     _attribute[s.i].width = 0;
   }
   int ig = 0, jg = 0, kg = 0; NOT_UNUSED(ig); NOT_UNUSED(jg); NOT_UNUSED(kg);
   Point point = {0}; NOT_UNUSED (point);
-@
-
-@undef foreach_stencil
-@def foreach_stencil(_parallel, _parameters, _externals, _kernel)
-  foreach_stencil_generic(_parallel, DEPAREN(_parameters), DEPAREN(_externals), _kernel)
-  RegionParameters parameters = _parameters, * _region = &parameters;
-@
-
-@undef foreach_level_stencil
-@def foreach_level_stencil(_parallel, _parameters, _externals, _kernel)
-  foreach_stencil_generic(_parallel, DEPAREN(_parameters), DEPAREN(_externals), _kernel)
-  struct  { int level; } parameters = _parameters;
-  RegionParameters _region_ = { .level = parameters.level + 1 }, * _region = &_region_;
-@
-
-@undef foreach_point_stencil
-@def foreach_point_stencil(_parallel, _parameters, _externals, _kernel)
-  foreach_stencil_generic(_parallel, DEPAREN(_parameters), DEPAREN(_externals), _kernel)
-  RegionParameters _region_ = { .p = _parameters, .n = {1,1} }, * _region = &_region_;
-@
-
-@undef foreach_region_stencil
-@def foreach_region_stencil(_parallel, _parameters, _externals, _kernel)
-  foreach_stencil(_parallel, DEPAREN(_parameters), DEPAREN(_externals), _kernel)
-@
-
-@undef foreach_vertex_stencil
-@def foreach_vertex_stencil(_parallel, _parameters, _externals, _kernel)
-  foreach_stencil(_parallel, DEPAREN(_parameters), DEPAREN(_externals), _kernel) _loop.vertex = true;
-@
- 
-@undef foreach_face_stencil
-@def foreach_face_stencil(_parallel, _parameters, _externals, _kernel)
-  foreach_stencil(_parallel, DEPAREN(_parameters), DEPAREN(_externals), _kernel)
-@
- 
-@undef end_foreach_stencil
-@def end_foreach_stencil()
+  RegionParameters _region = {0};
+  
+  {...}
+  
 #if PRINTIO
   if (baseblock) {
     fprintf (stderr, "%s:%d:", _loop.fname, _loop.line);
@@ -299,15 +272,85 @@ typedef struct {
     fprintf (stderr, "\n");
   }
 #endif // PRINTIO
+  bool _first = _loop.first;
+  _loop.first = 0; // to avoid warnings in check_stencil
   check_stencil (&_loop);
-  _gpu_done_ = gpu_end_stencil (&_loop, _region, _externals_, _kernel_);
+  _loop.first = _first;
+  _gpu_done_ = gpu_end_stencil (&_loop, &_region, _externals, _kernel);
   _loop.first = 0;
   end_tracing_foreach ("foreach", S__FILE__, S_LINENO);
 }
-@
 
-@undef end_foreach_level_stencil
-@define end_foreach_level_stencil() end_foreach_stencil()
+macro2 foreach_stencil (char flags, Reduce reductions,
+			int _parallel, External * _externals, const char * _kernel)
+{
+  foreach_stencil_generic (flags, reductions, _parallel, _externals, _kernel)
+    {...}
+}
+
+macro2 foreach_level_stencil (int _level, char flags, Reduce reductions,
+			      int _parallel, External * _externals, const char * _kernel)
+{
+  foreach_stencil_generic (flags, reductions, _parallel, _externals, _kernel) {
+    _region.level = _level + 1;
+    {...}
+  }
+}
+
+macro2 foreach_point_stencil (double _xp, double _yp, double _zp,
+			      char flags, Reduce reductions,
+			      int _parallel, External * _externals, const char * _kernel)
+{
+  foreach_stencil_generic (flags, reductions, _parallel, _externals, _kernel) {
+    _region.p = (coord){ _xp, _yp, _zp };
+    _region.n = (coord){ 1, 1 };
+    {...}
+  }
+}
+
+macro2 foreach_region_stencil (coord _p, coord _box[2], coord _n,
+			       char flags, Reduce reductions,
+			       int _parallel, External * _externals, const char * _kernel)
+{
+  foreach_stencil_generic (flags, reductions, _parallel, _externals, _kernel) {
+    _region.p = _p, _region.box = _box, _region.n = _n;
+    {...}
+  }
+}
+
+macro2 foreach_vertex_stencil (char flags, Reduce reductions,
+				  int _parallel, External * _externals,
+				  const char * _kernel)
+{
+  foreach_stencil_generic (flags, reductions, _parallel, _externals, _kernel) {
+    _loop.vertex = true;
+    {...}
+  }
+}
+
+macro2 foreach_face_stencil (char flags, Reduce reductions, const char * _order,
+			     int _parallel, External * _externals,
+			     const char * _kernel)
+{
+  foreach_stencil_generic (flags, reductions, _parallel, _externals, _kernel)
+    {...}
+}
+
+macro2 foreach_coarse_level_stencil (int _level, char flags, Reduce reductions,
+				     int _parallel, External * _externals,
+				     const char * _kernel)
+{
+  foreach_level_stencil (_level, flags, reductions, _parallel, _externals, _kernel)
+    {...}
+}
+
+macro2 foreach_level_or_leaf_stencil (int _level, char flags, Reduce reductions,
+				      int _parallel, External * _externals,
+				      const char * _kernel)
+{
+  foreach_level_stencil (_level, flags, reductions, _parallel, _externals, _kernel)
+    {...}
+}
 
 @ifndef tracing
   @ def tracing(func, file, line) do {
@@ -320,15 +363,93 @@ typedef struct {
   } while(0) @
 @endif
 
-bool gpu_end_stencil (ForeachData * loop, const RegionParameters * region,
-		      External * externals, const char * kernel);
-
 void realloc_ssbo()
 {
-  GL_C (glBindBuffer (GL_SHADER_STORAGE_BUFFER, GPUContext.ssbo));
-  GL_C (glBufferData (GL_SHADER_STORAGE_BUFFER,
-		      field_size()*datasize, grid_data(), GL_DYNAMIC_READ));
+  if (!datasize)
+    return;
+  
+  GLint max_ssbo_size;
+  GL_C (glGetIntegerv (GL_MAX_SHADER_STORAGE_BLOCK_SIZE, &max_ssbo_size));
+#if 1
+  GPUContext.max_ssbo_size = 128*(max_ssbo_size/128);
+#else // for testing multi SSBOs
+  GPUContext.max_ssbo_size = 128*(5*field_size()/2*sizeof(float)/128);
+#endif
+  
+  size_t totalsize = field_size()*datasize;
+  int nssbo = totalsize/GPUContext.max_ssbo_size;
+  if (nssbo*GPUContext.max_ssbo_size < totalsize)
+    nssbo++;
+
+  GLint max_ssbo_blocks;
+  GL_C (glGetIntegerv (GL_MAX_COMPUTE_SHADER_STORAGE_BLOCKS, &max_ssbo_blocks));
+  if (nssbo > max_ssbo_blocks) {
+    fprintf (stderr,
+	     "%s:%d: error: cannot allocate %ld bytes\n"
+	     "%s:%d: error: maximum allowed is %d x %ld bytes\n",
+	     __FILE__, LINENO, totalsize, __FILE__, LINENO,
+	     max_ssbo_blocks, GPUContext.max_ssbo_size);
+    exit (1);
+  }
+
+#if DEBUGALLOC
+  fprintf (stderr, "resizing from %ld to %ld nssbo %d pnssbo %d max_ssbo %ld\n", 
+	   GPUContext.current_size, totalsize, nssbo, GPUContext.nssbo, GPUContext.max_ssbo_size);
+#endif
+  assert (totalsize > GPUContext.current_size);
+  size_t size = max(GPUContext.nssbo - 1, 0)*GPUContext.max_ssbo_size;
+  size_t current_size = GPUContext.current_size - size;
+  assert (current_size >= 0 && current_size <= GPUContext.max_ssbo_size);
+  GPUContext.current_size = totalsize;
+  totalsize -= size;
+  assert (totalsize >= 0);
+
+  if (current_size > 0) {
+    size_t size = min (totalsize, GPUContext.max_ssbo_size);
+    totalsize -= size;
+    if (current_size < GPUContext.max_ssbo_size) {
+      GLuint ssbo;
+      GL_C (glGenBuffers (1, &ssbo));
+      GL_C (glBindBuffer (GL_SHADER_STORAGE_BUFFER, ssbo));
+      GL_C (glBufferData (GL_SHADER_STORAGE_BUFFER, size, NULL, GL_DYNAMIC_READ));
+      GL_C (glBindBuffer (GL_COPY_READ_BUFFER, GPUContext.ssbo[GPUContext.nssbo - 1]));
+      GL_C (glBindBuffer (GL_COPY_WRITE_BUFFER, ssbo));
+      GL_C (glCopyBufferSubData (GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, 0, 0, current_size));
+      GL_C (glDeleteBuffers (1, &GPUContext.ssbo[GPUContext.nssbo - 1]));
+      GPUContext.ssbo[GPUContext.nssbo - 1] = ssbo;
+    }
+#if DEBUGALLOC    
+    else
+      fprintf (stderr, "  skipping fully allocated %ld\n", current_size);
+#endif
+  }
+
+#if DEBUGALLOC
+  fprintf (stderr, "  need to allocate %ld\n", totalsize);
+#endif
+  if (nssbo > GPUContext.nssbo) {
+    assert (totalsize > 0);
+    GPUContext.ssbo = realloc (GPUContext.ssbo, nssbo*sizeof(GLuint));
+#if DEBUGALLOC
+    fprintf (stderr, "  allocating %d buffers\n", nssbo - GPUContext.nssbo);
+#endif
+    GL_C (glGenBuffers (nssbo - GPUContext.nssbo, GPUContext.ssbo + GPUContext.nssbo));
+    while (GPUContext.nssbo < nssbo) {
+      GL_C (glBindBuffer (GL_SHADER_STORAGE_BUFFER, GPUContext.ssbo[GPUContext.nssbo]));
+      size_t size = min (totalsize, GPUContext.max_ssbo_size);
+#if DEBUGALLOC
+      fprintf (stderr, "  allocating buffer %d size %ld\n", GPUContext.nssbo, size);
+#endif
+      GL_C (glBufferData (GL_SHADER_STORAGE_BUFFER, size, NULL, GL_DYNAMIC_READ));
+      totalsize -= size;
+      GPUContext.nssbo++;
+    }
+  }
   GL_C (glBindBuffer (GL_SHADER_STORAGE_BUFFER, 0));
+#if DEBUGALLOC
+  fprintf (stderr, "done resizing %d %ld %ld\n", GPUContext.nssbo, GPUContext.current_size, totalsize);
+#endif  
+  assert (totalsize == 0);
 }
 
 static void gpu_cpu_sync_scalar (scalar s, char * sep, GLenum mode);
@@ -336,9 +457,6 @@ static void gpu_cpu_sync_scalar (scalar s, char * sep, GLenum mode);
 void realloc_scalar_gpu (int size)
 {
   realloc_scalar (size);
-  for (scalar s in baseblock)
-    if (s.gpu.stored < 0)
-      gpu_cpu_sync_scalar (s, NULL, GL_MAP_READ_BIT);
   realloc_ssbo();
 }
 
@@ -356,5 +474,3 @@ void gpu_boundary_level (scalar * list, int l)
 }
 
 #define realloc_scalar(size) realloc_scalar_gpu (size)
-#define foreach_level_or_leaf(...) foreach_level(__VA_ARGS__)
-#define foreach_coarse_level(...) foreach_level(__VA_ARGS__)

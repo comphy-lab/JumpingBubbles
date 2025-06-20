@@ -39,7 +39,7 @@ void output_field (scalar * list = all,
 		   FILE * fp = stdout,
 		   int n = N,
 		   bool linear = false,
-		   coord box[2] = {{X0, Y0},{X0 + L0, Y0 + L0}})
+		   coord box[2] = {{X0, Y0}, {X0 + L0, Y0 + L0*Dimensions.y/Dimensions.x}})
 {
   n++;
   int len = list_len (list);
@@ -128,7 +128,7 @@ void output_matrix (scalar f,
 		    int n = N,
 		    bool linear = false,
 		    const char * file = NULL,
-		    coord box[2] = {{X0, Y0}, {X0 + L0, Y0 + L0}})
+		    coord box[2] = {{X0, Y0}, {X0 + L0, Y0 + L0*Dimensions.y/Dimensions.x}})
 {
   coord cn = {n}, p;
   double delta = (box[1].x - box[0].x)/n;
@@ -424,6 +424,9 @@ static FILE * ppm_fallback (const char * file, const char * mode)
 
 FILE * open_image (const char * file, const char * options)
 {
+@if __EMSCRIPTEN__
+  return ppm_fallback (file, "w");
+@else // !__EMSCRIPTEN__
   assert (pid() == 0);
   const char * ext;
   if ((ext = is_animation (file))) {
@@ -444,7 +447,7 @@ FILE * open_image (const char * file, const char * options)
 	fprintf (ferr,
 		 "src/output.h:%d: warning: cannot find '%s' or 'ffmpeg'/'avconv'\n"
 		 "src/output.h:%d: warning: falling back to raw PPM outputs\n",
-		 __LINE__, command, __LINE__);
+		 LINENO, command, LINENO);
 	has_ffmpeg = false;
       }
     }
@@ -478,7 +481,7 @@ FILE * open_image (const char * file, const char * options)
 	fprintf (ferr,
 		 "src/output.h:%d: warning: cannot find 'convert'\n"
 		 "src/output.h:%d: warning: falling back to raw PPM outputs\n",
-		 __LINE__, __LINE__);
+		 LINENO, LINENO);
 	has_convert = false;
       }
     }
@@ -496,6 +499,7 @@ FILE * open_image (const char * file, const char * options)
     strcat (command, file);
     return popen (command, "w");
   }
+@endif // !__EMSCRIPTEN__
 }
 
 void close_image (const char * file, FILE * fp)
@@ -505,8 +509,10 @@ void close_image (const char * file, FILE * fp)
     if (!open_image_lookup (file))
       fclose (fp);
   }
+@if !__EMSCRIPTEN__
   else if (which ("convert"))
     pclose (fp);
+@endif // !__EMSCRIPTEN__
   else
     fclose (fp);
 }
@@ -579,6 +585,9 @@ with *file*).
 
 *fps*
 : used only for [online output](grid/gpu/output.h) on GPUs.
+
+*checksum*
+: write a checksum of the generated image in the file pointed.
 */
 
 trace
@@ -589,11 +598,12 @@ void output_ppm (scalar f,
 		 double min = 0, double max = 0, double spread = 5,
 		 double z = 0,
 		 bool linear = false,
-		 coord box[2] = {{X0, Y0}, {X0 + L0, Y0 + L0}},
+		 coord box[2] = {{X0, Y0}, {X0 + L0, Y0 + L0*Dimensions.y/Dimensions.x}},
 		 scalar mask = {-1},
 		 Colormap map = jet,
 		 char * opt = NULL,
-		 int fps = 0)
+		 int fps = 0,
+		 FILE * checksum = NULL)
 {
   // default values
   if (!min && !max) {
@@ -662,6 +672,16 @@ void output_ppm (scalar f,
       close_image (file, fp);
     else
       fflush (fp);
+
+    if (checksum) {
+      Adler32Hash hash;
+      a32_hash_init (&hash);
+      a32_hash_add (&hash, ppm0, sizeof(unsigned char)*3*cn.x*cn.y);
+      fputs ("# ", checksum);
+      if (file)
+	fprintf (checksum, "%s: ", file);
+      fprintf (checksum, "checksum: %08lx\n", (unsigned long) a32_hash (&hash));
+    }
   }
     
   matrix_free (ppm);
@@ -702,25 +722,25 @@ void output_grd (scalar f,
 		 FILE * fp = stdout,
 		 double Delta = L0/N,
 		 bool linear = false,
-		 double box[2][2] = {{X0, Y0}, {X0 + L0, Y0 + L0}},
+		 coord box[2] = {{X0, Y0}, {X0 + L0, Y0 + L0*Dimensions.y/Dimensions.x}},
 		 scalar mask = {-1})
 {
-  int nx = (box[1][0] - box[0][0])/Delta;
-  int ny = (box[1][1] - box[0][1])/Delta;
+  int nx = (box[1].x - box[0].x)/Delta;
+  int ny = (box[1].y - box[0].y)/Delta;
 
   // header
   fprintf (fp, "ncols          %d\n", nx);
   fprintf (fp, "nrows          %d\n", ny);
-  fprintf (fp, "xllcorner      %g\n", box[0][0]);
-  fprintf (fp, "yllcorner      %g\n", box[0][1]);
+  fprintf (fp, "xllcorner      %g\n", box[0].x);
+  fprintf (fp, "yllcorner      %g\n", box[0].y);
   fprintf (fp, "cellsize       %g\n", Delta);
   fprintf (fp, "nodata_value   -9999\n");
   
   // data
   for (int j = ny-1; j >= 0; j--) {
-    double yp = Delta*j + box[0][1] + Delta/2.;
+    double yp = Delta*j + box[0].y + Delta/2.;
     for (int i = 0; i < nx; i++) {
-      double xp = Delta*i + box[0][0] + Delta/2., v;
+      double xp = Delta*i + box[0].x + Delta/2., v;
       if (mask.i >= 0) { // masking
 	double m = interpolate (mask, xp, yp, linear = linear);
 	if (m < 0.)
@@ -989,6 +1009,9 @@ default is "dump".
 
 *unbuffered*
 : whether to use a file buffer. Default is false.
+
+*zero*
+: whether to dump fields which are zero. Default is true.
 */
 
 struct DumpHeader {
@@ -1002,12 +1025,26 @@ static const int dump_version =
   // 161020
   170901;
 
-static scalar * dump_list (scalar * lista)
+static scalar * dump_list (scalar * lista, bool zero)
 {
   scalar * list = is_constant(cm) ? NULL : list_concat ({cm}, NULL);
-  for (scalar s in lista)
-    if (!s.face && !s.nodump && s.i != cm.i)
-      list = list_add (list, s);
+  // fixme: on GPUs statsf() can change the `all` list, because it
+  // allocates new fields to store reductions, which causes a nasty
+  // crash...
+#if 1
+  scalar * listb = list_copy (lista);
+#endif
+  for (scalar s in listb)
+    if (!s.face && !s.nodump && s.i != cm.i) {
+      if (zero)
+	list = list_add (list, s);
+      else {	
+	stats ss = statsf (s);
+	if (ss.min != 0. || ss.max != 0.)
+	  list = list_add (list, s);
+      }
+    }
+  free (listb);
   return list;
 }
 
@@ -1040,7 +1077,8 @@ trace
 void dump (const char * file = "dump",
 	   scalar * list = all,
 	   FILE * fp = NULL,
-	   bool unbuffered = false)
+	   bool unbuffered = false,
+	   bool zero = true)
 {
   char * name = NULL;
   if (!fp) {
@@ -1055,26 +1093,38 @@ void dump (const char * file = "dump",
   }
   assert (fp);
   
-  scalar * dlist = dump_list (list);
+  scalar * dlist = dump_list (list, zero);
   scalar size[];
   scalar * slist = list_concat ({size}, dlist); free (dlist);
   struct DumpHeader header = { t, list_len(slist), iter, depth(), npe(),
 			       dump_version };
+  int npe = 1;
+  foreach_dimension() {
+    header.n.x = Dimensions.x;
+    npe *= header.n.x;
+  }
+  header.npe = npe;
   dump_header (fp, &header, slist);
   
   subtree_size (size, false);
-  
+#if _GPU
+  for (scalar s in slist)
+    s.input = 1;
+  gpu_cpu_sync (slist, GL_MAP_READ_BIT, __FILE__, LINENO);
+#endif // _GPU
   foreach_cell() {
     unsigned flags = is_leaf(cell) ? leaf : 0;
     if (fwrite (&flags, sizeof(unsigned), 1, fp) < 1) {
       perror ("dump(): error while writing flags");
       exit (1);
     }
-    for (scalar s in slist)
-      if (fwrite (&s[], sizeof(double), 1, fp) < 1) {
+    for (scalar s in slist) {
+      double val = s[];
+      if (fwrite (&val, sizeof(double), 1, fp) < 1) {
 	perror ("dump(): error while writing scalars");
 	exit (1);
       }
+    }
     if (is_leaf(cell))
       continue;
   }
@@ -1092,7 +1142,8 @@ trace
 void dump (const char * file = "dump",
 	   scalar * list = all,
 	   FILE * fp = NULL,
-	   bool unbuffered = false)
+	   bool unbuffered = false,
+	   bool zero = true)
 {
   if (fp != NULL || file == NULL) {
     fprintf (ferr, "dump(): must specify a file name when using MPI\n");
@@ -1109,15 +1160,15 @@ void dump (const char * file = "dump",
     exit (1);    
   }
 
-  scalar * dlist = dump_list (list);
+  scalar * dlist = dump_list (list, zero);
   scalar size[];
   scalar * slist = list_concat ({size}, dlist); free (dlist);
   struct DumpHeader header = { t, list_len(slist), iter, depth(), npe(),
 			       dump_version };
 
 #if MULTIGRID_MPI
-  for (int i = 0; i < dimension; i++)
-    (&header.n.x)[i] = mpi_dims[i];
+  foreach_dimension()
+    header.n.x = Dimensions.x;
   MPI_Barrier (MPI_COMM_WORLD);
 #endif
 
@@ -1196,19 +1247,17 @@ bool restore (const char * file = "dump",
 	     header.npe, npe());
     exit (1);
   }
+#endif // MULTIGRID_MPI
   dimensions (header.n.x, header.n.y, header.n.z);
   double n = header.n.x;
   int depth = header.depth;
   while (n > 1)
     depth++, n /= 2;
   init_grid (1 << depth);
-#else // !MULTIGRID_MPI
-  init_grid (1 << header.depth);
-#endif
 #endif // multigrid
 
   bool restore_all = (list == all);
-  scalar * slist = dump_list (list ? list : all);
+  scalar * slist = dump_list (list ? list : all, true);
   if (header.version == 161020) {
     if (header.len - 1 != list_len (slist)) {
       fprintf (ferr,
@@ -1301,13 +1350,18 @@ bool restore (const char * file = "dump",
 	exit (1);
       }
       if (s.i != INT_MAX)
-	s[] = val;
+	s[] = isfinite(val) ? val : nodata;
     }
     if (!(flags & leaf) && is_leaf(cell))
       refine_cell (point, listm, 0, NULL);
     if (is_leaf(cell))
       continue;
   }
+#if _GPU
+  for (scalar s in slist)
+    if (s.i != INT_MAX)
+      s.gpu.stored = 1; // stored on CPU
+#endif // _GPU
   for (scalar s in all)
     s.dirty = true;
 #endif

@@ -56,13 +56,6 @@ event interface (t = {0,0.2,0.4,0.8}) {
   fclose (fp);
 }
 
-#if 0
-event gfsview (i += 10) {
-  static FILE * fp = popen("gfsview2D -s rt.gfv", "w");
-  output_gfs (fp);
-}
-#endif
-
 #if TREE
 event adapt (i++) {
   coord momb = {0};

@@ -43,6 +43,7 @@ examples)"*](/src/test/README#running-and-creating-test-cases-and-examples).
 * [A Shallow Water Analogue for the Standing Accretion Shock
   Instability](swasi.c)
 * [The Gulf Stream](gulf-stream.c)
+* [The Global Oceanic Circulation](global.c)
 * [Global tides](global-tides.c)
 
 ## Python interface

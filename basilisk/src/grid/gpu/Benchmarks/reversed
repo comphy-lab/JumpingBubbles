@@ -32,12 +32,12 @@ Dedicated video memory: 4096 MB
 
 __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia  ./reversed.gpu/reversed.gpu 10 2> /dev/null | grep -a steps
 
-# Multigrid (GPU), 963 steps, 0.203658 CPU, 0.2037 real, 4.84e+06 points.step/s, 13 var
-# Multigrid (GPU), 1880 steps, 0.481385 CPU, 0.4815 real, 1.6e+07 points.step/s, 13 var
-# Multigrid (GPU), 3720 steps, 0.958861 CPU, 0.959 real, 6.36e+07 points.step/s, 13 var
-# Multigrid (GPU), 7395 steps, 2.26117 CPU, 2.261 real, 2.14e+08 points.step/s, 13 var
-# Multigrid (GPU), 14735 steps, 9.65789 CPU, 9.661 real, 4e+08 points.step/s, 13 var
-# Multigrid (GPU), 29411 steps, 57.5168 CPU, 57.52 real, 5.36e+08 points.step/s, 13 var
+# Multigrid (GPU), 963 steps, 0.215285 CPU, 0.2153 real, 4.58e+06 points.step/s, 13 var
+# Multigrid (GPU), 1884 steps, 0.493655 CPU, 0.4937 real, 1.56e+07 points.step/s, 13 var
+# Multigrid (GPU), 3723 steps, 0.756077 CPU, 0.7561 real, 8.07e+07 points.step/s, 13 var
+# Multigrid (GPU), 7398 steps, 1.94184 CPU, 1.942 real, 2.5e+08 points.step/s, 13 var
+# Multigrid (GPU), 14738 steps, 8.55232 CPU, 8.552 real, 4.52e+08 points.step/s, 13 var
+# Multigrid (GPU), 29413 steps, 52.7038 CPU, 52.7 real, 5.85e+08 points.step/s, 13 var
 
 OpenGL renderer string: Quadro RTX 6000/PCIe/SSE2
 Dedicated video memory: 24576 MB
@@ -50,4 +50,24 @@ Dedicated video memory: 24576 MB
 # Multigrid (GPU), 7395 steps, 1.00502 CPU, 1.005 real, 4.82e+08 points.step/s, 13 var
 # Multigrid (GPU), 14735 steps, 3.44287 CPU, 3.443 real, 1.12e+09 points.step/s, 13 var
 # Multigrid (GPU), 29411 steps, 16.8635 CPU, 16.86 real, 1.83e+09 points.step/s, 13 var
+
+OpenGL renderer string: NVIDIA GeForce RTX 4090/PCIe/SSE2
+Dedicated video memory: 24564 MB
+
+# Multigrid (GPU), 963 steps, 0.171552 CPU, 0.1716 real, 5.75e+06 points.step/s, 13 var
+# Multigrid (GPU), 1884 steps, 0.311232 CPU, 0.3112 real, 2.48e+07 points.step/s, 13 var
+# Multigrid (GPU), 3723 steps, 0.604112 CPU, 0.6041 real, 1.01e+08 points.step/s, 13 var
+# Multigrid (GPU), 7398 steps, 1.23882 CPU, 1.239 real, 3.91e+08 points.step/s, 13 var
+# Multigrid (GPU), 14738 steps, 2.97884 CPU, 2.979 real, 1.3e+09 points.step/s, 13 var
+# Multigrid (GPU), 29413 steps, 8.70529 CPU, 8.705 real, 3.54e+09 points.step/s, 13 var
+
+OpenGL renderer string: NVIDIA GeForce RTX 4090 D/PCIe/SSE2 (stokes.lmm.jussieu.fr)
+Dedicated video memory: 24564 MB
+
+# Multigrid (GPU), 963 steps, 0.325755 CPU, 0.3258 real, 3.03e+06 points.step/s, 13 var
+# Multigrid (GPU), 1884 steps, 0.649636 CPU, 0.6497 real, 1.19e+07 points.step/s, 13 var
+# Multigrid (GPU), 3723 steps, 1.27677 CPU, 1.277 real, 4.78e+07 points.step/s, 13 var
+# Multigrid (GPU), 7398 steps, 2.61681 CPU, 2.617 real, 1.85e+08 points.step/s, 13 var
+# Multigrid (GPU), 14738 steps, 6.30688 CPU, 6.307 real, 6.13e+08 points.step/s, 13 var
+# Multigrid (GPU), 29413 steps, 13.9273 CPU, 13.93 real, 2.21e+09 points.step/s, 13 var
 ~~~

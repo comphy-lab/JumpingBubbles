@@ -215,9 +215,8 @@ static void relax_nh (scalar * phil, scalar * rhsl, int lev, void * data)
     eta[] = 0.;
     foreach_dimension() {
       n += alpha.x[0]*a_baro (eta, 0) - alpha.x[1]*a_baro (eta, 1);
-      diagonalize (eta) {
+      diagonalize (eta)
 	d -= alpha.x[0]*a_baro (eta, 0) - alpha.x[1]*a_baro (eta, 1);
-      }
     }
     eta[] = n/d;
   }

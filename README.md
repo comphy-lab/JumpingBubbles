@@ -5,10 +5,10 @@
 [![Python 3.7+](https://img.shields.io/badge/python-3.7+-blue.svg)](https://www.python.org/downloads/)
 [![OpenMP](https://img.shields.io/badge/OpenMP-enabled-brightgreen.svg)](https://www.openmp.org/)
 [![MPI](https://img.shields.io/badge/MPI-enabled-brightgreen.svg)](https://www.open-mpi.org/)
-[![GitHub issues](https://img.shields.io/github/issues/VatsalSy/jumping-bubbles)](https://github.com/VatsalSy/jumping-bubbles/issues)
-[![GitHub pull requests](https://img.shields.io/github/issues-pr/VatsalSy/jumping-bubbles)](https://github.com/VatsalSy/jumping-bubbles/pulls)
-[![GitHub release](https://img.shields.io/github/v/release/VatsalSy/jumping-bubbles)](https://github.com/VatsalSy/jumping-bubbles/releases)
-[![Documentation Status](https://img.shields.io/badge/docs-latest-brightgreen.svg)](http://basilisk.fr/sandbox/README)
+[![GitHub issues](https://img.shields.io/github/issues/comphy-lab/JumpingBubbles)](https://github.com/comphy-lab/JumpingBubbles/issues)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/comphy-lab/JumpingBubbles)](https://github.com/comphy-lab/JumpingBubbles/pulls)
+[![GitHub release](https://img.shields.io/github/v/release/comphy-lab/JumpingBubbles)](https://github.com/comphy-lab/JumpingBubbles/releases)
+[![Documentation Status](https://img.shields.io/badge/docs-latest-brightgreen.svg)](https://comphy-lab.org/JumpingBubbles/)
 
 A high-performance computational framework for studying bubble coalescence and jumping phenomena on substrates using [Basilisk C](http://basilisk.fr/). This repository provides a complete suite of simulation tools, post-processing utilities, and validated test cases for investigating two-phase free-surface flows with adaptive mesh refinement.
 
@@ -75,8 +75,8 @@ A high-performance computational framework for studying bubble coalescence and j
 ### Setting up Basilisk
 1. Clone this repository:
    ```bash
-   git clone https://github.com/VatsalSy/jumping-bubbles.git
-   cd jumping-bubbles
+   git clone https://github.com/comphy-lab/JumpingBubbles.git
+   cd JumpingBubbles
    ```
 
 2. Run the installation script:
@@ -144,10 +144,10 @@ We welcome contributions to improve Jumping Bubbles! Here's how you can help:
 
 ### Reporting Issues
 Click on the "Issues" tab above or use these quick links:
-- [Report a Bug](https://github.com/VatsalSy/jumping-bubbles/issues/new?template=bug_report.md&labels=bug)
-- [Request a Feature](https://github.com/VatsalSy/jumping-bubbles/issues/new?template=feature_request.md&labels=enhancement)
-- [Ask a Question](https://github.com/VatsalSy/jumping-bubbles/issues/new?template=question.md&labels=question)
-- [Open a Blank Issue](https://github.com/VatsalSy/jumping-bubbles/issues/new)
+- [Report a Bug](https://github.com/comphy-lab/JumpingBubbles/issues/new?template=bug_report.md&labels=bug)
+- [Request a Feature](https://github.com/comphy-lab/JumpingBubbles/issues/new?template=feature_request.md&labels=enhancement)
+- [Ask a Question](https://github.com/comphy-lab/JumpingBubbles/issues/new?template=question.md&labels=question)
+- [Open a Blank Issue](https://github.com/comphy-lab/JumpingBubbles/issues/new)
 
 ### Making Changes
 1. Fork the repository
