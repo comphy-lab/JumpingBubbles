@@ -35,9 +35,6 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           
-          # Fetch latest changes from origin/main
-          git fetch origin main
-          
           # Add changes
           git add docs/assets/js/search_db.json
           
@@ -47,9 +44,40 @@ jobs:
             # Commit changes
             git commit -m "Update search database from comphy-search repository [skip-deploy]"
             
-            # Rebase onto latest origin/main to avoid conflicts
-            git rebase origin/main
+            # Retry push with fresh fetch each time
+            MAX_RETRIES=5
+            RETRY_COUNT=0
             
-            # Use PAT to bypass branch protection with force-with-lease for safety
-            git push --force-with-lease "https://${{ secrets.BYPASS_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" HEAD:main
+            while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
+              echo "Push attempt $((RETRY_COUNT + 1))..."
+              
+              # Fetch latest changes
+              git fetch origin main
+              
+              # Rebase onto latest origin/main
+              if git rebase origin/main; then
+                # Try to push
+                if git push "https://${{ secrets.BYPASS_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" HEAD:main; then
+                  echo "Push successful!"
+                  break
+                else
+                  echo "Push failed, retrying..."
+                  RETRY_COUNT=$((RETRY_COUNT + 1))
+                  
+                  if [ $RETRY_COUNT -lt $MAX_RETRIES ]; then
+                    # Wait a bit before retrying
+                    sleep 2
+                  fi
+                fi
+              else
+                echo "Rebase failed, aborting"
+                git rebase --abort
+                exit 1
+              fi
+            done
+            
+            if [ $RETRY_COUNT -eq $MAX_RETRIES ]; then
+              echo "Max retries reached. Push failed."
+              exit 1
+            fi
           fi
