@@ -2405,6 +2405,328 @@
     "priority": 3
   },
   {
+    "title": "1 intro soft matter - Lecture 1: Different Faces of Soft Condensed Matter",
+    "content": "An introduction to soft materials, why they're soft, and how we measure softness. See [[0-README|course overview and structure]] for context. ---",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/1-Intro-Soft-Matter/#lecture-1-different-faces-of-soft-condensed-matter",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "1 intro soft matter - Prologue: Opening Poll",
+    "content": "> [!question] **\"Name one soft material you've touched today.\"** Soft matter is everywhere in daily life\u2014from the water in your shower and shampoo to the bread on your table, tissues, foams, and gels. This simple question anchors a deeper truth: **the materials we interact with most are soft**. ---",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/1-Intro-Soft-Matter/#prologue-opening-poll",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "1 intro soft matter - What is Soft Matter?",
+    "content": "> [!tldr] Definition > Materials easily deformed by modest stresses, thermal fluctuations, or interfacial forces; typically organized by **mesoscopic building blocks** (droplets, bubbles, grains, polymer coils) held together by **relatively weak interactions**.",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/1-Intro-Soft-Matter/#what-is-soft-matter",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "1 intro soft matter - **Water + Gelatin \u2192 Gel**",
+    "content": "Observe the transformation of gelatin and water: - **Liquid state:** Individual molecules move freely - **Cooling:** Gelatin chains form a crosslinked network - **Solid state:** Wobbly, flexible gel structure - **Mechanism:** Structure held by *weak* (often reversible) interactions, not rigid covalent bonds The gel **feels solid** (can hold shape), yet **wobbles easily** when pushed\u2014a hallmark of soft matter. ![](../../_Media/1-Intro-Soft-Matter-1761103784897.png)",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/1-Intro-Soft-Matter/#water-gelatin-gel",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "1 intro soft matter - **Beer Foam (Foam \ud83c\udf7a)**",
+    "content": "![](../../_Media/1-Intro-Soft-Matter-1761103818495.png) **Good foam (left):** Stable bubble structure with clear thin walls **Bad foam (right):** Bubbles coalesce and collapse Foams are **gas bubbles trapped in liquid** with surfactants stabilizing the interfaces. They exemplify soft matter because: - Structure held by **surface tension** (weak force) - **Easy to deform** under modest stresses - **Flow and rearrange** under sustained forces - **Evolve over time** via coalescence and coarsening ![](../../_Media/1-Intro-Soft-Matter-1761103864489.png) *Reference:* P. S. Stewart & S. Hilgenfeldt, *Annu. Rev. Fluid Mech.*, **55**:1, 323\u2013350 (2023)",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/1-Intro-Soft-Matter/#beer-foam-foam-",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "1 intro soft matter - **Shaving Cream**",
+    "content": "![](../../_Media/1-Intro-Soft-Matter-1761103886417.png) A dense **foam of gas + liquid**\u2014microstructure determines function: - Spreads easily (**flows** under shear) - Holds shape temporarily (**stores energy**) - Responds to manual deformation (**viscoelastic** behavior) > [!note] Key Insight > In many soft materials, **surface tension, entropy, and geometry** govern structure and mechanics far more than stiff, covalent bond stretching does. ---",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/1-Intro-Soft-Matter/#shaving-cream",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "1 intro soft matter - Atomic Scaling Argument",
+    "content": "![](../../_Media/1-Intro-Soft-Matter-1761103927376.png) When you compress a solid, you push overlapping electron clouds closer together. The **bulk modulus** scales roughly as: $$K \\sim \\frac{U}{a^3}$$ where: - **$U$** = interaction energy per atom (~tens of eV, from Coulombic/quantum mechanics) - **$a$** = atomic length scale (~1 \u00c5ngstr\u00f6m) This is the correct **scaling**: interaction energies packed into atomic volumes yield enormous bulk moduli.",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/1-Intro-Soft-Matter/#atomic-scaling-argument",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "1 intro soft matter - Numerical Estimate",
+    "content": "**Coulombic energy at 1 \u00c5ngstr\u00f6m:** Two unit charges separated by $r = 1\\,\\text{\u00c5}$ give: $$U = \\frac{1}{4\\pi\\varepsilon_0}\\frac{e^2}{1\\,\\text{\u00c5}} \\approx 14.4\\,\\text{eV}$$ **Converting to modulus:** Using the conversion $1\\,\\text{eV/\u00c5}^3 = 160.22\\,\\text{GPa}$: $$K \\sim \\frac{14.4\\,\\text{eV}}{(1\\,\\text{\u00c5})^3} \\approx 2.3 \\times 10^6\\,\\text{MPa}$$ *(Higher estimates using Bohr radius $a_0 \\approx 0.529\\,\\text{\u00c5}$ and $U \\approx 27.2\\,\\text{eV}$ reach $\\sim 2.9 \\times 10^7\\,\\text{MPa}$\u2014the key point is the **scaling**, not the exact prefactor.)*",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/1-Intro-Soft-Matter/#numerical-estimate",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "1 intro soft matter - Reality Check: Bulk Moduli of Real Materials",
+    "content": "| Material | $K$ (MPa) | $K$ (GPa) | Note | |----------|-----------|-----------|------| | **Diamond** | $4.4 \\times 10^5$ | 440 | Hard to compress **and** hard to shear | | **Steel** | $(1.6\\text{\u2013}1.7) \\times 10^5$ | 160\u2013170 | Hard to compress **and** hard to shear | | **Water** | $2.2 \\times 10^3$ | 2.2 | Hard to compress, liquid (no static shear) | | **Rubber** | $(1\\text{\u2013}2) \\times 10^3$ | 1\u20132 | Hard to compress, soft in shear | > [!important] > Most condensed matter is **hard to compress** (large $K$). What makes something feel \"hard\" in everyday life is actually the **shear modulus $G$**, not the bulk modulus. Everyday \"hardness\" \u2248 resistance to shape change, not resistance to compression. ---",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/1-Intro-Soft-Matter/#reality-check-bulk-moduli-of-real-materials",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "1 intro soft matter - Why is Soft Matter *Soft*? \u2014 The Entropic Shear Modulus",
+    "content": "For **soft solids** (rubbers, gels, polymer networks), the small-strain **shear modulus** arises fundamentally from **entropy**, not stiff bond stretching: $$\\boxed{G = n k_B T \\quad \\text{or} \\quad G \\sim \\frac{k_B T}{\\xi^3}}$$ where: - **$n$** = strand/crosslink density (number per unit volume) - **$\\xi$** = mesh size of the network (typical strand spacing, 10\u2013100 nm) - **$k_B T$** = thermal energy (~$4.1 \\times 10^{-21}\\,\\text{J}$ at room temperature)",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/1-Intro-Soft-Matter/#why-is-soft-matter-soft-the-entropic-shear-modulus",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "1 intro soft matter - Microscopic Origin: Stretching Reduces Configurations",
+    "content": "**At the chain level:** - Stretching a polymer coil **reduces the number of configurations** it can adopt - **Entropy decreases** when stretched - System **resists entropy loss** with restoring force: $F = -T\\frac{\\partial S}{\\partial x}$ - Unlike a metal spring (stiff atomic bonds resist), **this force is statistical** **From one chain to a network:** Crosslink $n$ strands per unit volume $\\Rightarrow$ the free-energy density is: $$F/V \\sim n k_B T \\quad \\Rightarrow \\quad G = n k_B T$$ For nearly incompressible materials (Poisson's ratio $\\nu \\to 0.5$): $$E \\approx 3G$$",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/1-Intro-Soft-Matter/#microscopic-origin-stretching-reduces-configurations",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "1 intro soft matter - Practical Examples",
+    "content": "With $k_B T \\approx 4.1 \\times 10^{-21}\\,\\text{J}$ at room temperature: $$G \\sim \\frac{k_B T}{\\xi^3} \\quad \\Rightarrow \\quad \\begin{cases} \\xi = 10\\,\\text{nm} & \\Rightarrow G \\approx 4\\,\\text{kPa} \\\\ \\xi = 1\\,\\text{nm} & \\Rightarrow G \\approx 4\\,\\text{MPa} \\end{cases}$$ **Interpretation:** Small changes in mesh size (network crosslink density) move the shear modulus from the kPa range (very soft, like a loose gel) to the MPa range (stiffer, more rubber-like), while the **bulk modulus stays large** (still hard to compress). > [!tip] The Soft Matter Paradox Resolved > **Soft in shear, hard in bulk.** Stretching a polymer network just rearranges coil conformations (easy, entropy-driven). Compressing it still pushes on dense electron clouds and liquid trapped in pores (hard, bonding physics). This is why rubbers and gels are \"soft\" yet \"incompressible\". ---",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/1-Intro-Soft-Matter/#practical-examples",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "1 intro soft matter - Far from Equilibrium: Dynamics Dominate",
+    "content": "Soft matter reveals its richness when driven away from equilibrium. Time and forcing history often matter more than equilibrium structure alone.",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/1-Intro-Soft-Matter/#far-from-equilibrium-dynamics-dominate",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "1 intro soft matter - Drop Impact in Microgravity (ISS \"Liquid Ping-Pong\")",
+    "content": "Without gravity, a water droplet maintains a sphere. When two droplets collide: - **Surface tension dominates** (gravity suppressed) - **Complex coalescence dynamics** unfold - Demonstrates soft matter **far from equilibrium**",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/1-Intro-Soft-Matter/#drop-impact-in-microgravity-iss-liquid-ping-pong",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "1 intro soft matter - Mud Volcano at Yellowstone",
+    "content": "Mud is a **viscoelastic soft material**: - Behaves as **solid over short times** (can support surface bumps and cones) - Flows like **liquid over long times** (material spreads slowly) - **Time-dependent response** is essential to understanding behavior",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/1-Intro-Soft-Matter/#mud-volcano-at-yellowstone",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "1 intro soft matter - Champagne Bubbles: A Glass of Soft Matter: Bubbles rising through...",
+    "content": "Bubbles rising through champagne display remarkable dynamics driven by: - **Liquid-gas interfaces** (surface tension $\\gamma$) - **Dissolved CO\u2082** (pressure inside bubbles) - **Surfactants** from wine components - **Viscoelasticity** of the liquid (if polymers are present) **Key observation:** Adding trace amounts of **polymer** ($c = 0.001\\%$ to $0.1\\%$) **dramatically changes bubble shape and bursting dynamics**. | Polymer Concentration | Bubble Shape | Behavior | Physical Origin | |---|---|---|---| | $c = 0.001\\%$ | Nearly spherical | Like clean water | No elastic effects | | $c = 0.01\\%$ | Slightly distorted | Viscoelastic effects emerge | Polymer chains begin to store energy | | $c = 0.1\\%$ | Highly deformed | **Viscoelasticity dominates** | Strong elastic resistance to flow | **References:** - E. Ghabache, G. Liger-Belair, A. Antkowiak & T. S\u00e9on, *Sci. Rep.*, **6**, 25148 (2016) - E. Ghabache, A. Antkowiak, C. Josserand & T. S\u00e9on, *Phys. Fluids*, **26**(12) (2014) - P. L. L. Walls, L.",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/1-Intro-Soft-Matter/#champagne-bubbles-a-glass-of-soft-matter",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "1 intro soft matter - Champagne Bubbles: A Glass of Soft Matter: Context",
+    "content": "Henaux & J. C. Bird, *Phys. Rev. E*, **92**(2), 021002 (2015) > [!tip] Tiny Additives, Huge Effects > Trace amounts of soft matter (ppm\u2013\u2030 polymer) can **dramatically alter flows and instabilities**. This is an engineer's lever in mixing, coating, printing, and food science applications. ---",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/1-Intro-Soft-Matter/#champagne-bubbles-a-glass-of-soft-matter",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "1 intro soft matter - Rayleigh's Pioneering Observations (1891)",
+    "content": "> **179.** *SOME APPLICATIONS OF PHOTOGRAPHY.* > [*Proc. Roy. Inst.* XIII. pp. 261\u2013272, Feb. 1891; *Nature*, XLIV. pp. 249\u2013254, 1891.] ![](../../_Media/1-Intro-Soft-Matter-1761105367372.png) **John William Strutt, 2nd Baron Rayleigh**, one of the 19th century's greatest physicists, used **instantaneous photography** to capture: - **Falling jets breaking into droplets** (Rayleigh\u2013Plateau instability) ![](../../_Media/1-Intro-Soft-Matter-1761105418528.png) - **Liquid stream dynamics and surface tension effects** - **Capillary flows** driven by interfacial forces His 1891 paper essentially **pioneered the study of liquid dynamics**\u2014a cornerstone of soft matter physics.",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/1-Intro-Soft-Matter/#rayleighs-pioneering-observations-1891",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "1 intro soft matter - Taylor\u2013Culick Retraction: The Dupr\u00e9\u2013Rayleigh Paradox",
+    "content": "![](../../_Media/1-Intro-Soft-Matter-1761105451051.png) When you **puncture a thin soap bubble**, the film edge **retracts rapidly inward**. The film consists of a thin water layer (thickness $h_0$) with surfactant molecules at both liquid\u2013air interfaces (surface tension $\\gamma_{fa}$ per interface). > [!question] The Paradox: > Two seemingly correct approaches give **different predictions** for retraction speed $v_f$:",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/1-Intro-Soft-Matter/#taylorculick-retraction-the-dupr\u00e9rayleigh-paradox",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "1 intro soft matter - Energy Approach (Rayleigh, 1891)",
+    "content": "Rate of surface energy decrease = Rate of kinetic energy increase $$\\frac{d}{dt}\\left(\\frac{1}{2}m v^2\\right) = 2\\gamma_{fa}(2\\pi R) v$$ $$\\Rightarrow \\quad v_f = \\sqrt{\\frac{4\\gamma_{fa}}{\\rho h_0}}$$",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/1-Intro-Soft-Matter/#energy-approach-rayleigh-1891",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "1 intro soft matter - Momentum Approach (Taylor, 1959)",
+    "content": "Force from surface tension = Rate of momentum change $$\\frac{dP}{dt} = 2\\gamma_{fa}(2\\pi R)$$ $$\\Rightarrow \\quad \\frac{d}{dt}(m v_f) = 2\\gamma_{fa}(2\\pi R)$$ $$\\Rightarrow \\quad v_f = \\sqrt{\\frac{2\\gamma_{fa}}{\\rho h_0}}$$",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/1-Intro-Soft-Matter/#momentum-approach-taylor-1959",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "1 intro soft matter - The Factor of 2 Discrepancy",
+    "content": "$$\\text{Energy method:} \\quad v_f = \\sqrt{\\frac{4\\gamma_{fa}}{\\rho h_0}}$$ $$\\text{Momentum method:} \\quad v_f = \\sqrt{\\frac{2\\gamma_{fa}}{\\rho h_0}}$$ **Question:** Where did the energy go? > [!question] **Think About It** > The resolution of this paradox requires careful accounting of energy dissipation and momentum conservation. We will resolve it in the next lecture, where we properly track kinetic energy, surface energy, and viscous dissipation. ---",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/1-Intro-Soft-Matter/#the-factor-of-2-discrepancy",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "1 intro soft matter - Friday Afternoon Experiment: Timescale Matters",
+    "content": "Researchers at Sorbonne Universit\u00e9 studied bubble formation dynamics by varying the **air-blowing rate** during bubble generation: **Reference:** D. Tammaro, R. Pasquino, M. M. Villone, G. D'Avino, V. Ferraro, E. Di Maio, A. Langella, N. Grizzuti & P. L. Maffettone, *Langmuir*, **34**(19), 5646\u20135654 (2018) **Key Observation:** - **Low blowing rate:** Bubbles form slowly; film drains gradually; stable bubble structure - **High blowing rate:** Bubbles form rapidly; less drainage time; different dynamics and breakup modes **Lesson:** In soft matter, **protocol and timescale are decisive control parameters**. The same material exhibits wildly different behavior depending on how fast you drive it. ---",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/1-Intro-Soft-Matter/#friday-afternoon-experiment-timescale-matters",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "1 intro soft matter - Epilogue: Reflection Questions",
+    "content": "1. **Name one soft-matter phenomenon you now see in everyday life. Why is it soft?** 2. **What do you want to get out of this course?** 3. *(Optional)* Share a 1\u20132 sentence observation on something from your week that now \"looks like soft matter.\" ---",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/1-Intro-Soft-Matter/#epilogue-reflection-questions",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "1 intro soft matter - Homework (Self-Assessed)",
+    "content": "> [!check] **Homework Questions** > > **Q1.** Explain, in your own words, why many soft materials have **shear moduli** orders of magnitude below crystalline solids. (Think about atomic vs mesoscopic length scales and energy sources.) > > **Q2.** Pick an everyday product and identify: > - Its **soft-matter classification** (foam, gel, polymer solution, colloid, etc.) > - The **microstructural ingredient** that gives it its desired function > > **Q3.** A polymer coil in a good solvent is stretched and released. Why is the restoring force **entropic** rather than from stiff bond stretching? > > **Q4.** A thin water stream breaks into drops. Name: > - The **instability** responsible > - Its **thermodynamic driver** (what energy is minimized?) > - One **engineering application** or **mitigation strategy** (e.g., in printing, mixing, coating) ---",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/1-Intro-Soft-Matter/#homework-self-assessed",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "1 intro soft matter - **Bulk Modulus ($K$) \u2014 Resistance to Volume Change**",
+    "content": "- **Definition:** $\\Delta V / V = -\\Delta p / K$ (uniform compression from all directions) - **Large $K$** means small volume changes under pressure \u2192 **(nearly) incompressible** - **Typical values:** Water and rubber both have $K \\sim 1$\u2013$2\\,\\text{GPa}$ \u2192 hard to compress **Example:** A 1 atm pressure change (100 kPa) on water with $K = 2\\,\\text{GPa}$ gives $\\Delta V/V \\approx 5 \\times 10^{-5}$ (0.005% volume change)\u2014effectively incompressible in everyday terms.",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/1-Intro-Soft-Matter/#bulk-modulus-k-resistance-to-volume-change",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "1 intro soft matter - **Shear Modulus ($G$) \u2014 Resistance to Shape Change**",
+    "content": "- **Definition:** Stress needed to shear a material at (nearly) constant volume - **Small $G$** \u2192 easy to reshape \u2192 **\"soft in shear\"** - **Typical values:** Soft matter $G \\sim 1\\,\\text{kPa}$ to $1\\,\\text{MPa}$; hard matter $G \\sim 50$\u2013$200\\,\\text{GPa}$",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/1-Intro-Soft-Matter/#shear-modulus-g-resistance-to-shape-change",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "1 intro soft matter - **Young's Modulus ($E$) \u2014 Uniaxial Stiffness**",
+    "content": "- **Definition:** Stress divided by strain in a simple tension/compression test - **Not independent:** Combines both shear and bulk responses via the Poisson effect - **Typical values:** Soft matter $E \\sim 1$\u2013$100\\,\\text{MPa}$; hard matter $E \\sim 100$\u2013$1000\\,\\text{GPa}$",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/1-Intro-Soft-Matter/#youngs-modulus-e-uniaxial-stiffness",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "1 intro soft matter - **Poisson's Ratio ($\\nu$) \u2014 Lateral Contraction**",
+    "content": "- **Definition:** When you stretch a rod, it gets thinner; $\\nu$ quantifies this lateral contraction - **Incompressible limit:** $\\nu \\to 0.5$ (no volume change under axial load) - **Typical values:** Metals $\\nu \\approx 0.2$\u2013$0.35$; rubbers $\\nu \\approx 0.5$",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/1-Intro-Soft-Matter/#poissons-ratio-nu-lateral-contraction",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "1 intro soft matter - Relations Between Elastic Constants",
+    "content": "For **isotropic, linear elastic solids**, any two constants determine the others: $$\\boxed{E = 2G(1 + \\nu)}$$ $$\\boxed{E = \\frac{9KG}{3K + G}}$$ $$\\boxed{K = \\frac{E}{3(1 - 2\\nu)}}$$ **Key Limits:** - **Incompressible limit** ($\\nu \\to 0.5$): $K \\gg G$ and **$E \\approx 3G$** - This is why rubbers and gels can be \"soft\" ($G$ small) yet \"incompressible\" ($K$ large) - **Compressible solids** (metals): $\\nu \\approx 0.2$\u2013$0.35$, so $K$ and $G$ are comparable",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/1-Intro-Soft-Matter/#relations-between-elastic-constants",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "1 intro soft matter - Liquids: A Special Case",
+    "content": "A **Newtonian liquid** (water, simple oils) **cannot support static shear stress**, so: - **$G = 0$** (no static shear modulus) - **$K$ is large** (liquids are hard to compress) - **Resistance to shear** is purely **viscous** ($\\eta$, viscosity), not elastic > [!abstract] **The Incompressible Yet Soft (?) ** > > **Large $K$ doesn't imply large $G$.** > > - **Bulk modulus ($K$)**: Controls **volume resistance** under hydrostatic pressure (bonding/packing physics) > - **Shear modulus ($G$)**: Controls **shape resistance** at nearly constant volume (entropy in networks; viscosity in liquids) > > **Soft matter is soft in $G$ (easy to reshape), not in $K$ (hard to compress).** > > - Rubbers/gels: $K \\gg G$, $\\nu \\approx 0.5$, $E \\approx 3G$ > - Liquids: $K$ large, $G = 0$ (use $\\eta$ instead), no meaningful $E$ > - Hard solids: Both $K$ and $G$ large",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/1-Intro-Soft-Matter/#liquids-a-special-case",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "1 intro soft matter - Quick Reference Table",
+    "content": "| Property | Soft Matter (typical) | Hard Matter (typical) | Meaning | |----------|----------------------|----------------------|---------| | **$K$ (Bulk)** | 1\u20132 GPa | 100\u2013400 GPa | Volume stiffness (hydrostatic) | | **$G$ (Shear)** | 1 kPa \u2013 1 MPa | 50\u2013200 GPa | Shape stiffness | | **$E$ (Young's)** | 1\u2013100 MPa | 100\u20131000 GPa | Uniaxial stiffness | | **$\\nu$ (Poisson)** | $\\approx 0.5$ | 0.2\u20130.35 | Lateral contraction ratio | ---",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/1-Intro-Soft-Matter/#quick-reference-table",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "1 intro soft matter - Key Takeaways",
+    "content": "1. **Soft matter is everywhere.** From gels and foams to champagne bubbles and mud, soft materials dominate our everyday experience. 2. **\"Soft\" and \"incompressible\" are not contradictory.** Most soft materials are hard to compress (large $K$) but easy to reshape (small $G$). 3. **Entropic elasticity is different.** In polymer networks, the shear modulus arises from **statistical resistance to entropy loss**, not stiff bond stretching. This makes them temperature-sensitive and tunable via crosslink density. 4. **Time matters.** The same soft material behaves differently over different timescales\u2014as a solid at short times, as a fluid at long times. This **time-dependent response** is central to soft matter physics. 5. **Tiny additives, huge effects.** Trace polymer additions can dramatically alter interfacial dynamics, instabilities, and flow behavior\u2014an important design lever in engineering and biology. ---",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/1-Intro-Soft-Matter/#key-takeaways",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "1 intro soft matter - Further Reading: - **Textbook:** Pierre-Gilles...",
+    "content": "- **Textbook:** Pierre-Gilles de Gennes, *Scaling Concepts in Polymer Physics* (Cornell University Press, 1979) \u2014 foundational work on soft matter scaling [Link](https://www.amazon.co.uk/Scaling-Concepts-Polymer-Physics-Pierre-Gilles/dp/080141203X) - **Review:** Patrick Oswald & Pierre Pieranski, *Nematic and Cholesteric Liquid Crystals: Concepts and Physical Properties Illustrated by Experiments* (Taylor & Francis, 2005) \u2014 detailed liquid crystal physics [DOI: 10.1201/9780203023013](https://doi.org/10.1201/9780203023013) - **Modern perspective:** Tom McLeish, *Liquid Crystal Polymers* (Oxford University Press, 2018) \u2014 contemporary soft matter overview [Link](https://global.oup.com/academic/product/soft-matter-9780198807131?cc=gb&lang=en&) See the next lecture for a rigorous treatment of the Taylor\u2013Culick paradox and momentum/energy conservation in soft matter flows. --- > [!significance]- Metadata > Author:: [Vatsal Sanjay](https://vatsalsanjay.com) > Date published:: Oct 22, 2025 > Date modified:: Oct 22, 2025 > [!link] Back to main website > [Home](https://comphy-lab.org/), [Team](https://comphy-lab.org/team), [Research](https://comphy-lab.org/research), [Github](https://github.com/comphy-lab)",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/1-Intro-Soft-Matter/#further-reading",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "0 readme - Soft Condensed Matter: An Introduction",
+    "content": "**Course Overview.** A journey through soft materials\u2014from everyday foams and gels to polymer networks and interfacial dynamics. We develop the conceptual and mathematical foundations to understand why soft matter behaves so differently from hard solids and liquids.",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/0-README/#soft-condensed-matter-an-introduction",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "0 readme - Course Goals",
+    "content": "- Develop a **basic understanding** of key concepts in Soft Condensed Matter - **Recognize parallels and differences** between Soft Matter and 'Hard Matter' systems - **Engage critically** with publications and seminars (assessed in final presentations) - **Learn how to contribute to Open Source Science** (mid-course assignment)",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/0-README/#course-goals",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "0 readme - Course Structure (8 Lectures)",
+    "content": "- **Lecture 1:** [[1-Intro-Soft-Matter|Different Faces of Soft Condensed Matter]] \u2013 What is soft matter, why is it soft, and how do we measure softness? - **Lecture 2:** Coarse-Grained Continuum Mechanics & Conservation Laws - **Lecture 3:** Soft Matter Instabilities - **Lecture 4:** Soft Matter Singularities - **Lecture 5:** Elastic vs Viscous vs Viscoelastic Behavior - **Lecture 6:** Rheology \u2013 Measuring \"Softness\" and Time-Dependent Response - **Lecture 7:** Advanced Topics & Research Frontiers - **Lecture 8:** Presentations (10:00\u201312:00)",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/0-README/#course-structure-8-lectures",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "0 readme - Administrative Information",
+    "content": "> [!info] Course Details > - **Format:** 8 weekly lectures (2 hours each) > - **Homework:** Short self-assessed questions at the end of each lecture (model solutions provided) > - **Office Hours:** Thursdays 14:00\u201316:00 (Ph255) or email [vatsal.sanjay@durham.ac.uk](mailto:vatsal.sanjay@durham.ac.uk) > - **Assessments:** > - Mid-course: Open Source Science contribution (Week 5) > - Final: Student presentations (Week 8, 10:00\u201312:00) > - **Grading:** Participation (20%), take-home assignment (30%), final presentation (50%)",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/0-README/#administrative-information",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "0 readme - Key Learning Outcomes",
+    "content": "By the end of this course, you will be able to: 1. **Identify soft matter** in everyday materials and explain what makes it \"soft\" 2. **Explain the microscopic origins** of soft material properties (entropy, surface tension, weak interactions) 3. **Compare and contrast** soft and hard condensed matter using scaling arguments and dimensional analysis 4. **Apply continuum mechanics** to soft matter problems (flows, instabilities, deformations) 5. **Interpret rheological data** and connect microscopic structure to macroscopic behavior 6. **Critically read** soft matter research papers and engage in scientific discussion",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/0-README/#key-learning-outcomes",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "0 readme - How to Use These Lecture Notes",
+    "content": "- **Start here:** Read [[1-Intro-Soft-Matter|Lecture 1]] for foundational concepts and examples - **Work through systematically:** Each lecture builds on the previous one - **Try the homework:** Self-assessment questions reinforce key ideas - **Use the references:** Further reading suggestions at the end of each lecture - **Engage with videos and figures:** Visual examples illustrate abstract concepts ---",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/0-README/#how-to-use-these-lecture-notes",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "0 readme - Recommended Prerequisites",
+    "content": "- **Physics:** Mechanics (Newton's laws, energy, momentum) - **Mathematics:** Calculus (derivatives, integrals), linear algebra basics - **Chemistry:** Basic atomic/molecular structure, thermodynamics concepts No prior knowledge of soft matter or materials science is required.",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/0-README/#recommended-prerequisites",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "0 readme - Textbooks & References",
+    "content": "This list will be populated as we go through the course",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/0-README/#textbooks-references",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "0 readme - Primary References",
+    "content": "- **de Gennes, P.-G.** (1979). *Scaling Concepts in Polymer Physics*. Cornell University Press. [Amazon UK](https://www.amazon.co.uk/Scaling-Concepts-Polymer-Physics-Pierre-Gilles/dp/080141203X) - **Oswald, P. & Pieranski, P.** (2005). *Nematic and Cholesteric Liquid Crystals: Concepts and Physical Properties Illustrated by Experiments*. Taylor & Francis. - [DOI: 10.1201/9780203023013](https://doi.org/10.1201/9780203023013) - Detailed experimental and theoretical treatment",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/0-README/#primary-references",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "0 readme - Modern Overviews",
+    "content": "- Tom McLeish, *Liquid Crystal Polymers* (Oxford University Press, 2018) \u2014 contemporary soft matter overview [Link](https://global.oup.com/academic/product/soft-matter-9780198807131?cc=gb&lang=en&)",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/0-README/#modern-overviews",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "0 readme - Research Journals",
+    "content": "- *Phys. Rev. Fluids* (APS) - *J. Fluid Mech.* (Cambridge) - *Soft Matter* (Royal Society of Chemistry) - *Langmuir* (ACS) ---",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/0-README/#research-journals",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "0 readme - Contact & Support",
+    "content": "**Instructor:** Vatsal Sanjay **Email:** [vatsal.sanjay@durham.ac.uk](mailto:vatsal.sanjay@durham.ac.uk) **Office Hours:** Thu 14:00\u201316:00 (Ph255) Have questions? Come to office hours or send an email \u2014 I'm here to help! --- > [!link] More Resources > - [CoMPhy Lab Website](https://comphy-lab.org/) > - [Research Group](https://comphy-lab.org/research) > - [GitHub](https://github.com/comphy-lab) **Last updated:** 2025-10-22",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/0-README/#contact-support",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
     "title": "2025 herschel\u2013bulkley formulation - Herschel\u2013Bulkley formulation for non-Newtonian flows",
     "content": "> [!tldr] TL;DR > The **Herschel\u2013Bulkley** model unifies Newtonian, Bingham, and power-law fluids via a yield stress and a strain-rate-dependent viscosity. An \ufffc$\\epsilon$-regularization ensures stable computations and recovers simpler models (Newtonian, Bingham) by tuning model parameters. Dimensionless groups (e.g., the plasto-capillary number \ufffc and the effective Ohnesorge) capture the interplay of fluid rheology, capillarity, and flow scales. Implementation details are provided, along with references, open-source code, and demonstrations of bubble-burst simulations in viscoplastic media.",
     "url": "https://blogs.comphy-lab.org/Code-Documentations/2025-Herschel\u2013Bulkley-formulation/#herschelbulkley-formulation-for-non-newtonian-flows",
