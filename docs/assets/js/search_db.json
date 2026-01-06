@@ -845,7 +845,7 @@
   },
   {
     "title": "0_readme - Seminar Presentations:",
-    "content": "2025-02-21 [[Seminar-Durham-abstract]]: Durham University seminar exploring polymeric flows as a tunable testbed for unsteady, nonlinear continuum mechanics. 2025-01-19 [[Seminar-UIUC-abstract]]: UIUC fluid seminar investigating how polymers modify classical hydrodynamic singularities in free-surface flows.",
+    "content": "2025-02-21 [[Seminar-Drosophila-continuum-mechanics]]: Durham University seminar exploring polymeric flows as a tunable testbed for unsteady, nonlinear continuum mechanics. 2025-01-19 [[Seminar-UIUC-abstract]]: UIUC fluid seminar investigating how polymers modify classical hydrodynamic singularities in free-surface flows.",
     "url": "https://blogs.comphy-lab.org/0_README/#seminar-presentations",
     "type": "blog_section",
     "priority": 3
@@ -1971,16 +1971,37 @@
     "priority": 3
   },
   {
-    "title": "Seminar durham abstract - Can polymeric flows be the Drosophila of continuum mechanics?: > [!significance] Speaker...",
+    "title": "Seminar drosophila continuum mechanics - Can polymeric flows be the Drosophila of continuum mechanics?: > [!significance] Speaker...",
     "content": "> [!significance] Speaker > [Vatsal Sanjay](https://vatsalsanjay.com) ([CoMPhy Lab](https://comphy-lab.org)) Polymeric liquids provide a tunable testbed to explore unsteady, nonlinear continuum mechanics by systematically varying the amount and type of polymers. We explore how such systems can probe a continuum of behaviors from Newtonian flows to elastically dominated regimes, making polymeric flows effectively the \"Drosophila\" of unsteady continuum mechanics. This talk will demonstrate how adding polymers modifies instabilities in three canonical free-surface flows: sheets punctured by holes (Taylor\u2013Culick retraction), bursting bubbles that emit droplets, and Worthington jets formed by impact. Elastic stresses either create new singularities or suppress known ones, leading to distinct regimes in parameter space.",
-    "url": "https://blogs.comphy-lab.org/Talks/Seminar-Durham-abstract/#can-polymeric-flows-be-the-drosophila-of-continuum-mechanics",
+    "url": "https://blogs.comphy-lab.org/Talks/Seminar-Drosophila-continuum-mechanics/#can-polymeric-flows-be-the-drosophila-of-continuum-mechanics",
     "type": "blog_section",
     "priority": 3
   },
   {
-    "title": "Seminar durham abstract - Can polymeric flows be the Drosophila of continuum mechanics?: JavaScript",
-    "content": "Numerical simulations and complementary experiments reveal how polymer relaxation time and modulus determine free-surface morphologies, droplet sizes, and jet velocities, with implications for aerosol generation and fluid processing. By unifying concepts from fluid and solid mechanics, these results provide broad insight into controlling interfacial flows in manufacturing, pathogen transport, and beyond. ![[_Media/Durham.png|How do polymeric flows influence classical hydrodyna ic singularities?]] > [!info]- Metadata > Posted by:: Vatsal > Date published:: 2025-02-21 > Date modified:: Feb 21, 2025 at 07:23 CET > [!meta] Back to main website > [Home](https://comphy-lab.org/), [Team](https://comphy-lab.org/team), [Research](https://comphy-lab.org/research), [Github](https://github.com/comphy-lab) [[Seminar-Durham-abstract.pdf|this page in .pdf]]",
-    "url": "https://blogs.comphy-lab.org/Talks/Seminar-Durham-abstract/#can-polymeric-flows-be-the-drosophila-of-continuum-mechanics",
+    "title": "Seminar drosophila continuum mechanics - Can polymeric flows be the Drosophila of continuum mechanics?: JavaScript",
+    "content": "Numerical simulations and complementary experiments reveal how polymer relaxation time and modulus determine free-surface morphologies, droplet sizes, and jet velocities, with implications for aerosol generation and fluid processing. By unifying concepts from fluid and solid mechanics, these results provide broad insight into controlling interfacial flows in manufacturing, pathogen transport, and beyond. ![[_Media/20250119213726033_Seminar-UIUC-abstract.png|How do polymeric flows influence classical hydrodynamic singularities?]] [[Seminar-Drosophila-continuum-mechanics.pdf|this page in .pdf]]",
+    "url": "https://blogs.comphy-lab.org/Talks/Seminar-Drosophila-continuum-mechanics/#can-polymeric-flows-be-the-drosophila-of-continuum-mechanics",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "Seminar singularities - Singularities in soft matter systems: > [!significance] Speaker...",
+    "content": "> [!significance] Speaker > [Vatsal Sanjay](https://vatsalsanjay.com) ([CoMPhy Lab](https://comphy-lab.org)) Soft matter flows frequently exhibit hydrodynamic singularities arising from the interplay of capillarity, inertia, viscosity, and elasticity. This talk explores such singularities across drops, bubbles, and thin films, combining experiments, direct numerical simulations, and theory. First, we investigate Worthington jets produced by drop impacts on superhydrophobic substrates, where discrete peaks in normal force mark singular events [1]. Next, we examine bursting bubbles in Newtonian and viscoelastic media, connecting elastic and viscous stresses to jet formation and droplet ejection [2]. Finally, for retracting liquid films, we demonstrate that classical Taylor\u2013Culick dynamics harbours singular limits: a viscous anomaly in the Newtonian case and elastic stress blow-up in the viscoelastic regime [3].",
+    "url": "https://blogs.comphy-lab.org/Talks/Seminar-Singularities/#singularities-in-soft-matter-systems",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "Seminar singularities - Singularities in soft matter systems: JavaScript",
+    "content": "By exploring this multidimensional phase space, we uncover new physical insights into these systems. The findings carry direct implications for manufacturing processes, droplet transport, and pathogen dispersal mitigation. ![[_Media/Seminar-Singularities-1767636732618.png]]",
+    "url": "https://blogs.comphy-lab.org/Talks/Seminar-Singularities/#singularities-in-soft-matter-systems",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "Seminar singularities - References",
+    "content": "[1] V. Sanjay, B. Zhang, C. Lv, and D. Lohse, \"The role of viscosity on drop impact forces on non-wetting surfaces,\" _J. Fluid Mech._, vol. 998, p. A40, 2024, doi: [10.1017/jfm.2024.982](https://doi.org/10.1017/jfm.2024.982). [2] A. K. Dixit, A. Oratis, K. Zinelis, D. Lohse, and V. Sanjay, \"Viscoelastic Worthington jets and droplets produced by bursting bubbles,\" _J. Fluid Mech._, vol. 1010, p. A2, 2025, doi: [10.1017/jfm.2025.237](https://doi.org/10.1017/jfm.2025.237). [3] V. Sanjay, U. Sen, P. Kant, and D. Lohse, \"Taylor\u2013Culick retractions and the influence of the surroundings,\" _J. Fluid Mech._, vol. 948, p. A14, 2022, doi: [10.1017/jfm.2022.671](https://doi.org/10.1017/jfm.2022.671). [[Seminar-Singularities.pdf|this page in .pdf]]",
+    "url": "https://blogs.comphy-lab.org/Talks/Seminar-Singularities/#references",
     "type": "blog_section",
     "priority": 3
   },
@@ -2002,20 +2023,6 @@
     "title": "2025 06 30_conference vpflow abstract - References",
     "content": "[1] A. G. Balasubramanian, V. Sanjay, M. Jalaal, R. Vinuesa, and O. Tammisola, \u201cBursting bubble in an elasto-viscoplastic medium,\u201d _J. Fluid Mech._, vol. 1001, p. A9, Dec. 2024, doi: [10.1017/jfm.2024.1073](https://doi.org/10.1017/jfm.2024.1073) [2] V. Sanjay, D. Lohse, and M. Jalaal, \u201cBursting bubble in a viscoplastic medium,\u201d _J. Fluid Mech._, vol. 922, p. A2, 2021, doi: [10.1017/jfm.2021.489](https://doi.org/10.1017/jfm.2021.489) [3] A. K. Dixit, A. Oratis, K. Zinelis, D. Lohse, and V. Sanjay, \u201cViscoelastic Worthington jets and droplets produced by bursting bubbles,\u201d _J. Fluid Mech._, vol. 1010, p. A2, May 2025, doi: [10.1017/jfm.2025.237](https://doi.org/10.1017/jfm.2025.237). [[2025-06-30_Conference-VPflow-abstract.pdf|this page in .pdf]]",
     "url": "https://blogs.comphy-lab.org/Talks/2025-06-30_Conference-VPflow-abstract/#references",
-    "type": "blog_section",
-    "priority": 3
-  },
-  {
-    "title": "Seminar uiuc abstract - Can polymeric flows be the Drosophila of continuum mechanics?: > [!significance] Details...",
-    "content": "> [!significance] Details > Speaker:: [Vatsal Sanjay](https://vatsalsanjay.com) ([CoMPhy Lab](https://comphy-lab.org)) > Seminar:: Fluid seminar, University of Illinois Urbana-Champaign (UIUC) > > When:: Thu. January 30, 2025 at 1600h CST (2300h AMS time). > How to attend:: Online, please email Vatsal ([vatsalsanjay@gmail.com](mailto:vatsalsanjay@gmail.com)) Polymeric liquids provide a tunable testbed to explore unsteady, nonlinear continuum mechanics by systematically varying the amount and type of polymers. We explore how such systems can probe a continuum of behaviors from Newtonian flows to elastically dominated regimes, making polymeric flows effectively the \"Drosophila\" of unsteady continuum mechanics. This talk will demonstrate how adding polymers modifies instabilities in three canonical free-surface flows: sheets punctured by holes (Taylor\u2013Culick retraction), bursting bubbles that emit droplets, and Worthington jets formed by impact.",
-    "url": "https://blogs.comphy-lab.org/Talks/Seminar-UIUC-abstract/#can-polymeric-flows-be-the-drosophila-of-continuum-mechanics",
-    "type": "blog_section",
-    "priority": 3
-  },
-  {
-    "title": "Seminar uiuc abstract - Can polymeric flows be the Drosophila of continuum mechanics?: Elastic stresses either...",
-    "content": "Elastic stresses either create new singularities or suppress known ones, leading to distinct regimes in parameter space. Numerical simulations and complementary experiments reveal how polymer relaxation time and modulus determine free-surface morphologies, droplet sizes, and jet velocities, with implications for aerosol generation and fluid processing. By unifying concepts from fluid and solid mechanics, these results provide broad insight into controlling interfacial flows in manufacturing, pathogen transport, and beyond. ![Singularities](_Media/20250119213726033_Seminar-UIUC-abstract.png) [[Seminar-UIUC-abstract.pdf|abstract in .pdf]] > [!info]- Metadata > Posted by:: Vatsal > Date published:: 2025-01-19 > Date modified:: Jan 27, 2025 at 08:03 CET > [!meta] Back to main website > [Home](https://comphy-lab.org/), [Team](https://comphy-lab.org/team), [Research](https://comphy-lab.org/research), [Github](https://github.com/comphy-lab)",
-    "url": "https://blogs.comphy-lab.org/Talks/Seminar-UIUC-abstract/#can-polymeric-flows-be-the-drosophila-of-continuum-mechanics",
     "type": "blog_section",
     "priority": 3
   },
@@ -3414,14 +3421,14 @@
   },
   {
     "title": "2 what is viscosity - Setup: Simple Couette Flow",
-    "content": "![](../../_Media/2-What-is-Viscosity-1761738283101.png) Consider a steady shear flow where: - Velocity varies linearly: $u_x(y) = \\dot{\\gamma} \\cdot y$ - Mean free path: $\\lambda$ - Mean molecular speed: $\\bar{c} = \\sqrt{8 k_B T / (\\pi m)}$ (monatomic gas) - Number density: $n$ In this geometry, molecules at height $y$ have average $x$-velocity $u_x(y)$. But they only came to height $y$ after traveling a distance $\\sim \\lambda$ through the fluid. The $x$-momentum they carry reflects the conditions they saw $\\sim \\lambda$ away\u2014this is where the velocity gradient matters. ---",
+    "content": "![](../../_Media/2-What-is-Viscosity-1761738283101.png) Consider a steady shear flow where: 1. Velocity varies linearly: $u_x(y) = \\dot{\\gamma} \\cdot y$ 2. Mean free path: $\\lambda$ 3. Mean molecular speed: $\\bar{c} = \\sqrt{8 k_B T / (\\pi m)}$ (monatomic gas) 4. Number density: $n$ In this geometry, molecules at height $y$ have average $x$-velocity $u_x(y)$. But they only came to height $y$ after traveling a distance $\\sim \\lambda$ through the fluid. The $x$-momentum they carry reflects the conditions they saw $\\sim \\lambda$ away\u2014this is where the velocity gradient matters. ---",
     "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/2-What-is-Viscosity/#setup-simple-couette-flow",
     "type": "blog_section",
     "priority": 3
   },
   {
     "title": "2 what is viscosity - Step 1: Molecular Flux Across a Plane",
-    "content": "For an isotropic gas, the number of molecules crossing a plane (per unit area per unit time) is: $$\\boxed{J = \\frac{1}{4} n \\bar{c}}$$ This factor of 1/4 arises from two geometric considerations: - Half the molecules move upward and half downward (factor of 1/2) - Of those moving upward, the average normal component of velocity is $\\bar{c}/2$ because the mean direction makes approximately a 60\u00b0 angle to the normal Therefore: $\\langle v_y^+ \\rangle = (1/2) \\times (1/2) \\bar{c} = \\bar{c}/4$, giving $J = n \\bar{c}/4$.",
+    "content": "For an isotropic gas, the number of molecules crossing a plane (per unit area per unit time) is: $$\\boxed{J = \\frac{1}{4} n \\bar{c}}$$ This factor of 1/4 arises from two geometric considerations: 1. Half the molecules move upward and half downward (factor of 1/2) 2. Of those moving upward, the average normal component of velocity is $\\bar{c}/2$ because the mean direction makes approximately a 60\u00b0 angle to the normal Therefore: $\\langle v_y^+ \\rangle = (1/2) \\times (1/2) \\bar{c} = \\bar{c}/4$, giving $J = n \\bar{c}/4$.",
     "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/2-What-is-Viscosity/#step-1-molecular-flux-across-a-plane",
     "type": "blog_section",
     "priority": 3
@@ -3519,14 +3526,14 @@
   },
   {
     "title": "2 what is viscosity - Non-Newtonian Fluids",
-    "content": "The Newtonian law $\\tau = \\eta \\dot{\\gamma}$ works when: - The fluid has no internal structure that deforms under shear - Or the structure adapts quickly compared to the flow timescale For polymer solutions, suspensions, or emulsions: - Microstructure (chains, particles) realigns under shear - Viscosity becomes a function of shear rate: $\\eta(\\dot{\\gamma})$ - This leads to phenomena like shear-thinning or shear-thickening Today we derived why Newtonian behavior is natural for a dilute gas. Real soft-matter systems are more interesting because their microstructure evolves\u2014that's where non-Newtonian rheology comes in. ---",
+    "content": "The Newtonian law $\\tau = \\eta \\dot{\\gamma}$ works when: 1. The fluid has no internal structure that deforms under shear 2. Or the structure adapts quickly compared to the flow timescale For polymer solutions, suspensions, or emulsions: 1. Microstructure (chains, particles) realigns under shear 2. Viscosity becomes a function of shear rate: $\\eta(\\dot{\\gamma})$ 3. This leads to phenomena like shear-thinning or shear-thickening Today we derived why Newtonian behavior is natural for a dilute gas. Real soft-matter systems are more interesting because their microstructure evolves\u2014that's where non-Newtonian rheology comes in. ---",
     "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/2-What-is-Viscosity/#non-newtonian-fluids",
     "type": "blog_section",
     "priority": 3
   },
   {
     "title": "2 what is viscosity - Reynolds Number: Viscous vs. Inertial Effects",
-    "content": "$$\\boxed{\\text{Re} = \\frac{U L}{\\nu}}$$ - $U L$: characteristic scale of *advection* (inertial effects) - $\\nu$: characteristic scale of *momentum diffusion* (viscous effects) Physical Interpretation: - High Re: Inertia dominates \u2192 turbulence, jets - Low Re: Viscosity dominates \u2192 creeping flow, microfluidics - The transition region is where rich physics emerges ---",
+    "content": "$$\\boxed{\\text{Re} = \\frac{U L}{\\nu}}$$ 1. $U L$: characteristic scale of *advection* (inertial effects) 2. $\\nu$: characteristic scale of *momentum diffusion* (viscous effects) Physical Interpretation: 1. High Re: Inertia dominates \u2192 turbulence, jets 2. Low Re: Viscosity dominates \u2192 creeping flow, microfluidics 3. The transition region is where rich physics emerges ---",
     "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/2-What-is-Viscosity/#reynolds-number-viscous-vs-inertial-effects",
     "type": "blog_section",
     "priority": 3
@@ -3609,6 +3616,314 @@
     "priority": 3
   },
   {
+    "title": "2.75 complementary questions answers",
+    "content": "> [!info] \ud83d\udcc4 PDF Version > [Download PDF](./2.75-Complementary-Questions-Answers.pdf)",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/2.75-Complementary-Questions-Answers/",
+    "type": "blog_content",
+    "priority": 3
+  },
+  {
+    "title": "2.75 complementary questions answers - Question 1: Coarse-Graining in Practice: Question: Explain what...",
+    "content": "Question: Explain what \"coarse-graining\" means and why it lets us treat soft matter as a continuum. Pick one system (foam, polymer solution, emulsion) and say when this breaks down (give a specific length scale or condition). Answer: Coarse-graining means averaging over many microscopic constituents (molecules, droplets, bubbles, chains) to define smooth, space- and time-dependent fields like density, velocity, and stress. When the averaging volume is large compared to the microstructure, local fluctuations cancel and the material can be modeled as a continuous medium obeying conservation laws. **Example (emulsion):** If droplets have diameter $d \\sim 10\\,\\mu\\text{m}$, a pipe flow with gradients varying over millimeters contains thousands of droplets per \"fluid element,\" so a single-phase continuum with effective properties is accurate. The approximation **breaks down** when: 1.",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/2.75-Complementary-Questions-Answers/#question-1-coarse-graining-in-practice",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "2.75 complementary questions answers - Question 1: Coarse-Graining in Practice: JavaScript",
+    "content": "The observation/gradient length $\\ell$ becomes $O(d)$ or smaller (e.g., microfluidic channels, thin gaps, near interfaces) 2. Time scales approach droplet rearrangement or coalescence times 3. In these regimes, discrete structure, interfacial forces, and nonlocal effects dominate and cannot be neglected Key insight: Continuum descriptions require separation of scales\u2014the microstructural length must be much smaller than the macroscopic gradients of interest. ---",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/2.75-Complementary-Questions-Answers/#question-1-coarse-graining-in-practice",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "2.75 complementary questions answers - Question 2: Continuity in a Nozzle: JavaScript",
+    "content": "Question: You squeeze shampoo through a pump and narrow outlet at steady rate. Using only words, explain why the fluid speeds up in the narrow section and name the conservation law you're invoking. Give one case where this reasoning would fail. Answer: In steady flow, what enters must leave: the same **mass per unit time** passes every cross-section. If the passage narrows, the fluid must move faster there so that the same mass gets through the smaller area in the same time\u2014this is **conservation of mass** (the continuity principle) in words. Mathematical statement: For incompressible flow, $\\rho A v = \\text{constant}$, so if area $A$ decreases, velocity $v$ must increase proportionally.",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/2.75-Complementary-Questions-Answers/#question-2-continuity-in-a-nozzle",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "2.75 complementary questions answers - Question 2: Continuity in a Nozzle: This reasoning **fails**...",
+    "content": "This reasoning **fails** when: 1. **Density changes significantly**: A compressible or bubbly shampoo (entrained air) undergoing strong pressure drop, where the mass rate stays fixed but the *volume* rate and speeds no longer scale simply with area 2. **Unsteady flow**: \"Squeeze-and-release\" strokes where fluid is temporarily stored in a compliant pump chamber violate the steady-state assumption Additional failure mode: Very high shear rates can cause shear-induced migration in suspensions, changing local density and invalidating simple area-velocity scaling. ---",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/2.75-Complementary-Questions-Answers/#question-2-continuity-in-a-nozzle",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "2.75 complementary questions answers - Question 3: Momentum Balance Around a Bend",
+    "content": "Question: Water flows steadily through a pipe that turns 90\u00b0. Describe which forces turn the flow (pressure differences versus wall shear) and how the picture changes for very slow flows (creeping) versus very fast flows (inertial). Answer: Along a curved streamline, a cross-stream **pressure difference** provides the centripetal \"push\" that redirects the fluid; **wall shear** transmits and resists motion, setting the velocity profile and causing energy loss.",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/2.75-Complementary-Questions-Answers/#question-3-momentum-balance-around-a-bend",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "2.75 complementary questions answers - Very slow (creeping, low Reynolds number):",
+    "content": "$$\\text{Re} = \\frac{\\rho v D}{\\eta} \\ll 1$$ 1. Inertia is negligible, so the momentum equation reduces to a balance between pressure gradients and viscous stresses: $\\nabla p \\approx \\eta \\nabla^2 \\boldsymbol{v}$ 2. The flow hugs the bend smoothly with no separation 3. Shear stresses dominate the force budget 4. Velocity profile is nearly parabolic (Poiseuille-like) throughout",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/2.75-Complementary-Questions-Answers/#very-slow-creeping-low-reynolds-number",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "2.75 complementary questions answers - Very fast (inertial, high Reynolds number):",
+    "content": "$$\\text{Re} = \\frac{\\rho v D}{\\eta} \\gg 1$$ 1. Fluid parcels \"want\" to go straight due to inertia 2. A larger pressure difference is required on the *outer* wall to provide centripetal acceleration 3. Viscous effects are confined to thin boundary layers 4. Secondary motions (Dean-type vortices) and even flow separation can appear 5. Pressure forces do most of the turning; viscous shear mainly dissipates energy in boundary layers Physical insight: In both regimes, this description comes from momentum conservation in continuum form ($\\rho \\frac{D\\boldsymbol{v}}{Dt} = \\nabla \\cdot \\boldsymbol{\\sigma} + \\rho \\boldsymbol{b}$), but the dominant balance shifts from viscous-dominated to inertia-dominated. ---",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/2.75-Complementary-Questions-Answers/#very-fast-inertial-high-reynolds-number",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "2.75 complementary questions answers - Question 4: Where Does the Work Go?",
+    "content": "Question: You slide two plates with glycerol between them at constant speed. Explain where the mechanical power you input ends up inside the fluid, name the phenomenon responsible (in words), and give a one-sentence microscopic picture for it. Answer: The mechanical power you supply is converted into **heat inside the liquid** via **viscous dissipation** (internal friction): shear stresses acting across velocity gradients irreversibly transform organized motion into thermal energy.",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/2.75-Complementary-Questions-Answers/#question-4-where-does-the-work-go",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "2.75 complementary questions answers - Energy transformation:",
+    "content": "Power input: $$P_{\\text{in}} = F \\cdot v = \\tau A \\cdot v$$ where $\\tau$ is the shear stress, $A$ is the plate area, and $v$ is the sliding velocity. For Newtonian fluid with viscosity $\\eta$ and gap $h$: $$\\tau = \\eta \\frac{v}{h}$$ So: $$P_{\\text{in}} = \\eta \\frac{v^2}{h} A$$ This power is entirely dissipated as heat (assuming isothermal boundaries that remove heat).",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/2.75-Complementary-Questions-Answers/#energy-transformation",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "2.75 complementary questions answers - Microscopic picture:: Molecules in faster...",
+    "content": "Molecules in faster layers transfer momentum to slower layers through incessant collisions and interactions, randomizing directed motion into molecular agitation\u2014manifested macroscopically as a temperature rise if heat is not removed. Alternative description: The velocity gradient creates a non-equilibrium state where molecular collisions preferentially transfer momentum down-gradient, doing work against the imposed flow and converting mechanical energy into thermal fluctuations.",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/2.75-Complementary-Questions-Answers/#microscopic-picture",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "2.75 complementary questions answers - Microscopic picture:: Connection to lecture:...",
+    "content": "Connection to lecture: This is the continuum manifestation of momentum diffusion we derived from kinetic theory\u2014the stress tensor component $\\tau = \\eta \\frac{\\partial v}{\\partial y}$ represents the momentum flux that ultimately dissipates energy. --- > [!significance]- Metadata > Author:: [Vatsal Sanjay](https://vatsalsanjay.com) > Date published:: Oct 30, 2025 > Date modified:: Oct 30, 2025 > [!link] Back to main website > [Home](https://comphy-lab.org/), [Team](https://comphy-lab.org/team), [Research](https://comphy-lab.org/research), [Github](https://github.com/comphy-lab) > > \ud83d\udcdd [Edit this page on GitHub](https://github.com/comphy-lab/CoMPhy-Lab-Blogs/blob/main/Lecture-Notes/Intro-Soft-Matter/2.75-Complementary-Questions-Answers.md)",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/2.75-Complementary-Questions-Answers/#microscopic-picture",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "4 soft matter singularities",
+    "content": "> [!info] \ud83d\udcc4 PDF Version > [Download PDF](./4-Soft-Matter-Singularities.pdf)",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/4-Soft-Matter-Singularities/",
+    "type": "blog_content",
+    "priority": 3
+  },
+  {
+    "title": "4 soft matter singularities - Soft Matter Singularities",
+    "content": "> [!tldr] TL;DR > A singularity is when a smooth physical process \u201cblows up\u201d $\u2014$ something finite becomes infinite in a finite time or at a finite place. ![](../../_Media/4-Soft-Matter-Singularities-1762960099435.png) *A water droplet detaching from a faucet forms a thinning neck that will pinch off. Just before separation, the neck radius shrinks rapidly and the curvature (and capillary pressure) blows up. The pinch-off singularity produces one main drop and often a tiny satellite drop left behind.[^dripping-image]*",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/4-Soft-Matter-Singularities/#soft-matter-singularities",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "4 soft matter singularities - 0) What is a singularity in soft matter?: A singularity is...",
+    "content": "A singularity is when a smooth physical process `blows up` $-$ some quantity that is normally finite becomes effectively infinite in a finite time or at a finite location. In soft matter flows, singularities often signal dramatic events: a droplet pinches off, a bubble collapses, or a moving contact line generates enormous stresses. These singular moments are fascinating because they mark the breakdown of our usual approximations (continuum equations, smooth interfaces), yet they often exhibit universal behavior (independent of initial details). Understanding singularities helps us see where and why our fluid or material model needs new physics (like microscopic cutoffs), and how nature resolves the apparent paradox of infinities in a real system.",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/4-Soft-Matter-Singularities/#0-what-is-a-singularity-in-soft-matter",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "4 soft matter singularities - 0) What is a singularity in soft matter?: This lecture builds...",
+    "content": "This lecture builds on earlier ones: the film rupture energy paradox in [[1.5-Taylor-Culick-Paradox|Bridge 1.5]] hinted that proper momentum accounting resolves infinities; the no-slip condition from [[2-What-is-Viscosity|Lecture 2]] will be central to our discussion of moving contact lines; and the instabilities in [[3-Soft-Matter-Instabilities|Lecture 3]] often end in singular pinch-off events. Now we zoom in on those finite-time, `life or death` moments of soft matter systems.",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/4-Soft-Matter-Singularities/#0-what-is-a-singularity-in-soft-matter",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "4 soft matter singularities - 1) Pinch-off singularities: when a fluid thread breaks: JavaScript",
+    "content": "**Mechanism.** Imagine water dripping from a faucet. Surface tension pulls the droplet neck thinner and thinner until it ruptures, separating the drop (gravity-driven) from the remaining fluid. Just before breakup, the radius of the neck approaches zero, causing the curvature (and thus capillary pressure) to skyrocket. In an `ideal mathematical description`, certain quantities (pressure, fluid velocity near the neck) tend toward infinity at the pinch point. This is a finite-time singularity $\u2013$ the equations (like Navier\u2013Stokes) themselves remain intact, but their solution develops a blow-up (the interface develops a sharp cusp and then detaches).",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/4-Soft-Matter-Singularities/#1-pinch-off-singularities-when-a-fluid-thread-breaks",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "4 soft matter singularities - 1) Pinch-off singularities: when a fluid thread breaks: Importantly, very close...",
+    "content": "Importantly, very close to breakup, the shape of the neck often becomes self-similar $\u2013$ the fluid profile \"zooms in\" on a universal form regardless of the starting drop size.[^eggers1997] This means the pinch-off process has a kind of memory loss: everything but the local physics (inertia, viscosity, surface tension) washes out. ![](../../_Media/4-Soft-Matter-Singularities-1762960009091.png) ![](../../_Media/4-Soft-Matter-Singularities-1762960022513.png) **Inertial vs viscous pinch-off.** The balance of forces during pinch-off dictates the nature of the singularity.",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/4-Soft-Matter-Singularities/#1-pinch-off-singularities-when-a-fluid-thread-breaks",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "4 soft matter singularities - 1) Pinch-off singularities: when a fluid thread breaks: JavaScript",
+    "content": "If inertia dominates (e.g. a water droplet in air), the neck shape follows an inertial self-similar regime: throat radius $$r \\sim (t_c - t)^{2/3}$$ Viscous-dominated threads (like honey) thin more slowly with a cylindrical filament connecting droplets until it finally ruptures. $$r \\sim t$$ In either case, as the thread radius becomes extremely small, eventually some microscopic cutoff intervenes: for a Newtonian fluid this might simply be that the continuum assumption breaks at nano-scales, or impurities trigger the final break. The \"singularity\" is thus avoided in reality, but just barely, and the laws of motion pass through that event by producing new droplets[^eggers1997] (the Navier\u2013Stokes solution can sometimes be continued through the singular moment in an ideal scenario). **Satellites and universality.** Often, pinch-off leaves behind a tiny satellite drop in addition to the main drop.",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/4-Soft-Matter-Singularities/#1-pinch-off-singularities-when-a-fluid-thread-breaks",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "4 soft matter singularities - 1) Pinch-off singularities: when a fluid thread breaks: This satellite formation...",
+    "content": "This satellite formation is part of a secondary break-up that can itself display self-similar behavior $\u2013$ a cascade of singular events. Indeed, high-speed imaging and theory show that pinch-off can produce nested sequences of singularities where each subsequent thread break is a smaller copy of the last (a form of discrete scale invariance).[^eggers1997] Near the singularity, the governing equations simplify (certain terms dominate), and we can often find scaling laws and similarity solutions that describe the dynamics universally. ![](../../_Media/4-Soft-Matter-Singularities-1763535973289.png) *Time evolution of a highly extended fluid suspended in another fluid. The viscosity ratio is 0.067, and the dimensionless wave number is 0.5. The times the snapshots were taken are shown in the middle.[^1]* > [!note] Finite-time singularities are \"predictable\" in form > A beautiful aspect of pinch-off events is that they forget the messy world around them.",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/4-Soft-Matter-Singularities/#1-pinch-off-singularities-when-a-fluid-thread-breaks",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "4 soft matter singularities - 1) Pinch-off singularities: when a fluid thread breaks: No matter if...",
+    "content": "No matter if your drop comes from a pipette, faucet, or leaking roof, the final shape of the neck and the speed of breakup will tend to follow the same scaling laws (set by fluid properties like viscosity, density, surface tension). This universality means we can compare experiments, simulations, and theory on equal footing[^eggers1997] $\u2013$ a triumph of the singularity analysis. ![](../../_Media/4-Soft-Matter-Singularities-1762960047460.png) ![](../../_Media/4-Soft-Matter-Singularities-1762960060765.png) **Bubble pinch-off and Worthington jet.** A closely related singular event occurs when a bubble of air pinches off underwater (for example, an underwater air bubble rising and detaching, or the cavity behind an object closing up). The physics is analogous to drop pinch-off $\u2013$ the neck of the air cavity pinches to zero radius.",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/4-Soft-Matter-Singularities/#1-pinch-off-singularities-when-a-fluid-thread-breaks",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "4 soft matter singularities - 1) Pinch-off singularities: when a fluid thread breaks: In the case...",
+    "content": "In the case of a bubble pinch-off, however, the collapse can be so violent that the surrounding liquid rushes in along the symmetry axis and shoots upward as a fast Worthington jet. If you've seen a drop of water fall into a pool and a thin jet spike up $\u2013$ that's the result of a singular cavity collapse focusing energy into a jet. Here the singularity manifests as a burst of kinetic energy: extremely high speeds and even shock-like features in the liquid. In fact, the pressures in such collapse events can be enormous (cavitation collapse near a solid can even pit metal). The formation of the Worthington jet is a reminder that singularities often transmit energy across scales $\u2013$ focusing a large-scale motion into a very fine jet. (Interestingly, the jet itself can break into drops $\u2013$ another pinch-off $\u2013$ showing how one singularity can lead to another!)",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/4-Soft-Matter-Singularities/#1-pinch-off-singularities-when-a-fluid-thread-breaks",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "4 soft matter singularities - 2) Moving contact line: the no-slip paradox and its resolution: Examples",
+    "content": "![](../../_Media/4-Soft-Matter-Singularities-1763537416977.png) **The contact line singularity.** Consider a liquid spreading on a solid surface \u2013 for example, a drop of water advancing across glass plate. The contact line is the edge where solid, liquid, and gas meet. In equilibrium, this line sits still with a well-defined contact angle ([Young\u2013Dupr\u00e9 angle](https://en.wikipedia.org/wiki/Wetting), set by surface tensions and surface chemistry). But what about a moving contact line, when the drop spreads? Classical fluid dynamics has a nasty prediction: if you assume a no-slip boundary condition (fluid at the solid sticks to it, as we learned in [[2-What-is-Viscosity|Lecture 2]]), a moving contact line would demand the fluid velocity go to zero right at the solid, but far away it's moving $\u2013$ this creates a shearing in fluid all the way down to the molecular scale.",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/4-Soft-Matter-Singularities/#2-moving-contact-line-the-no-slip-paradox-and-its-resolution",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "4 soft matter singularities - 2) Moving contact line: the no-slip paradox and its resolution: Results",
+    "content": "The result is an integrable divergence in stress and an infinite energy dissipation rate in the vicinity of the contact line. > [!note] Note > A fluid with no-slip would need infinite force to move a contact line $\u2013$ a nonsensical prediction known as the moving contact line paradox (first pointed out by Huh & Scriven in 1971[^2]). **What does this singularity look like?** Mathematically, if we integrate the energy dissipation per volume, $$\\varepsilon \\sim \\eta \\, \\frac{U^2}{r}$$ for a flow speed $U$ at distance $r$ from the contact line, $$\\int \\eta U^2 \\frac{dr}{r}$$ diverges as $r \\to 0$ (and also as $r \\to \\infty$ if the disturbance extends far).[^degennes1985] Physically, the no-slip condition anchors the fluid at the wall, so any motion of the interface requires ever thinner layers of fluid shearing near the contact line $\u2013$ leading to a blow-up in viscous stresses. The paradox is stark: with no-slip, a contact line cannot move (or requires infinite force to do so).",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/4-Soft-Matter-Singularities/#2-moving-contact-line-the-no-slip-paradox-and-its-resolution",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "4 soft matter singularities - 2) Moving contact line: the no-slip paradox and its resolution: Yet in reality,...",
+    "content": "Yet in reality, drops do slide and spread $\u2013$ so what gives? ![](../../_Media/4-Soft-Matter-Singularities-1763537342994.png) **Regularization by microscopic physics.** The resolution is that no real system has an ideal no-slip all the way down to molecular scales. Something must give at small scales to cut off the singularity. There are two classic ways to regularize (allow finite energy dissipation): 1. **Navier slip**: The fluid is allowed to slip past the solid within a tiny length $\\lambda_s$ of the contact line. Essentially, replace no-slip with a boundary condition $u_{\\text{fluid}} - u_{\\text{solid}} = \\beta \\tau$ relating slip velocity to shear stress (Navier condition), or think of a molecular \"slide\" at the wall.",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/4-Soft-Matter-Singularities/#2-moving-contact-line-the-no-slip-paradox-and-its-resolution",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "4 soft matter singularities - 2) Moving contact line: the no-slip paradox and its resolution: This slip length...",
+    "content": "This slip length $\\lambda_s$ might be on the order of nanometers to microns, but it relieves the infinite shear at $r=0$ by not pinning the fluid completely.[^lecture4pdf] Viscous dissipation no longer diverges because very close to the contact line the fluid can move. ![](../../_Media/4-Soft-Matter-Singularities-1763537371241.png) 2. **Precursor film (or disjoining pressure)**: Ahead of the apparent contact line, imagine a thin film of liquid (maybe a few molecules thick) that \"pre-wets\" the solid. Then there is really no contact line at molecular scales $\u2013$ the apparent contact line is just where the film thickness goes from nanometers to macroscopically zero.",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/4-Soft-Matter-Singularities/#2-moving-contact-line-the-no-slip-paradox-and-its-resolution",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "4 soft matter singularities - 2) Moving contact line: the no-slip paradox and its resolution: A disjoining pressure...",
+    "content": "A disjoining pressure (from van der Waals forces, etc.) in that thin film can allow the contact angle to adjust without a singular wedge of fluid forming.[^precursor-diagram] Essentially, the moving interface rides on a lubricating wetting film, avoiding a sharp three-phase junction. > [!tip] Other cutoffs > In some cases, other physics can play a role. For instance, if the liquid is a polymer melt or has some shear-thinning behavior, the effective viscosity near the contact line might drop (reducing dissipation). Or if the liquid evaporates at the contact line, a microvapor layer could ease motion. Bottom line: something must break the continuum + no-slip + sharp interface assumptions at small scale.",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/4-Soft-Matter-Singularities/#2-moving-contact-line-the-no-slip-paradox-and-its-resolution",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "4 soft matter singularities - 2) Moving contact line: the no-slip paradox and its resolution: Examples",
+    "content": "Soft matter often involves multiple scales, and the contact line singularity is a prime example where molecular-scale details (surface chemistry, slip, etc.) impact a macroscale behavior (spreading). **Cox\u2013Voinov relation (apparent angle variation).** When the singularity is regularized, we can actually predict how a moving contact line behaves. One famous result is the Cox\u2013Voinov relation: the dynamic contact angle $\\theta$ (at a scale visible to the eye) is related to the contact line speed $U$ by $$\\theta^3 = \\theta_{\\rm eq}^3 + 9 \\, (\\eta U/\\gamma)\\ln(L/\\ell_{\\text{micro}})$$ for a viscous wetting situation (here $\\theta_{\\rm eq}$ is the equilibrium angle, $\\gamma$ is the surface tension coefficient and $\\eta$ is the viscosity).",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/4-Soft-Matter-Singularities/#2-moving-contact-line-the-no-slip-paradox-and-its-resolution",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "4 soft matter singularities - 2) Moving contact line: the no-slip paradox and its resolution: Don't worry about...",
+    "content": "Don't worry about the formula details, but note the $\\theta^3$ dependence and the logarithm: the contact angle shifts with speed, and it does so slowly (logarithmically with the ratio of a macroscopic length $L$ to the microscopic cutoff $\\ell_{\\text{micro}}$). This law (derived by combining lubrication theory with either slip or precursor film models) was confirmed by experiments and simulations. It tells us that even though the true angle right at the contact line might always be $0^\\circ$ for a perfectly wetting liquid (if we zoom to molecular scale, the interface is almost flat), the apparent macroscopic angle increases with speed $\u2013$ a dynamic effect. In our lectures, this connects back to [[2-What-is-Viscosity|Lecture 2]]: the no-slip condition, a cornerstone of continuum viscous flow, fails dramatically at a moving contact line.",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/4-Soft-Matter-Singularities/#2-moving-contact-line-the-no-slip-paradox-and-its-resolution",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "4 soft matter singularities - 2) Moving contact line: the no-slip paradox and its resolution: Soft matter systems...",
+    "content": "Soft matter systems often live at the intersection of continuum and molecular physics; here we must invoke molecular length scales to repair continuum theory. As de Gennes famously discussed,[^degennes1985] each decade of length scale contributes equally to the dissipation $\u2013$ so cutting off the last few decades ($\\text{nm}$ to $\\mu\\text{m}$) spares us an infinite sum (but, is it physical?). Snoeijer & Andreotti (2013)[^snoeijer2013] provide a modern review of how different regimes of wetting (viscous, capillary, etc.) navigate this multiscale problem. ![](../../_Media/4-Soft-Matter-Singularities-1763559996509.png) *A \"beads-on-a-string\" structure forming in a thinning saliva bridge, which is a viscoelastic fluid. Here, polymers in saliva (mucins) resist the capillary-driven singular pinch-off, causing a long thread to persist with droplets (beads) along it.[^saliva-image] In a Newtonian fluid like water, the thinning thread would break more quickly and cleanly.",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/4-Soft-Matter-Singularities/#2-moving-contact-line-the-no-slip-paradox-and-its-resolution",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "4 soft matter singularities - 2) Moving contact line: the no-slip paradox and its resolution: Viscoelasticity thus delays...",
+    "content": "Viscoelasticity thus delays the singularity, spreading it out in time.* Bavand Keshavarz , CC BY 4.0 , via Wikimedia Commons **Multiscale challenge and research frontiers.** The moving contact line remains an area of active research. In partial wetting cases (nonzero equilibrium angle), one avoids true divergences in pressure (the contact line can equilibrate by forming a small precursor foot of wetting). However, when driven far from equilibrium (very fast wetting or dewetting), one can observe phenomena like contact line hysteresis (the line sticks until a threshold force is exceeded) and complex interface shapes.",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/4-Soft-Matter-Singularities/#2-moving-contact-line-the-no-slip-paradox-and-its-resolution",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "4 soft matter singularities - 2) Moving contact line: the no-slip paradox and its resolution: Modern studies, such...",
+    "content": "Modern studies, such as viscoelastic wetting,[^kansal2024] ask how polymer stresses or other rheology modify the Cox\u2013Voinov relation $\u2013$ for instance, normal stresses in a non-Newtonian fluid can effectively change the microscopic contact angle and hence the spreading speed.[^kansal2024] The take-home message is that by introducing a microscopic length or physics, we remove the singularity and get finite, measurable behaviors $\u2013$ but we also open up a richer parameter space to explore (e.g. slip length values, disjoining pressure isotherms, polymer relaxation times, etc.). Soft matter scientists turn this \"bug\" into a feature: by measuring how a contact line's dynamics deviate, we infer what's happening at the nano-scale. In Week 5's lab, for example, you will examine how adding a bit of polymer to a liquid (increasing its extensional viscosity) changes the shape of a spreading drop's rim $\u2013$ a direct visual of singularity regularization in action.",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/4-Soft-Matter-Singularities/#2-moving-contact-line-the-no-slip-paradox-and-its-resolution",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "4 soft matter singularities - Summary of Lecture 4: JavaScript",
+    "content": "1. **Singularities define extreme events**: Soft matter systems can develop finite-time singularities where a normally smooth evolution leads to blow-up (e.g. droplet pinch-off, cavity collapse, moving contact line paradox). These events often dominate the material's behavior (creating new surfaces, concentrating energy) and require special consideration beyond the standard theory. 2. **Drop pinch-off is a universal breakup process**: A thinning fluid neck will often follow self-similar dynamics, with the shape and scaling of the neck independent of initial conditions.[^eggers1997] Depending on whether inertia or viscosity dominates, the thinning follows different power laws, but either way surface tension drives the process toward a singular breakup (radius $\\to$ 0 in finite time).",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/4-Soft-Matter-Singularities/#summary-of-lecture-4",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "4 soft matter singularities - Summary of Lecture 4: Pinch-off produces high...",
+    "content": "Pinch-off produces high curvature (hence high pressure), emits satellite droplets, and in some cases generates rapid jets. 3. **Bubble pinch-off and jets**: When air cavities pinch off in liquids, the collapse can focus energy into a fast Worthington jet. This illustrates how singularities can transfer energy across scales (from a large collapsing bubble to a tiny high-speed jet). Such jets and the pressures involved are important in phenomena like cavitation damage. 4. **Moving contact line paradox**: A fluid with a no-slip boundary cannot advance a contact line without infinite force $\u2013$ a classic singularity in hydrodynamics.[^degennes1985] This paradox highlights the breakdown of continuum assumptions at small scales.",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/4-Soft-Matter-Singularities/#summary-of-lecture-4",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "4 soft matter singularities - Summary of Lecture 4: In reality, physics...",
+    "content": "In reality, physics like slip at the wall or a precursor wetting film regularize the singularity, allowing finite energy dissipation and contact line motion. 5. **Role of microscopic length scales**: The cure to a singularity often lies in acknowledging a small length scale. For moving contact lines, a slip length or molecular film provides a cutoff, yielding laws like the Cox\u2013Voinov relation for dynamic contact angles. The lesson generalizes: whenever you see a mathematical singularity, look for a missing small-scale physics (be it molecular slip, a finite polymer chain length, atomic grain size in a solid, etc.). 6. **Universal insights and design**: Studying singularities gives us universal scaling laws \u2013 e.g. how a neck radius shrinks or how a contact angle depends on speed. Engineers and scientists use these laws to predict outcomes (the size of satellite drops, the maximum recoil velocity of a jet, the critical speed before a drop starts entraining air, etc.).",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/4-Soft-Matter-Singularities/#summary-of-lecture-4",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "4 soft matter singularities - Summary of Lecture 4: By harnessing singular...",
+    "content": "By harnessing singular behavior (or sometimes avoiding it), we can design better inkjet printers (controlled pinch-off), improve emulsification processes, or mitigate harmful cavitation in pumps.",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/4-Soft-Matter-Singularities/#summary-of-lecture-4",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "4 soft matter singularities - Key References for Further Reading: Context",
+    "content": "1. **J. Eggers**, Nonlinear dynamics and breakup of free-surface flows, Rev. Mod. Phys., 69, 865 (1997). \u2013 Comprehensive review of fluid pinch-off and singular jet dynamics. A bit advanced, but the go-to reference on drop breakup universality. [10.1103/RevModPhys.69.865](https://doi.org/10.1103/RevModPhys.69.865). 2. **J. Eggers & E. Villermaux**, Physics of liquid jets, Rep. Prog. Phys., 71, 036601 (2008). \u2013 Modern overview of liquid jet formation and breakup (how instabilities grow and lead to pinch-off, satellite drops, etc.). [DOI: 10.1088/0034-4885/71/3/036601](http://dx.doi.org/10.1088/0034-4885/71/3/036601). 3. **P. G. de Gennes**, Wetting: statics and dynamics, Rev. Mod. Phys., 57, 827-863 (1985). \u2013 A classic paper discussing the wetting process and the moving contact line dissipation paradox. Introduces the idea of a dissipation integral that diverges and the need for cutoffs. DOI: [10.1103/RevModPhys.57.827](https://doi.org/10.1103/RevModPhys.57.827). 4. **J. H. Snoeijer & B.",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/4-Soft-Matter-Singularities/#key-references-for-further-reading",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "4 soft matter singularities - Key References for Further Reading: Andreotti**, Moving Contact...",
+    "content": "Andreotti**, Moving Contact Lines: Scales, Regimes, and Dynamical Transitions, Annu. Rev. Fluid Mech., 45, 269-292 (2013). \u2013 An accessible review focused entirely on the moving contact line problem. Discusses slip vs precursor film models, the Cox\u2013Voinov law, and various wetting regimes. DOI: [10.1146/annurev-fluid-011212-140734](https://doi.org/10.1146/annurev-fluid-011212-140734). 5. **M. Kansal, C. Datt, V. Bertin & J. H. Snoeijer**, Viscoelastic wetting: Cox\u2013Voinov theory with normal stress effects, J. Fluid Mech., 985, A17 (2024). \u2013 A recent research paper extending contact line theory to polymeric (viscoelastic) liquids. Shows how adding elasticity modifies the classic wetting laws (for those curious about current research frontiers). DOI: [10.1017/jfm.2024.296](https://doi.org/10.1017/jfm.2024.296).",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/4-Soft-Matter-Singularities/#key-references-for-further-reading",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "4 soft matter singularities - Take-Home Coding Assignment: Contact Line Singularity: > [!question] Coding...",
+    "content": "> [!question] Coding Challenge \u2013 Contact Line Singularity ODE > As a practical exercise, you will investigate a simplified model of the contact line singularity by solving a high-order ODE that captures the essential physics. In this assignment (detailed on the course GitHub), we consider the third-order ordinary differential equation: > > $$\\frac{d^3h}{dx^3} \\;=\\; -0.01\\,\\Big(\\frac{1}{h^2 + h}\\Big),$$ > > subject to boundary conditions: > 1. $h(0) = 0$ (the fluid thickness goes to zero at the contact line position $x=0$), > 2. $h'(0) = 1$ (a preset slope at the contact line, relating to the contact angle), > 3. $h''(\\infty) = 0$ (far from the contact line, the curvature vanishes). > > Here $h(x)$ might be thought of as the shape of a spreading thin film (with $x$ the distance from the contact line).",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/4-Soft-Matter-Singularities/#take-home-coding-assignment-contact-line-singularity",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "4 soft matter singularities - Take-Home Coding Assignment: Contact Line Singularity: The task is...",
+    "content": "The task is to numerically solve this ODE and visualize the solution: plot $h'(x)$ vs $x$ (which effectively shows how the contact angle $\\theta = h'$ varies with distance) and $h''(x)$ vs $x$ (how the curvature varies). The equation is stiff \u2013 reflecting the multiscale nature of the contact line. > > **Objectives**: This assignment isn't just about solving the equation, but also about experiencing AI-assisted coding and iterative refinement: you'll prompt an LLM to generate an initial code, test and debug it, and improve the solution until it meets the specs.",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/4-Soft-Matter-Singularities/#take-home-coding-assignment-contact-line-singularity",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "4 soft matter singularities - Take-Home Coding Assignment: Contact Line Singularity: Along the way,...",
+    "content": "Along the way, think about how the boundary condition at infinity can be handled in a finite numerical domain (hint: you'll likely impose $h''$ approaches 0 at a large but finite $x$). > > **Instructions**: Use the class GitHub repository **Intro-Soft-Matter-2025** \u2013 fork it, add your code (we suggest Python or MATLAB for ODE solving), and submit a pull request as described in the README.[^github-readme] The README's \"Contact Line Singularity\" section provides the exact steps and an example prompt to get you started. This will be a graded exercise focusing not only on the correct physics solution but also on your use of computational tools and interpretation of the results. Good luck, and have fun seeing how a singular problem can be tamed numerically! [^eggers1997]: J. Eggers, Nonlinear dynamics and breakup of free-surface flows, Rev. Mod. Phys., 69, 865 (1997).",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/4-Soft-Matter-Singularities/#take-home-coding-assignment-contact-line-singularity",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "4 soft matter singularities - Take-Home Coding Assignment: Contact Line Singularity: Context",
+    "content": "DOI: [10.1103/RevModPhys.69.865](https://doi.org/10.1103/RevModPhys.69.865). [^dripping-image]: Image source: [Wikimedia Commons - Dripping faucet](https://commons.wikimedia.org/wiki/File:Dripping_faucet_1.jpg). [^degennes1985]: P. G. de Gennes, Wetting: statics and dynamics, Rev. Mod. Phys., 57, 827-863 (1985). DOI: [10.1103/RevModPhys.57.827](https://doi.org/10.1103/RevModPhys.57.827). [^precursor-diagram]: Schematic diagram from [ResearchGate](https://www.researchgate.net/figure/Schematics-of-the-contact-line-moving-models-considering-a-nonslip-condition-b-slip_fig3_385188951). [^snoeijer2013]: J. H. Snoeijer & B. Andreotti, Moving Contact Lines: Scales, Regimes, and Dynamical Transitions, Annu. Rev. Fluid Mech., 45, 269-292 (2013). DOI: [10.1146/annurev-fluid-011212-140734](https://doi.org/10.1146/annurev-fluid-011212-140734). [^saliva-image]: Image source: [Wikimedia Commons - Saliva Thread](https://commons.wikimedia.org/wiki/File:Saliva_Thread.jpg). [^kansal2024]: M. Kansal, C. Datt, V.",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/4-Soft-Matter-Singularities/#take-home-coding-assignment-contact-line-singularity",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "4 soft matter singularities - Take-Home Coding Assignment: Contact Line Singularity: Context",
+    "content": "Bertin & J. H. Snoeijer, Viscoelastic wetting: Cox\u2013Voinov theory with normal stress effects, J. Fluid Mech., 985, A17 (2024). DOI: [10.1017/jfm.2024.296](https://doi.org/10.1017/jfm.2024.296). [^github-readme]: Course GitHub repository: [Intro-Soft-Matter-2025](https://github.com/comphy-lab/Intro-Soft-Matter-2025/blob/fb7fdb9beb90b278b360830478d8be97cbe17113/README.md). [^1]: M. Tjahjadi, H. A. Stone & J. M. Ottino, Satellite and subsatellite formation in capillary breakup, J. Fluid Mech., 243, 297-317 (1992). DOI: [10.1017/S0022112092002738](https://doi.org/10.1017/S0022112092002738). [^2]: C. Huh & L. E. Scriven, Hydrodynamic model of steady movement of a solid/liquid/fluid contact line, J. Colloid Interface Sci., 35:1, 85-101 (1971).",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/4-Soft-Matter-Singularities/#take-home-coding-assignment-contact-line-singularity",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
+    "title": "4 soft matter singularities - Take-Home Coding Assignment: Contact Line Singularity: Context",
+    "content": "DOI: [10.1016/0021-9797(71)90188-3](https://doi.org/10.1016/0021-9797(71)90188-3). > [!significance]- Metadata > Author:: [Vatsal Sanjay](https://vatsalsanjay.com) > Date published:: Nov 12, 2025 > Date modified:: Nov 19, 2025 > [!link] Back to main website > [Home](https://comphy-lab.org/), [Team](https://comphy-lab.org/team), [Research](https://comphy-lab.org/research), [Github](https://github.com/comphy-lab) > > \ud83d\udcdd [Edit this page on GitHub](https://github.com/comphy-lab/CoMPhy-Lab-Blogs/blob/main/Lecture-Notes/Intro-Soft-Matter/4-Soft-Matter-Singularities.md)",
+    "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/4-Soft-Matter-Singularities/#take-home-coding-assignment-contact-line-singularity",
+    "type": "blog_section",
+    "priority": 3
+  },
+  {
     "title": "2.5 conservation laws",
     "content": "> [!info] \ud83d\udcc4 PDF Version > [Download PDF](./2.5-Conservation-Laws.pdf)",
     "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/2.5-Conservation-Laws/",
@@ -3638,7 +3953,7 @@
   },
   {
     "title": "2.5 conservation laws - Many particles (N particles, pairwise forces)",
-    "content": "Write: $$\\boxed{m_i \\dot{\\boldsymbol{v}}_i = \\boldsymbol{f}_i^{\\rm ext} + \\sum_{j \\ne i} \\boldsymbol{f}_{ij}, \\qquad \\boldsymbol{f}_{ij} = -\\boldsymbol{f}_{ji}}$$ > [!important] Important > We start here: every particle obeys Newton's second law with external forces and pair interactions. The key assumption \u2014 which is exact in classical mechanics \u2014 is that the force one particle exerts on another is *equal and opposite* ($\\boldsymbol{f}_{ij} = -\\boldsymbol{f}_{ji}$, Newton's third law). This symmetry is crucial: it will let us turn distributed forces into a stress tensor. - $m_i$: mass of particle $i$ - $\\boldsymbol{v}_i = \\dot{\\boldsymbol{r}}_i(t)$: velocity of particle $i$ - $\\boldsymbol{f}_i^{\\rm ext}$: external force (gravity, walls, etc.) - $\\boldsymbol{f}_{ij}$: force exerted by particle $j$ on particle $i$ - $\\boldsymbol{f}_{ij} = -\\boldsymbol{f}_{ji}$: action\u2013reaction; internal forces *cancel* when you sum over all particles ---",
+    "content": "Write: $$\\boxed{m_i \\dot{\\boldsymbol{v}}_i = \\boldsymbol{f}_i^{\\rm ext} + \\sum_{j \\ne i} \\boldsymbol{f}_{ij}, \\qquad \\boldsymbol{f}_{ij} = -\\boldsymbol{f}_{ji}}$$ > [!important] Important > We start here: every particle obeys Newton's second law with external forces and pair interactions. The key assumption \u2014 which is exact in classical mechanics \u2014 is that the force one particle exerts on another is *equal and opposite* ($\\boldsymbol{f}_{ij} = -\\boldsymbol{f}_{ji}$, Newton's third law). This symmetry is crucial: it will let us turn distributed forces into a stress tensor. 1. $m_i$: mass of particle $i$ 2. $\\boldsymbol{v}_i = \\dot{\\boldsymbol{r}}_i(t)$: velocity of particle $i$ 3. $\\boldsymbol{f}_i^{\\rm ext}$: external force (gravity, walls, etc.) 4. $\\boldsymbol{f}_{ij}$: force exerted by particle $j$ on particle $i$ 5. $\\boldsymbol{f}_{ij} = -\\boldsymbol{f}_{ji}$: action\u2013reaction; internal forces *cancel* when you sum over all particles ---",
     "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/2.5-Conservation-Laws/#many-particles-n-particles-pairwise-forces",
     "type": "blog_section",
     "priority": 3
@@ -3743,7 +4058,7 @@
   },
   {
     "title": "2.5 conservation laws - Define macroscopic fields via averaging",
-    "content": "See [[Coarse-graining-momentum-to-Cauchy|detailed derivation]] for the complete mathematical treatment. $$\\langle \\rho \\rangle = \\rho, \\quad \\langle \\boldsymbol{g} \\rangle = \\rho \\boldsymbol{v}, \\quad \\langle \\boldsymbol{\\Pi} \\rangle \\equiv \\overline{\\boldsymbol{\\Pi}}$$ where the angle brackets denote ensemble (or volume) averaging. Key observation: The momentum density $\\boldsymbol{g}$ has two components: - Bulk momentum: $\\rho \\boldsymbol{v}$ (all particles drifting in the same direction) - Random (thermal) momentum: from velocity fluctuations around the mean ---",
+    "content": "See [[Coarse-graining-momentum-to-Cauchy|detailed derivation]] for the complete mathematical treatment. $$\\langle \\rho \\rangle = \\rho, \\quad \\langle \\boldsymbol{g} \\rangle = \\rho \\boldsymbol{v}, \\quad \\langle \\boldsymbol{\\Pi} \\rangle \\equiv \\overline{\\boldsymbol{\\Pi}}$$ where the angle brackets denote ensemble (or volume) averaging. Key observation: The momentum density $\\boldsymbol{g}$ has two components: 1. Bulk momentum: $\\rho \\boldsymbol{v}$ (all particles drifting in the same direction) 2. Random (thermal) momentum: from velocity fluctuations around the mean ---",
     "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/2.5-Conservation-Laws/#define-macroscopic-fields-via-averaging",
     "type": "blog_section",
     "priority": 3
@@ -3820,14 +4135,14 @@
   },
   {
     "title": "2.5 conservation laws - 2. Pressure vs. viscous stress",
-    "content": "- Pressure: acts equally in all directions; no preferred axis. - Viscous stress: depends on velocity gradients; has a preferred direction (the direction of shear). Imagine honey being poured. Gravity provides a pressure gradient (accelerating the fluid downward), and viscosity creates shear stress (resisting the motion between fast-flowing and slow-flowing regions). ---",
+    "content": "1. Pressure: acts equally in all directions; no preferred axis. 2. Viscous stress: depends on velocity gradients; has a preferred direction (the direction of shear). Imagine honey being poured. Gravity provides a pressure gradient (accelerating the fluid downward), and viscosity creates shear stress (resisting the motion between fast-flowing and slow-flowing regions). ---",
     "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/2.5-Conservation-Laws/#2-pressure-vs-viscous-stress",
     "type": "blog_section",
     "priority": 3
   },
   {
-    "title": "2.5 conservation laws - Homework / Conceptual Questions: - Coarse-graining in...",
-    "content": "- Coarse-graining in practice: explain what \u201ccoarse-graining\u201d means and why it lets us treat soft matter as a continuum. Pick one system (foam, polymer solution, emulsion) and say when this breaks down (give a specific length scale or condition). - Continuity in a nozzle: You squeeze shampoo through a pump and narrow outlet at steady rate. Using only words, explain why the fluid speeds up in the narrow section and name the conservation law you\u2019re invoking. Give one case where this reasoning would fail. - Momentum balance around a bend: Water flows steadily through a pipe that turns 90 degrees. Describe which forces turn the flow (pressure differences versus wall shear) and how the picture changes for very slow flows (creeping) versus very fast flows (inertial). - Where does the work go? You slide two plates with glycerol between them at constant speed.",
+    "title": "2.5 conservation laws - Homework / Conceptual Questions: Context",
+    "content": "1. Coarse-graining in practice: explain what \u201ccoarse-graining\u201d means and why it lets us treat soft matter as a continuum. Pick one system (foam, polymer solution, emulsion) and say when this breaks down (give a specific length scale or condition). 2. Continuity in a nozzle: You squeeze shampoo through a pump and narrow outlet at steady rate. Using only words, explain why the fluid speeds up in the narrow section and name the conservation law you\u2019re invoking. Give one case where this reasoning would fail. 3. Momentum balance around a bend: Water flows steadily through a pipe that turns 90 degrees. Describe which forces turn the flow (pressure differences versus wall shear) and how the picture changes for very slow flows (creeping) versus very fast flows (inertial). 4. Where does the work go? You slide two plates with glycerol between them at constant speed.",
     "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/2.5-Conservation-Laws/#homework-conceptual-questions",
     "type": "blog_section",
     "priority": 3
@@ -3841,28 +4156,28 @@
   },
   {
     "title": "2.5 conservation laws - References & Further Reading",
-    "content": "- Chapman & Cowling (1970): *The Mathematical Theory of Non-Uniform Gases.* Section 2: kinetic theory and microscopic description. - Bird, Stewart & Lightfoot (2007): *Transport Phenomena.* Chapter 1: detailed derivation of continuum equations from molecular dynamics. - Irving & Kirkwood (1950): \"The Statistical Mechanical Theory of Transport Processes.\" Journal of Chemical Physics. (Original microscopic momentum-flux definition; slightly technical but canonical.) - Doi & Edwards (1986): *The Theory of Polymer Dynamics.* Chapter 2: stress tensor and its microscopic origin. ---",
+    "content": "1. Chapman & Cowling (1970): *The Mathematical Theory of Non-Uniform Gases.* Section 2: kinetic theory and microscopic description. 2. Bird, Stewart & Lightfoot (2007): *Transport Phenomena.* Chapter 1: detailed derivation of continuum equations from molecular dynamics. 3. Irving & Kirkwood (1950): \"The Statistical Mechanical Theory of Transport Processes.\" Journal of Chemical Physics. (Original microscopic momentum-flux definition; slightly technical but canonical.) 4. Doi & Edwards (1986): *The Theory of Polymer Dynamics.* Chapter 2: stress tensor and its microscopic origin. ---",
     "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/2.5-Conservation-Laws/#references-further-reading",
     "type": "blog_section",
     "priority": 3
   },
   {
-    "title": "2.5 conservation laws - Quick Assessment (Check your Understanding)",
-    "content": "After this lecture, students should be able to: - Newton's second law for a single particle and for N particles. - Microscopic fields ($\\rho$, $\\boldsymbol{g}$) using Dirac deltas and explain why deltas are the right tool. - Explain the moving delta identity and use it to derive the microscopic continuity equation. - Explain how pair forces (Newton's third law) turn into a divergence of the virial tensor. - Derive the microscopic momentum balance and identify the kinetic and configurational components of stress. - Describe ensemble averaging and explain why it's necessary to transition from spiky microscopic fields to smooth macroscopic fields. - Derive the Cauchy momentum equation from the microscopic balance and identify the role of the Cauchy stress tensor. - Explain the physical meaning of the stress tensor and give examples (pressure, viscous stress). - Understand that the Cauchy equation is exact for any fluid; the Newtonian assumption comes later (constitutive relation). ---",
+    "title": "2.5 conservation laws - Quick Assessment (Check your Understanding): After this lecture,...",
+    "content": "After this lecture, students should be able to: 1. Newton's second law for a single particle and for N particles. 2. Microscopic fields ($\\rho$, $\\boldsymbol{g}$) using Dirac deltas and explain why deltas are the right tool. 3. Explain the moving delta identity and use it to derive the microscopic continuity equation. 4. Explain how pair forces (Newton's third law) turn into a divergence of the virial tensor. 5. Derive the microscopic momentum balance and identify the kinetic and configurational components of stress. 6. Describe ensemble averaging and explain why it's necessary to transition from spiky microscopic fields to smooth macroscopic fields. 7. Derive the Cauchy momentum equation from the microscopic balance and identify the role of the Cauchy stress tensor. 8. Explain the physical meaning of the stress tensor and give examples (pressure, viscous stress). 9. Understand that the Cauchy equation is exact for any fluid; the Newtonian assumption comes later (constitutive relation). ---",
     "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/2.5-Conservation-Laws/#quick-assessment-check-your-understanding",
     "type": "blog_section",
     "priority": 3
   },
   {
     "title": "2.5 conservation laws - Connection to Soft Matter",
-    "content": "- These laws apply to flows of complex fluids (polymer solutions obey continuity and momentum conservation, with extra stresses) - Apply to deformable solids (elastic energy is stored energy in the energy equation) - Foundation for understanding: - Fluid instabilities (next lecture) - Rheology (later lectures) - All continuum modeling of soft matter ---",
+    "content": "1. These laws apply to flows of complex fluids (polymer solutions obey continuity and momentum conservation, with extra stresses) 2. Apply to deformable solids (elastic energy is stored energy in the energy equation) 3. Foundation for understanding: 1. Fluid instabilities (next lecture) 2. Rheology (later lectures) 3. All continuum modeling of soft matter ---",
     "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/2.5-Conservation-Laws/#connection-to-soft-matter",
     "type": "blog_section",
     "priority": 3
   },
   {
     "title": "2.5 conservation laws - Supporting Detailed Notes: These notes contain...",
-    "content": "These notes contain the mathematical details and alternative proofs that are too long for the main lecture but essential for deep understanding: - [[Moving-Delta-identity]]: Three detailed proofs of $\\partial_t \\delta_i = -\\boldsymbol{v}_i \\cdot \\nabla \\delta_i$ (chain rule, distributions, 1D sanity check) - [[Dyadic-conversion]]: The algebraic steps to show $\\sum_i m_i \\boldsymbol{v}_i \\partial_t \\delta_i = -\\nabla \\cdot \\sum_i m_i \\boldsymbol{v}_i \\boldsymbol{v}_i \\delta_i$ - [[Virial-identity]]: Full derivation of $\\delta_i - \\delta_j = -\\nabla \\cdot \\int_0^1 \\boldsymbol{r}_{ij} \\delta(\\ldots) ds$ and its application to pair forces --- > [!significance]- Metadata > Author:: [Vatsal Sanjay](https://vatsalsanjay.com) > Date published:: Oct 29, 2025 > Date modified:: Oct 30, 2025 > [!link] Back to main website > [Home](https://comphy-lab.org/), [Team](https://comphy-lab.org/team), [Research](https://comphy-lab.org/research), [Github](https://github.com/comphy-lab) > > \ud83d\udcdd [Edit this page on GitHub](https://github.com/comphy-lab/CoMPhy-Lab-Blogs/blob/main/Lecture-Notes/Intro-Soft-Matter/2.5-Conservation-Laws.md)",
+    "content": "These notes contain the mathematical details and alternative proofs that are too long for the main lecture but essential for deep understanding: 1. [[Moving-Delta-identity]]: Three detailed proofs of $\\partial_t \\delta_i = -\\boldsymbol{v}_i \\cdot \\nabla \\delta_i$ (chain rule, distributions, 1D sanity check) 2. [[Dyadic-conversion]]: The algebraic steps to show $\\sum_i m_i \\boldsymbol{v}_i \\partial_t \\delta_i = -\\nabla \\cdot \\sum_i m_i \\boldsymbol{v}_i \\boldsymbol{v}_i \\delta_i$ 3. [[Virial-identity]]: Full derivation of $\\delta_i - \\delta_j = -\\nabla \\cdot \\int_0^1 \\boldsymbol{r}_{ij} \\delta(\\ldots) ds$ and its application to pair forces --- > [!significance]- Metadata > Author:: [Vatsal Sanjay](https://vatsalsanjay.com) > Date published:: Oct 29, 2025 > Date modified:: Nov 19, 2025 > [!link] Back to main website > [Home](https://comphy-lab.org/), [Team](https://comphy-lab.org/team), [Research](https://comphy-lab.org/research), [Github](https://github.com/comphy-lab) > > \ud83d\udcdd [Edit this page on GitHub](https://github.com/comphy-lab/CoMPhy-Lab-Blogs/blob/main/Lecture-Notes/Intro-Soft-Matter/2.5-Conservation-Laws.md)",
     "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/2.5-Conservation-Laws/#supporting-detailed-notes",
     "type": "blog_section",
     "priority": 3
@@ -4281,8 +4596,8 @@
     "priority": 3
   },
   {
-    "title": "3 soft matter instabilities - 4) How to \u201cpredict\u201d without doing heavy math: - Force balance...",
-    "content": "- Force balance & scales. Ask which pair of effects compete: inertia vs capillarity (Weber number), viscous vs capillarity (capillary number), inertia vs viscosity (Reynolds number), gravity vs capillarity (Bond number), elasticity vs capillarity (elastocapillary mumber) or inertia in soft materials (elasticity number). These dimensionless groups flag likely instabilities and the direction of selection. - Dispersion\u2011curve picture (qualitative). Most interfacial problems have a \u201cbell\u2011shaped\u201d growth\u2011rate vs wavelength: short waves stabilized by surface tension/viscosity, long waves limited by the finite driving (e.g. pressure or gravity). The peak sets the emergent spacing observed in your videos/demos. (Keep this as a mental model.) ![](../../_Media/3-Soft-Matter-Instabilities-1761860668972.png) Sketch of the interfacial instabilities discussed in F. Gallaire & P-T. Brun, Philos. Trans. R. Soc. A, 375:2093, 20160155 (2017).",
+    "title": "3 soft matter instabilities - 4) How to \u201cpredict\u201d without doing heavy math: Context",
+    "content": "1. Force balance & scales. Ask which pair of effects compete: inertia vs capillarity (Weber number), viscous vs capillarity (capillary number), inertia vs viscosity (Reynolds number), gravity vs capillarity (Bond number), elasticity vs capillarity (elastocapillary mumber) or inertia in soft materials (elasticity number). These dimensionless groups flag likely instabilities and the direction of selection. 2. Dispersion\u2011curve picture (qualitative). Most interfacial problems have a \u201cbell\u2011shaped\u201d growth\u2011rate vs wavelength: short waves stabilized by surface tension/viscosity, long waves limited by the finite driving (e.g. pressure or gravity). The peak sets the emergent spacing observed in your videos/demos. (Keep this as a mental model.) ![](../../_Media/3-Soft-Matter-Instabilities-1761860668972.png) Sketch of the interfacial instabilities discussed in F. Gallaire & P-T. Brun, Philos. Trans. R. Soc. A, 375:2093, 20160155 (2017).",
     "url": "https://blogs.comphy-lab.org/Lecture-Notes/Intro-Soft-Matter/3-Soft-Matter-Instabilities/#4-how-to-predict-without-doing-heavy-math",
     "type": "blog_section",
     "priority": 3
