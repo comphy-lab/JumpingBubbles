@@ -22,14 +22,7 @@
   },
   {
     "title": "Team: Context",
-    "content": "Prof. \", \"\" -%} {%- assign name_words = clean_name | split: \" \" -%} {%- capture initials -%} {%- for word in name_words -%} {%- assign first_char = word | slice: 0, 1 -%} {%- unless first_char == \"(\" -%}{{ first_char }}{%- endunless -%} {%- endfor -%} {%- endcapture -%} {{ initials | strip | upcase | slice: 0, 2 }} {{ m.name }} {{ m.role }} {{ m.bio }} {% if m.thesis.href %} Thesis \u2014 {{ m.thesis.title }} {% endif %} {% if m.links.github %} {% endif %} {% if m.links.linkedin %} {% endif %} {% if m.links.scholar %} {% endif %} {% endfor %} {% comment %} ---------------- World map ---------------- {% endcomment %} 04 \u00b7 Around the world Team, collaborators, and conference visits Locations meet one of four criteria, in this order of preference: Hometown of a team member or alum Base of an active collaborator Talks we've given Places we've visited (no talk) {% comment %} Lightweight placeholder until the iframe is lazy-loaded. {% endcomment %} Loading the world map\u2026 /* Lazy-load the Google Map iframe only when it's about to enter the viewport \u2014 saves a heavy iframe + Google scripts on initial team-page load.",
-    "url": "https://comphy-lab.org/team/",
-    "type": "website_content",
-    "priority": 1
-  },
-  {
-    "title": "Team: Function Definition",
-    "content": "Falls back to immediate load when IntersectionObserver isn't available. */ (function () { var frame = document.getElementById('team-map'); if (!frame) return; var loaded = false; function load() { if (loaded) return; loaded = true; frame.innerHTML = ' '; } if ('IntersectionObserver' in window) { var io = new IntersectionObserver(function (entries) { entries.forEach(function (e) { if (e.isIntersecting) { load(); io.disconnect(); } }); }, { rootMargin: '300px' }); io.observe(frame); } else { load(); } })();",
+    "content": "Prof. \", \"\" -%} {%- assign name_words = clean_name | split: \" \" -%} {%- capture initials -%} {%- for word in name_words -%} {%- assign first_char = word | slice: 0, 1 -%} {%- unless first_char == \"(\" -%}{{ first_char }}{%- endunless -%} {%- endfor -%} {%- endcapture -%} {{ initials | strip | upcase | slice: 0, 2 }} {{ m.name }} {{ m.role }} {{ m.bio }} {% if m.thesis.href %} Thesis \u2014 {{ m.thesis.title }} {% endif %} {% if m.links.github %} {% endif %} {% if m.links.linkedin %} {% endif %} {% if m.links.scholar %} {% endif %} {% endfor %} {% comment %} ---------------- World map ---------------- {% endcomment %} 04 \u00b7 Around the world Team, collaborators, and conference visits Locations meet one of four criteria, in this order of preference: Hometown of a team member or alum Base of an active collaborator Talks we've given Places we've visited (no talk) {% comment %} Lightweight placeholder until the iframe is lazy-loaded. {% endcomment %} Loading the world map\u2026",
     "url": "https://comphy-lab.org/team/",
     "type": "website_content",
     "priority": 1
@@ -7734,7 +7727,7 @@
   },
   {
     "title": "\"Join Us\" - <span class=\"section-icon\"><i class=\"fa-solid fa-flask\"></i></span> Internships: Include your preferred...",
-    "content": "Include your preferred internship timeline and any specific research areas of interest. > Eligible PhD candidates from Commonwealth countries may also consider the [Commonwealth Split-site PhD Scholarships](https://cscuk.fcdo.gov.uk/scholarships/commonwealth-split-site-scholarships-for-low-and-middle-income-countries/) to undertake a 1\u2011year research period at CoMPhy Lab as part of their PhD.",
+    "content": "Include your preferred internship timeline and any specific research areas of interest. > Eligible PhD candidates from Commonwealth countries may also consider the [Commonwealth Split-site PhD Scholarships](https://cscuk.fcdo.gov.uk/about-us/scholarships/) to undertake a 1\u2011year research period at CoMPhy Lab as part of their PhD.",
     "url": "https://comphy-lab.org/join/#span-classsection-iconi-classfa-solid-fa-flaskispan-internships",
     "type": "website_section",
     "priority": 4
