@@ -84,7 +84,7 @@ A high-performance computational framework for studying bubble coalescence and j
    ./reset_install_requirements.sh
    ```
    This script will:
-   - Install Basilisk if not present (use `--hard` flag for fresh installation)
+   - Build the Basilisk source committed in `basilisk/` (use `--hard` to rebuild from scratch; nothing is downloaded)
    - Configure the environment automatically
    - Create `.project_config` with required paths
    - Verify the installation
